@@ -81,9 +81,9 @@ export default function HeroSection() {
             className="mb-6"
           >
             <picture>
-              <source srcSet="/uploads/joyafinds_logo.png.webp" type="image/webp" />
+              <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
               <img 
-                src="/uploads/joyafinds_logo.png" 
+                src="/images/joyafinds_logo.png" 
                 alt="JOYAFINDS" 
                 loading="eager"
                 className="h-32 md:h-44 lg:h-56 mx-auto object-contain glow-logo" 

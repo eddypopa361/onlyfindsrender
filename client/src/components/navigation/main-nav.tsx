@@ -34,9 +34,9 @@ export default function MainNav() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <picture>
-            <source srcSet="/uploads/joyafinds_logo.png.webp" type="image/webp" />
+            <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
             <img 
-              src="/uploads/joyafinds_logo.png" 
+              src="/images/joyafinds_logo.png" 
               alt="JOYAFINDS Logo" 
               loading="eager"
               className="h-10 object-contain"

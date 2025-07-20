@@ -8,9 +8,9 @@ export default function Footer() {
           <div>
             <div className="mb-4">
               <picture>
-                <source srcSet="/uploads/joyafinds_logo.png.webp" type="image/webp" />
+                <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
                 <img 
-                  src="/uploads/joyafinds_logo.png" 
+                  src="/images/joyafinds_logo.png" 
                   alt="JOYAFINDS Logo" 
                   loading="lazy"
                   className="h-14 object-contain"
@@ -68,8 +68,8 @@ export default function Footer() {
         
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} <picture>
-            <source srcSet="/uploads/joyafinds_logo.png.webp" type="image/webp" />
-            <img src="/uploads/joyafinds_logo.png" alt="JOYAFINDS" loading="lazy" className="h-8 inline-block mx-1 object-contain" />
+            <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
+            <img src="/images/joyafinds_logo.png" alt="JOYAFINDS" loading="lazy" className="h-8 inline-block mx-1 object-contain" />
           </picture> All rights reserved.</p>
           <p className="mt-4 text-sm max-w-4xl mx-auto">
             JOYAFINDS does not sell any physical products and neither do the agents provided. This website is purely a catalog of links to Taobao, Weidian, and other shopping sites to better educate buyers and help them avoid scams. JOYAFINDS is not affiliated with Weidian.com, Taobao.com, 1688.com, tmall.com, or any other shopping platform ('platforms'). This is not an official offer from those platforms. All links on this site are affiliate links, including price tag buttons, -tagged links, and links embedded in images. We do not earn a commission from the sale of any products, but rather from the function of acting as a freight forwarder. We are not an online store and do not sell any products.
