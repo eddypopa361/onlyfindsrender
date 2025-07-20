@@ -80,15 +80,12 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mb-6"
           >
-            <picture>
-              <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
-              <img 
-                src="/images/joyafinds_logo.png" 
-                alt="JOYAFINDS" 
-                loading="eager"
-                className="h-32 md:h-44 lg:h-56 mx-auto object-contain glow-logo" 
-              />
-            </picture>
+            <img 
+              src="/images/onlyfinds_logo.png" 
+              alt="ONLYFINDS" 
+              loading="eager"
+              className="h-32 md:h-44 lg:h-56 mx-auto object-contain glow-logo" 
+            />
           </motion.div>
           
           <motion.p

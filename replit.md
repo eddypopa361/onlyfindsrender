@@ -106,6 +106,14 @@ The project includes numerous utility scripts in the `/scripts` directory for:
 
 ## Recent Changes: Latest modifications with dates
 
+**January 20, 2025**: Logo Update and Database Connection Fix
+- ✓ Fixed critical database connection issue by switching from WebSocket to HTTP connection
+- ✓ Added proper static file serving for images and assets 
+- ✓ Updated all components to use onlyfinds_logo.png instead of joyafinds_logo.png
+- ✓ Replaced logo references in main navigation, hero section, and footer components
+- ✓ Verified logo loading functionality across all pages
+- ✓ Application now running smoothly with all assets properly served
+
 **January 20, 2025**: Complete Color Rebranding
 - ✓ Performed comprehensive rebranding from purple (#9d4edd) to red (#cb2410) theme
 - ✓ Updated all CSS custom properties in index.css for primary and accent colors  

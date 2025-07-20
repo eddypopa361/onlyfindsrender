@@ -33,15 +33,12 @@ export default function MainNav() {
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <picture>
-            <source srcSet="/images/joyafinds_logo.png.webp" type="image/webp" />
-            <img 
-              src="/images/joyafinds_logo.png" 
-              alt="JOYAFINDS Logo" 
-              loading="eager"
-              className="h-10 object-contain"
-            />
-          </picture>
+          <img 
+            src="/images/onlyfinds_logo.png" 
+            alt="ONLYFINDS Logo" 
+            loading="eager"
+            className="h-10 object-contain"
+          />
         </Link>
         
         {/* Desktop Navigation */}
