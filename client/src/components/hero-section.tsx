@@ -34,7 +34,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 z-0 scale-125 origin-center overflow-hidden">
           <Suspense fallback={<div className="w-full h-full bg-black"></div>}>
             <Spline
-              scene="https://prod.spline.design/9caFVtzaM4lDfRGM/scene.splinecode" 
+              scene="https://prod.spline.design/YAU3oJesM9oTufgS/scene.splinecode" 
               className="scale-120"
               onLoad={() => setIsSplineLoaded(true)}
             />
