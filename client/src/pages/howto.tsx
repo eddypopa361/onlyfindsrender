@@ -27,7 +27,7 @@ export default function HowToOrder() {
 
           {/* Step by step guide */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gray-900/50 rounded-2xl p-8 border border-purple-500/20">
+            <div className="bg-gray-900/50 rounded-2xl p-8 border border-primary-500/20">
               <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-white">
                 Step-by-Step Guide
               </h2>
@@ -35,7 +35,7 @@ export default function HowToOrder() {
               <div className="space-y-8">
                 {/* Step 1 */}
                 <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-none w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
+                  <div className="flex-none w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
                     1
                   </div>
                   <div>
@@ -49,8 +49,8 @@ export default function HowToOrder() {
                       rel="noopener noreferrer" 
                       className="relative inline-block mt-4 group"
                     >
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-primary rounded-full blur opacity-70 group-hover:opacity-100 transition duration-200"></div>
-                      <button className="relative px-5 py-2 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary rounded-full blur opacity-70 group-hover:opacity-100 transition duration-200"></div>
+                      <button className="relative px-5 py-2 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-colors">
                         Sign Up Now
                       </button>
                     </a>
@@ -59,7 +59,7 @@ export default function HowToOrder() {
 
                 {/* Step 2 */}
                 <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-none w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
+                  <div className="flex-none w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
                     2
                   </div>
                   <div>
@@ -72,7 +72,7 @@ export default function HowToOrder() {
 
                 {/* Step 3 */}
                 <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-none w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
+                  <div className="flex-none w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
                     3
                   </div>
                   <div>
@@ -85,7 +85,7 @@ export default function HowToOrder() {
 
                 {/* Step 4 */}
                 <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-none w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl font-bold">
+                  <div className="flex-none w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
                     4
                   </div>
                   <div>
@@ -99,7 +99,7 @@ export default function HowToOrder() {
             </div>
 
             {/* Additional tips */}
-            <div className="mt-12 bg-gray-900/50 rounded-2xl p-8 border border-purple-500/20">
+            <div className="mt-12 bg-gray-900/50 rounded-2xl p-8 border border-primary-500/20">
               <h2 className="text-2xl font-heading font-bold mb-6 text-white">
                 Pro Tips
               </h2>
@@ -117,7 +117,7 @@ export default function HowToOrder() {
                 href="/products" 
                 className="relative inline-block group"
               >
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-primary rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
                 <button className="relative px-8 py-4 bg-primary text-white font-heading font-medium rounded-full transition-all hover:bg-primary/80 text-lg">
                   Browse Products Now
                 </button>

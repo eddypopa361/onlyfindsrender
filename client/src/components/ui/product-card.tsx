@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <CardContent className="p-4 text-white">
         <Link href={`/product/${product.id}`}>
-          <h3 className="font-heading font-semibold text-sm md:text-base mb-3 line-clamp-2 h-10 text-purple-100 cursor-pointer hover:text-purple-300 transition-colors">
+          <h3 className="font-heading font-semibold text-sm md:text-base mb-3 line-clamp-2 h-10 text-primary-100 cursor-pointer hover:text-primary-300 transition-colors">
             {product.title}
           </h3>
         </Link>
@@ -51,7 +51,7 @@ export function ProductCard({ product }: ProductCardProps) {
               href={product.viewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center px-3 py-2 border border-primary text-purple-300 font-heading font-medium rounded-md hover:bg-primary/10 transition-all text-xs"
+              className="text-center px-3 py-2 border border-primary text-primary-300 font-heading font-medium rounded-md hover:bg-primary/10 transition-all text-xs"
             >
               View Details
             </a>

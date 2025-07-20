@@ -26,8 +26,8 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black"></div>
       
       {/* Purple glow effects - optimizate */}
-      <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-purple-600/30 filter blur-3xl"></div>
-      <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-purple-600/30 filter blur-3xl"></div>
+      <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary-600/30 filter blur-3xl"></div>
+      <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary-600/30 filter blur-3xl"></div>
       
       {/* Spline 3D Background - încărcat lazy și condițional */}
       {showSpline && (
@@ -119,8 +119,8 @@ export default function HeroSection() {
               rel="noopener noreferrer" 
               className="relative inline-block group"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-primary rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
-              <button className="relative px-8 py-3 bg-white text-purple-600 hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-lg border border-purple-200">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
+              <button className="relative px-8 py-3 bg-white text-primary-600 hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-lg border border-primary-200">
                 GET 50% OFF SHIPPING
               </button>
             </a>

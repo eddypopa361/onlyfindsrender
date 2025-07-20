@@ -16,7 +16,7 @@ const PromoSection = lazy(() => import("@/components/promo-section"));
 const SectionLoader = () => (
   <div className="flex justify-center items-center py-16">
     <div className="flex flex-col items-center">
-      <Loader2 className="h-10 w-10 animate-spin text-purple-500 mb-3" />
+      <Loader2 className="h-10 w-10 animate-spin text-primary-500 mb-3" />
       <p className="text-gray-400">Loading section...</p>
     </div>
   </div>
@@ -72,11 +72,11 @@ export default function Home() {
             <div className="container mx-auto px-4 relative z-10">
               <ScrollAnimation direction="up" delay={0.1} duration={0.5}>
                 <div className="relative overflow-hidden">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-purple-900 rounded-xl blur-xl opacity-50"></div>
-                  <div className="relative overflow-hidden rounded-lg border border-purple-500/30 shadow-2xl">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-900 rounded-xl blur-xl opacity-50"></div>
+                  <div className="relative overflow-hidden rounded-lg border border-primary-500/30 shadow-2xl">
                     {/* Background Image */}
                     <div className="absolute inset-0">
-                      <div className="absolute inset-0 backdrop-blur-sm bg-purple-900/50 z-10"></div>
+                      <div className="absolute inset-0 backdrop-blur-sm bg-primary-900/50 z-10"></div>
                       <img 
                         src="https://i.imgur.com/Z9GcQly.jpg" 
                         alt="JoyaGoo shipping discount" 
@@ -101,8 +101,8 @@ export default function Home() {
                         rel="noopener noreferrer" 
                         className="relative inline-block group"
                       >
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-primary rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
-                        <button className="relative px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-heading font-medium rounded-full transition-all shadow-lg hover:shadow-purple-600/30 text-lg">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
+                        <button className="relative px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-heading font-medium rounded-full transition-all shadow-lg hover:shadow-primary-600/30 text-lg">
                           JOIN JOYAGOO NOW
                         </button>
                       </a>

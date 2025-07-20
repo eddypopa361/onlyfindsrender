@@ -42,7 +42,7 @@ export default function BestSellersSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       
       {/* Purple glow effects - reduse pentru performanță */}
-      <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-purple-600/20 filter blur-3xl"></div>
+      <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-primary-600/20 filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
@@ -59,7 +59,7 @@ export default function BestSellersSection() {
         {isLoading && (
           <div className="flex justify-center items-center py-12">
             <div className="flex flex-col items-center">
-              <Loader2 className="h-10 w-10 animate-spin text-purple-500 mb-3" />
+              <Loader2 className="h-10 w-10 animate-spin text-primary-500 mb-3" />
               <p className="text-gray-400">Loading best sellers...</p>
             </div>
           </div>
@@ -81,8 +81,8 @@ export default function BestSellersSection() {
                 className="transition-opacity duration-500 ease-in-out"
               >
                 <Suspense fallback={
-                  <div className="rounded-xl bg-black border border-purple-500/20 p-4 h-96 flex items-center justify-center">
-                    <div className="w-10 h-10 rounded-full border-2 border-purple-500 border-t-transparent animate-spin"></div>
+                  <div className="rounded-xl bg-black border border-primary-500/20 p-4 h-96 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full border-2 border-primary-500 border-t-transparent animate-spin"></div>
                   </div>
                 }>
                   <ProductCard product={product} />
