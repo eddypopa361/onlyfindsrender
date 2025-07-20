@@ -11,23 +11,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        primary: {
-          50: "#fff5f3",
-          100: "#ffe5e0", 
-          200: "#ffc2b8",
-          300: "#ff9988",
-          400: "#f96042",
-          500: "#cb2410",
-          600: "#b11f0d", 
-          700: "#8c180a",
-          800: "#671107",
-          900: "#450b04",
-          950: "#2a0703",
-          DEFAULT: "#cb2410",
-          foreground: "#fefefe"
-        },
-        background: "#000000",
-        foreground: "#fefefe",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -56,9 +41,9 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "#262626",
+        border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "#cb2410",
+        ring: "hsl(var(--ring))",
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",

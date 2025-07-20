@@ -61,7 +61,7 @@ export default function ProductCarousel() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       
       {/* Glow effects - reduse la minim */}
-      <div className="absolute -left-20 top-1/2 w-40 h-40 rounded-full bg-primary-600/30 filter blur-3xl"></div>
+      <div className="absolute -left-20 top-1/2 w-40 h-40 rounded-full bg-purple-600/30 filter blur-3xl"></div>
       
       <div className="container mx-auto relative z-10">
         <h2 className="text-3xl font-heading font-bold mb-8 text-center text-white glow-text">
@@ -69,13 +69,13 @@ export default function ProductCarousel() {
         </h2>
         
         <div className="relative">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-900 rounded-3xl blur-xl opacity-50"></div>
-          <div className="relative bg-black rounded-2xl p-6 md:p-8 border border-primary-500/20">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-purple-900 rounded-3xl blur-xl opacity-50"></div>
+          <div className="relative bg-black rounded-2xl p-6 md:p-8 border border-purple-500/20">
             
             {/* Center VIEW ALL button */}
             <div className="absolute inset-0 flex items-center justify-center z-20">
               <Link href="/products">
-                <Button className="bg-black text-white border-2 border-primary-500 hover:bg-primary-900/50 hover:border-primary-400 rounded-full px-16 py-3 font-bold tracking-wider transition-all duration-300 glow-button text-xl backdrop-blur-sm">
+                <Button className="bg-black text-white border-2 border-purple-500 hover:bg-purple-900/50 hover:border-purple-400 rounded-full px-16 py-3 font-bold tracking-wider transition-all duration-300 glow-button text-xl backdrop-blur-sm">
                   VIEW ALL
                 </Button>
               </Link>
@@ -85,7 +85,7 @@ export default function ProductCarousel() {
             <div className="filter blur-sm">
               {isLoading ? (
                 <div className="flex justify-center items-center h-40">
-                  <Loader2 className="h-10 w-10 animate-spin text-primary-500" />
+                  <Loader2 className="h-10 w-10 animate-spin text-purple-500" />
                 </div>
               ) : isError ? (
                 <div className="flex justify-center items-center h-40">
@@ -94,7 +94,7 @@ export default function ProductCarousel() {
               ) : carouselProducts.length > 0 && isClient ? (
                 <Suspense fallback={
                   <div className="flex justify-center items-center h-40">
-                    <Loader2 className="h-10 w-10 animate-spin text-primary-500" />
+                    <Loader2 className="h-10 w-10 animate-spin text-purple-500" />
                   </div>
                 }>
                   <Slider {...settings}>
@@ -120,10 +120,10 @@ export default function ProductCarousel() {
 
 function FeaturedProductCard({ product }: { product: Product }) {
   return (
-    <div className="rounded-xl overflow-hidden transition-all duration-300 bg-black border border-primary-500/20 hover:border-primary-500/50 h-full flex flex-col">
-      <div className="relative pb-[100%] overflow-hidden bg-gradient-to-b from-primary-900/30 to-black">
+    <div className="rounded-xl overflow-hidden transition-all duration-300 bg-black border border-purple-500/20 hover:border-purple-500/50 h-full flex flex-col">
+      <div className="relative pb-[100%] overflow-hidden bg-gradient-to-b from-purple-900/30 to-black">
         <div className="absolute top-2 right-2 z-10">
-          <span className="bg-primary-500 text-white text-xs font-medium px-2 py-1 rounded-full">
+          <span className="bg-purple-500 text-white text-xs font-medium px-2 py-1 rounded-full">
             ${product.price}
           </span>
         </div>
@@ -140,7 +140,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
       </div>
       
       <div className="p-4 text-center text-white flex-grow flex flex-col">
-        <h3 className="font-heading font-semibold text-sm mb-2 text-primary-100 line-clamp-1">
+        <h3 className="font-heading font-semibold text-sm mb-2 text-purple-100 line-clamp-1">
           {product.title}
         </h3>
         
@@ -149,7 +149,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
             href={product.buyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full text-center px-3 py-1.5 bg-primary-600 text-white font-heading text-xs font-medium rounded hover:bg-primary-500 transition-all glow-button"
+            className="w-full text-center px-3 py-1.5 bg-purple-600 text-white font-heading text-xs font-medium rounded hover:bg-purple-500 transition-all glow-button"
           >
             Buy Now
           </a>
@@ -157,7 +157,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
             href={product.viewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full text-center px-3 py-1.5 border border-primary-500 text-primary-300 font-heading text-xs font-medium rounded hover:bg-primary-900/30 transition-all"
+            className="w-full text-center px-3 py-1.5 border border-purple-500 text-purple-300 font-heading text-xs font-medium rounded hover:bg-purple-900/30 transition-all"
           >
             JOYAFINDS
           </a>

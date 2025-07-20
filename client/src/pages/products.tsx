@@ -116,8 +116,8 @@ export default function Products() {
         {/* Main Products Grid */}
         <section id="products" className="py-16 relative">
           {/* Purple glow effects */}
-          <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-primary-600/20 filter blur-3xl"></div>
-          <div className="absolute bottom-1/4 -right-20 w-72 h-72 rounded-full bg-primary-600/20 filter blur-3xl"></div>
+          <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-purple-600/20 filter blur-3xl"></div>
+          <div className="absolute bottom-1/4 -right-20 w-72 h-72 rounded-full bg-purple-600/20 filter blur-3xl"></div>
           <div className="container mx-auto px-4">
             <div className="text-center mb-10 slide-up">
               <h1 className="text-4xl md:text-5xl font-heading font-bold mb-2 inline-block relative text-white glow-text">

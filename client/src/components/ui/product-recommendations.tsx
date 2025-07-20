@@ -43,7 +43,7 @@ const ProductRecommendations = ({ productId, limit = 4 }: ProductRecommendations
   if (isLoading) {
     return (
       <div className="recommendations-container my-8">
-        <h2 className="text-2xl font-bold mb-4 text-center text-primary-300">
+        <h2 className="text-2xl font-bold mb-4 text-center text-purple-300">
           <span className="inline-block animate-pulse">Loading personalized recommendations...</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -61,7 +61,7 @@ const ProductRecommendations = ({ productId, limit = 4 }: ProductRecommendations
 
   return (
     <div className="recommendations-container my-8">
-      <h2 className="text-2xl font-bold mb-4 text-center text-primary-300">
+      <h2 className="text-2xl font-bold mb-4 text-center text-purple-300">
         You might also like
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">

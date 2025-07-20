@@ -58,7 +58,7 @@ const ProductDetails = () => {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Imaginea produsului */}
         <div className="md:w-2/5">
-          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-primary-900/30 max-w-md mx-auto">
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-purple-900/30 max-w-md mx-auto">
             <picture>
               <source srcSet={`${product.image}.webp`} type="image/webp" />
               <img 

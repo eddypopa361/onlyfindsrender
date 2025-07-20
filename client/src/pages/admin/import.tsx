@@ -211,7 +211,7 @@ export default function ImportPage() {
           <TabsList className="grid w-full grid-cols-3 mb-6 bg-gray-900 border border-gray-800">
             <TabsTrigger 
               value="step1" 
-              className="data-[state=active]:bg-primary-900/30"
+              className="data-[state=active]:bg-purple-900/30"
               onClick={() => setCurrentStep('csv')}
             >
               <Database className="w-4 h-4 mr-2" />
@@ -219,7 +219,7 @@ export default function ImportPage() {
             </TabsTrigger>
             <TabsTrigger 
               value="step2" 
-              className="data-[state=active]:bg-primary-900/30"
+              className="data-[state=active]:bg-purple-900/30"
               onClick={() => setCurrentStep('images')}
             >
               <FileImage className="w-4 h-4 mr-2" />
@@ -227,7 +227,7 @@ export default function ImportPage() {
             </TabsTrigger>
             <TabsTrigger 
               value="step3" 
-              className="data-[state=active]:bg-primary-900/30"
+              className="data-[state=active]:bg-purple-900/30"
               onClick={() => setCurrentStep('export')}
             >
               <Package className="w-4 h-4 mr-2" />
@@ -444,7 +444,7 @@ export default function ImportPage() {
                     </div>
                     
                     {/* Export Static Site */}
-                    <div className="bg-primary-900/20 p-4 rounded border border-primary-700">
+                    <div className="bg-purple-900/20 p-4 rounded border border-purple-700">
                       <h3 className="font-medium text-white mb-2 flex items-center">
                         <Download className="h-4 w-4 mr-2" />
                         Export Static pentru Netlify
@@ -466,7 +466,7 @@ export default function ImportPage() {
                         <Button 
                           onClick={exportToStaticJson}
                           disabled={isExportingJson}
-                          className="bg-primary-600 hover:bg-primary-500 text-white px-4 py-2 rounded text-sm font-medium"
+                          className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded text-sm font-medium"
                         >
                           {isExportingJson ? (
                             <div className="flex items-center">
@@ -541,7 +541,7 @@ export default function ImportPage() {
                   </ol>
                 </div>
                 
-                <div className="bg-primary-900/20 p-3 rounded border border-primary-700 mt-4">
+                <div className="bg-purple-900/20 p-3 rounded border border-purple-700 mt-4">
                   <h3 className="font-medium text-white mb-1">Sfat Pro</h3>
                   <p>Folosește scriptul nostru pentru a extrage automat numele imaginilor din Excel:</p>
                   <pre className="bg-black/50 p-2 rounded mt-1 overflow-x-auto">
@@ -559,7 +559,7 @@ export default function ImportPage() {
                     <li>Dezarhivează acest fișier pe calculatorul tău</li>
                     <li>Încarcă folderul dezarhivat pe Netlify prin drag-and-drop sau prin Git</li>
                   </ol>
-                  <p className="text-xs text-primary-400 mt-2">Notă: Exportul static va include toate produsele și imaginile, funcționând complet fără server sau bază de date.</p>
+                  <p className="text-xs text-indigo-400 mt-2">Notă: Exportul static va include toate produsele și imaginile, funcționând complet fără server sau bază de date.</p>
                 </div>
               </div>
             </CardContent>
