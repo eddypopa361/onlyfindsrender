@@ -60,7 +60,7 @@ export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact Us - JOYAFINDS</title>
+        <title>Contact Us - ONLYFINDS</title>
         <meta name="description" content="Contact RepGalaxy for questions about products, shipping, or partnership opportunities." />
       </Helmet>
       
@@ -82,7 +82,7 @@ export default function Contact() {
                 <h3 className="font-heading font-semibold mb-2">Email Us</h3>
                 <p className="text-gray-600 mb-2">Our team is here to help</p>
                 <a href="mailto:support@repgalaxy.com" className="text-primary hover:underline">
-                  joyafindss@gmail.com
+                  onlyfinds@gmail.com
                 </a>
               </CardContent>
             </Card>

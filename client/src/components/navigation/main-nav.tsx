@@ -17,6 +17,7 @@ export default function MainNav() {
     { name: "HOME", path: "/" },
     { name: "PRODUCTS", path: "/products" },
     { name: "BEST SELLERS", path: "/#bestsellers" },
+    { name: "DOCS", path: "/docs" },
     { name: "FAQ", path: "/faq" },
     { name: "HOW TO", path: "/howto" }
   ];

@@ -11,6 +11,8 @@ const ProductCarousel = lazy(() => import("@/components/product-carousel"));
 const BestSellersSection = lazy(() => import("@/components/best-sellers-section"));
 
 const PromoSection = lazy(() => import("@/components/promo-section"));
+const HomeReviewsSection = lazy(() => import("@/components/home-reviews-section"));
+const DocsPreviewSection = lazy(() => import("@/components/docs-preview-section"));
 
 // Componenta pentru loading state
 const SectionLoader = () => (
@@ -26,14 +28,14 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>JOYAFINDS - Designer Products Showcase</title>
+        <title>ONLYFINDS - Designer Products Showcase</title>
         <meta 
           name="description" 
           content="Explore premium replicas at affordable prices. Find the latest designer shoes, clothing, and accessories." 
         />
         {/* Preconectare la domain-uri externe pentru încărcare mai rapidă */}
         <link rel="preconnect" href="https://prod.spline.design" />
-        <link rel="preconnect" href="http://joyagoo.com" />
+        <link rel="preconnect" href="http://cnfans.com" />
       </Helmet>
       
       <main className="bg-black">
@@ -79,7 +81,7 @@ export default function Home() {
                       <div className="absolute inset-0 backdrop-blur-sm bg-primary/50 z-10"></div>
                       <img 
                         src="https://i.imgur.com/Z9GcQly.jpg" 
-                        alt="JoyaGoo shipping discount" 
+                        alt="CNFANS shipping discount" 
                         className="w-full h-full object-cover opacity-100"
                         style={{ filter: 'blur(2px)' }}
                       />
@@ -92,18 +94,18 @@ export default function Home() {
                         Get 50% Off Shipping
                       </h2>
                       <p className="text-gray-100 max-w-3xl mb-8 md:text-3xl font-bold text-shadow-lg">
-                        Use our special sign up link when joining JoyaGoo to receive 50% off shipping on your first haul!
+                        Use our special sign up link when joining CNFANS to receive 50% off shipping on your first haul!
                       </p>
 
                       <a 
-                        href="http://joyagoo.com/register/?ref=300004734" 
+                        href="http://cnfans.com/register/?ref=300004734" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="relative inline-block group"
                       >
                         <div className="absolute -inset-1 bg-gradient-to-r from-primary to-red-700 rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
                         <button className="relative px-8 py-4 bg-primary hover:bg-primary/80 text-white font-heading font-medium rounded-full transition-all shadow-lg hover:shadow-primary/30 text-lg">
-                          JOIN JOYAGOO NOW
+                          JOIN CNFANS NOW
                         </button>
                       </a>
                     </div>
@@ -170,7 +172,39 @@ export default function Home() {
           </section>
         </div>
         
-
+        {/* Reviews Section */}
+        <div className="reviews-section-wrapper">
+          <section className="section-connector relative">
+            {/* Overlay pentru tranziție netedă la început */}
+            <div className="section-transition-overlay section-transition-overlay-top"></div>
+            
+            <Suspense fallback={<SectionLoader />}>
+              <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+                <HomeReviewsSection />
+              </ScrollAnimation>
+            </Suspense>
+            
+            {/* Overlay pentru tranziție netedă la sfârșit */}
+            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
+          </section>
+        </div>
+        
+        {/* Documentation Preview Section */}
+        <div className="docs-section-wrapper">
+          <section className="section-connector relative">
+            {/* Overlay pentru tranziție netedă la început */}
+            <div className="section-transition-overlay section-transition-overlay-top"></div>
+            
+            <Suspense fallback={<SectionLoader />}>
+              <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+                <DocsPreviewSection />
+              </ScrollAnimation>
+            </Suspense>
+            
+            {/* Overlay pentru tranziție netedă la sfârșit */}
+            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
+          </section>
+        </div>
         
         {/* Promo Section */}
         <div className="promo-section-wrapper">

@@ -44,13 +44,13 @@ export default function PromoSection() {
                   <MailIcon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold mb-1 text-white">Contact Us</h3>
-                <p className="text-sm text-gray-400">joyafindss@gmail.com</p>
+                <p className="text-sm text-gray-400">onlyfinds@gmail.com</p>
               </div>
             </div>
             
             <div className="mt-10 text-center">
               <a 
-                href="http://joyagoo.com/register/?ref=300004734" 
+                href="http://cnfans.com/register/?ref=300004734" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-block bg-primary/20 px-4 md:px-6 py-2 md:py-3 rounded-full mb-5 glow-button hover:bg-primary/30 transition-all"

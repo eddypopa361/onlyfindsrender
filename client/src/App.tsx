@@ -10,6 +10,8 @@ import FAQ from "@/pages/faq";
 import Contact from "@/pages/contact";
 import ImportPage from "@/pages/admin/import";
 import HowToOrder from "@/pages/howto";
+import DocsPage from "@/pages/docs";
+import DocDetailPage from "@/pages/doc-detail";
 import MainNav from "@/components/navigation/main-nav";
 import Footer from "@/components/footer";
 
@@ -25,6 +27,8 @@ function Router() {
         {/* Pagina de contact este dezactivată în versiunea live, dar păstrată pentru referință */}
         {/* <Route path="/contact" component={Contact} /> */}
         <Route path="/howto" component={HowToOrder} />
+        <Route path="/docs" component={DocsPage} />
+        <Route path="/docs/:slug" component={DocDetailPage} />
         <Route path="/admin/import" component={ImportPage} />
         <Route component={NotFound} />
       </Switch>

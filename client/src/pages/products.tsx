@@ -108,7 +108,7 @@ export default function Products() {
   return (
     <>
       <Helmet>
-        <title>All Products - JOYAFINDS</title>
+        <title>All Products - ONLYFINDS</title>
         <meta name="description" content="Browse our complete collection of premium quality products." />
       </Helmet>
       

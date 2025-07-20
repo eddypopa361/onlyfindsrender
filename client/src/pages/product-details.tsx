@@ -110,7 +110,7 @@ const ProductDetails = () => {
             </a>
           </div>
           
-          {/* Promoție JoyaGoo mutată sub butoane */}
+          {/* Promoție CNFANS mutată sub butoane */}
           <div className="rounded-xl overflow-hidden shadow-2xl border border-primary/30 bg-black/50 relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-red-900 rounded-xl blur-xl opacity-50"></div>
             <div className="relative overflow-hidden">
@@ -119,7 +119,7 @@ const ProductDetails = () => {
                 <div className="absolute inset-0 backdrop-blur-sm bg-primary/30/50 z-10"></div>
                 <img 
                   src="https://i.imgur.com/Z9GcQly.jpg" 
-                  alt="JoyaGoo shipping discount" 
+                  alt="CNFANS shipping discount" 
                   loading="lazy"
                   className="w-full h-full object-cover opacity-70"
                   style={{ filter: 'blur(2px)' }}
@@ -133,17 +133,17 @@ const ProductDetails = () => {
                     Get 50% Off Shipping
                   </h2>
                   <p className="text-gray-200 mb-4 text-sm md:text-base">
-                    Use our special sign up link when joining JoyaGoo!
+                    Use our special sign up link when joining CNFANS!
                   </p>
                   <a 
-                    href="http://joyagoo.com/register/?ref=300004734" 
+                    href="http://cnfans.com/register/?ref=300004734" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="relative inline-block group"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary rounded-lg blur-lg opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
                     <button className="relative px-6 py-2 bg-primary hover:bg-primary/80 text-white font-heading font-medium rounded-lg transition-all shadow-lg hover:shadow-primary/30 text-sm md:text-base">
-                      Sign Up for JoyaGoo
+                      Sign Up for CNFANS
                     </button>
                   </a>
                 </div>

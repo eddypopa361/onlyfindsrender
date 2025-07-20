@@ -4,10 +4,10 @@ export default function HowToOrder() {
   return (
     <>
       <Helmet>
-        <title>How To Order | JOYAFINDS</title>
+        <title>How To Order | ONLYFINDS</title>
         <meta 
           name="description" 
-          content="Learn how to place an order on JoyaGoo, the trusted platform for high-quality replicas. Step-by-step tutorial and guide." 
+          content="Learn how to place an order on CNFANS, the trusted platform for high-quality replicas. Step-by-step tutorial and guide." 
         />
       </Helmet>
 
@@ -19,7 +19,7 @@ export default function HowToOrder() {
               HOW TO ORDER
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Follow this simple guide to place your first order on JoyaGoo and get your favorite items delivered to your door.
+              Follow this simple guide to place your first order on CNFANS and get your favorite items delivered to your door.
             </p>
           </div>
 
@@ -39,12 +39,12 @@ export default function HowToOrder() {
                     1
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Sign Up for JoyaGoo</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">Sign Up for CNFANS</h3>
                     <p className="text-gray-300">
-                      Create your account on JoyaGoo using our special referral link to get 50% off on shipping. Click the "GET 50% OFF SHIPPING" button on our website to be redirected to the sign-up page.
+                      Create your account on CNFANS using our special referral link to get 50% off on shipping. Click the "GET 50% OFF SHIPPING" button on our website to be redirected to the sign-up page.
                     </p>
                     <a 
-                      href="http://joyagoo.com/register/?ref=300004734" 
+                      href="http://cnfans.com/register/?ref=300004734" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="relative inline-block mt-4 group"
@@ -63,9 +63,9 @@ export default function HowToOrder() {
                     2
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Find Products on JOYAFINDS</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">Find Products on ONLYFINDS</h3>
                     <p className="text-gray-300">
-                      Browse our extensive catalog to find the products you want. Use the filters to narrow down by category, brand, or use the search function. Click on "VIEW" to see product details or "BUY" to be redirected to the JoyaGoo product page.
+                      Browse our extensive catalog to find the products you want. Use the filters to narrow down by category, brand, or use the search function. Click on "VIEW" to see product details or "BUY" to be redirected to the CNFANS product page.
                     </p>
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function HowToOrder() {
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">Add to Cart & Checkout</h3>
                     <p className="text-gray-300">
-                      Once on JoyaGoo, add the item to your cart, select your size and preferences. Proceed to checkout and fill in your shipping information. Review your order before finalizing the purchase.
+                      Once on CNFANS, add the item to your cart, select your size and preferences. Proceed to checkout and fill in your shipping information. Review your order before finalizing the purchase.
                     </p>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function HowToOrder() {
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">Track Your Order</h3>
                     <p className="text-gray-300">
-                      After completing your purchase, you'll receive an order confirmation. You can track your package status through your JoyaGoo account. If you have any questions, contact JoyaGoo customer service directly.
+                      After completing your purchase, you'll receive an order confirmation. You can track your package status through your CNFANS account. If you have any questions, contact CNFANS customer service directly.
                     </p>
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function HowToOrder() {
                 <li>Sign up with our referral link for 50% off shipping</li>
                 <li>Order multiple items to save on shipping costs</li>
                 <li>Check our site regularly for new arrivals and promotions</li>
-                <li>For questions about products or orders, contact JoyaGoo customer service directly</li>
+                <li>For questions about products or orders, contact CNFANS customer service directly</li>
               </ul>
             </div>
 

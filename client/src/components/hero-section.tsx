@@ -71,7 +71,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
             className="bg-primary/30 inline-block px-4 py-2 rounded-full mb-5 backdrop-blur-sm"
           >
-            <span className="text-white font-medium tracking-wide">GET 50% OFF SHIPPING WITH JOYAGOO</span>
+            <span className="text-white font-medium tracking-wide">GET 50% OFF SHIPPING WITH CNFANS</span>
           </motion.div>
           
           <motion.div
@@ -111,7 +111,7 @@ export default function HeroSection() {
               <MoveRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <a 
-              href="http://joyagoo.com/register/?ref=300004734" 
+              href="http://cnfans.com/register/?ref=300004734" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="relative inline-block group"

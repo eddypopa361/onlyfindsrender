@@ -1,0 +1,80 @@
+Execută următoarele modificări, în ORDINE, fără a altera logica existentă în afara cerințelor. NU elimina funcționalități, doar extinde / înlocuiește text și adaugă secțiunile cerute.
+
+=== 1. REBRANDING TEXTUAL ===
+A. Înlocuiește TOATE aparițiile exacte ale cuvântului JOYAFINDS (inclusiv variante uppercase / lowercase / TitleCase) cu ONLYFINDS.
+   - Dacă există asset-uri sau variabile gen JOYAFINDS_LOGO, păstrează numele fișierelor dar schimbă textul afișat (poți crea alias ONLYFINDS_LOGO și marca TODO pentru înlocuire asset).
+   - În meta tag-uri (title, description), alt text imagini, head og:* tags, JSON-LD, README, environment banners, email templates – actualizează brandul.
+B. Înlocuiește TOATE aparițiile JOYAGOO (idem case-insensitive) cu CNFANS.
+C. Asigură-te că nu rămân referințe reziduale (raportează într-o listă finală ce nu s-a putut schimba și de ce).
+D. Nu modifica nume de pachete NPM sau endpoint-uri externe dacă ar rupe integrarea (dacă există exact JOYAFINDS în cod ca identifier tehnic dependent extern – raportează, nu schimba automat).
+
+=== 2. SECȚIUNE "Reviews" (pe pagina principală / home) ===
+A. Adaugă o secțiune nouă **Reviews** (testimoniale) plasată DEASUPRA secțiunii existente "Join Our Community".
+B. Structură:
+   - Titlu: "What Our Users Say" (poți adăuga sub‑titlu scurt: "Real feedback from our early adopters.")
+   - Listă 3–6 review-uri mock (array `reviews` într-un fișier dedicat ex: `src/data/reviews.ts`):
+        interface Review { id: string; name: string; role?: string; avatar?: string; rating: number; content: string; date?: string; }
+   - Afișare cu componente card responsive (grid; mobile 1 col, md 2, lg 3).
+   - Fiecare card: nume, rating (5 stele – folosește componente existente de icon dacă ai; altfel fa fallback Unicode ★), text, eventual data.
+   - Stil: folosește sistemul actual (ex: Tailwind / tokens). Accent cromatic = primary (#cb2410) conform temei actuale. Text alb pe background dark.
+C. Accesibilitate: aria-label pentru listă (“User reviews”), alt text pentru avatar.
+D. Dacă există layout modular, creează componentă `HomeReviewsSection` și insereaz-o în home exact înainte de "Join Our Community".
+
+=== 3. SECȚIUNE "Documentation" SUB "Join Our Community" (pe home) ===
+A. După secțiunea "Join Our Community" adaugă o secțiune scurtă "Documentation" cu:
+   - Titlu: "Documentation"
+   - Paragraf scurt: "Browse our latest guides and articles to get the most out of ONLYFINDS."
+   - Un listing teaser (primele 3 articole) luate dintr-o sursă comună cu blog-urile (vezi pasul 4).
+   - Buton / link "View all articles" → pagina `/documentation`.
+B. Componentă: `HomeDocumentationPreviewSection`.
+
+=== 4. ARHITECTURĂ BLOG / DOCUMENTATION (SEO) ===
+A. Creează structură conținut (alege una):
+   Variante preferată: Markdown/MDX în `content/posts/` sau `src/content/posts/`.
+   Fiecare fișier: frontmatter YAML cu: 
+     title, slug, date (ISO), description (scurtă pentru meta), tags (array), draft (boolean).
+B. Creează minim 3 fișiere exemplu (sluguri generic: `getting-started`, `optimizing-your-profile`, `community-guidelines`) pentru a demonstra structura; pot fi placeholder, fără brand vechi.
+C. Creează:
+   - Pagina index `/documentation`:
+       * listă (10–20 viitoare articole) – deocamdată afișează toate fișierele găsite.
+       * sortare descrescătoare după date.
+       * posibilitate de filtrare simplă (client side) după tag (opțional TODO).
+       * meta title: "Documentation – ONLYFINDS".
+       * meta description: "Guides and articles to help you succeed on ONLYFINDS."
+   - Rute dinamice `/documentation/[slug]` pentru fiecare articol:
+       * Heading H1 = title
+       * Data + tags
+       * Conținut randat (Markdown/MDX).
+       * SEO: og:title, og:description, canonical, JSON-LD Article (author generat generic: "ONLYFINDS Team").
+D. Exportă o funcție utilitară (ex: `getAllPosts()`, `getPostBySlug()`) într-un fișier `lib/posts.ts` (sau similar) care:
+   - Încarcă toate fișierele din folder, parsează frontmatter, întoarce metadatele.
+   - (Dacă build system e Vite + TS) folosește import meta glob (`import.meta.glob`) pentru Markdown/MDX.
+E. Adaugă link către "Documentation" în navigația principală dacă nu există (ex: Navbar).
+F. Adaugă generare sitemap entry / RSS minimal (opțional TODO comentariu) – nu implementa complet dacă nu există infrastructură; marchează cu TODO dar definește locul.
+
+=== 5. SEO & META ===
+A. Asigură-te că brandul în meta tags schimbat la ONLYFINDS.
+B. Pentru fiecare pagină de articol: title = `${post.title} | ONLYFINDS Documentation`.
+C. Index `/documentation`: H1 unic (evită duplicarea altor H1 de pe pagină).
+D. Adaugă canonical tags (comment TODO dacă infrastructura actuală nu suportă).
+
+=== 6. COD / STRUCTURĂ ===
+- Nu rupe importuri existente.
+- Folosește aceeași convenție de styling (Tailwind / CSS Modules / styled components – ce este în proiect).
+- Toate noile fișiere TypeScript cu tipuri explicite.
+- Evită hardcodări repetate (#cb2410 etc.) – utilizează token primar deja definit.
+- Comentariu la începutul fiecărui fișier nou: `// Added: Reviews / Documentation feature`.
+
+=== 7. RAPORT FINAL ===
+Returnează:
+1. Lista completă de înlocuiri JOYAFINDS→ONLYFINDS și JOYAGOO→CNFANS (fișier + count).
+2. Fișiere noi create (reviews data, componente secțiuni, post utilities, content posts).
+3. Diferențe (patch) pentru:
+   - homepage / componentă principală (inserarea Reviews + Documentation preview),
+   - navbar / layout (adăugare link Documentation),
+   - orice config / route file modificat.
+4. Scurt rezumat cum adaug viitor un articol (pași).
+5. Confirmare că nu mai există text JOYAFINDS / JOYAGOO în sursele active (exclude README_old / arhive dacă sunt).
+6. TODO list (ce rămâne opțional: RSS, sitemap dinamic, pagination, search).
+
+Execută acum. Dacă întâmpini coliziuni de naming, raportează înainte de a forța schimbarea.

@@ -159,7 +159,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
             rel="noopener noreferrer"
             className="w-full text-center px-3 py-1.5 border border-primary text-white font-heading text-xs font-medium rounded hover:bg-primary/30 transition-all"
           >
-            JOYAFINDS
+            ONLYFINDS
           </a>
         </div>
       </div>

@@ -5,8 +5,8 @@ import { Helmet } from "react-helmet";
 export default function FAQ() {
   const faqs = [
     {
-      question: "What is JOYAFINDS?",
-      answer: "JOYAFINDS is a showcase platform connecting you to quality replica products at affordable prices. We don't sell products directly but provide links to trusted sellers."
+      question: "What is ONLYFINDS?",
+      answer: "ONLYFINDS is a showcase platform connecting you to quality replica products at affordable prices. We don't sell products directly but provide links to trusted sellers."
     },
     {
       question: "How do I purchase products?",
@@ -37,7 +37,7 @@ export default function FAQ() {
   return (
     <>
       <Helmet>
-        <title>FAQ - JOYAFINDS</title>
+        <title>FAQ - ONLYFINDS</title>
         <meta name="description" content="Frequently asked questions about RepGalaxy and our products. Find answers to common questions about ordering, shipping, and returns." />
       </Helmet>
       
@@ -46,7 +46,7 @@ export default function FAQ() {
           <CardHeader>
             <CardTitle className="text-3xl font-heading">Frequently Asked Questions</CardTitle>
             <CardDescription>
-              Find answers to common questions about JOYAFINDS and our products
+              Find answers to common questions about ONLYFINDS and our products
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -91,13 +91,13 @@ export default function FAQ() {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              By using JOYAFINDS, you agree to the following terms:
+              By using ONLYFINDS, you agree to the following terms:
             </p>
             <ul className="list-disc pl-5 space-y-2">
-              <li>JOYAFINDS is a showcase platform and does not sell products directly</li>
+              <li>ONLYFINDS is a showcase platform and does not sell products directly</li>
               <li>We are not responsible for transactions conducted on third-party websites</li>
               <li>Product availability, pricing, and shipping are determined by individual sellers</li>
-              <li>JOYAFINDS makes no warranties regarding the quality or authenticity of products</li>
+              <li>ONLYFINDS makes no warranties regarding the quality or authenticity of products</li>
               <li>Users are responsible for ensuring compliance with local laws regarding replica products</li>
             </ul>
             <p className="mt-4 text-sm text-gray-600">
