@@ -9,8 +9,8 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <Card className="rounded-2xl overflow-hidden glow-card transition-all duration-300 card-zoom h-full border border-gray-900 shadow-[0_0_0_1px_#000]">
-      <Link href={`/product/${product.id}`}>
-        <div className="relative pb-[100%] overflow-hidden cursor-pointer">
+      <div className="relative pb-[100%] overflow-hidden cursor-pointer">
+        <Link href={`/product/${product.id}`}>
           <div className="absolute top-2 right-2 z-10">
             <span className="bg-primary/90 text-white text-xs font-medium px-2 py-1 rounded-full">
               {product.price.startsWith('$') ? product.price : `$${product.price}`}
@@ -29,8 +29,8 @@ export function ProductCard({ product }: ProductCardProps) {
               }}
             />
           </picture>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <CardContent className="p-4 text-white">
         <Link href={`/product/${product.id}`}>
           <h3 className="font-heading font-semibold text-sm md:text-base mb-3 line-clamp-2 h-10 text-purple-100 cursor-pointer hover:text-purple-300 transition-colors">
