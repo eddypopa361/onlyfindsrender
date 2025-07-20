@@ -28,22 +28,22 @@ export default function PromoSection() {
                 href="https://discord.com/invite/tTAKrgMcuC" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center p-3 md:p-6 bg-black/70 border border-purple-500/30 rounded-lg hover:border-primary/50 hover:shadow-lg transition-all text-center group glow-card"
+                className="flex flex-col items-center justify-center p-3 md:p-6 bg-black/70 border border-primary/30 rounded-lg hover:border-primary/50 hover:shadow-lg transition-all text-center group glow-card"
               >
                 <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/30 transition-all">
                   <MessageCircleIcon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-heading font-semibold mb-1 text-purple-200">Discord</h3>
+                <h3 className="font-heading font-semibold mb-1 text-white">Discord</h3>
                 <p className="text-sm text-gray-400">Join our active community</p>
               </a>
               
               <div 
-                className="flex flex-col items-center justify-center p-3 md:p-6 bg-black/70 border border-purple-500/30 rounded-lg hover:border-primary/50 hover:shadow-lg transition-all text-center group glow-card"
+                className="flex flex-col items-center justify-center p-3 md:p-6 bg-black/70 border border-primary/30 rounded-lg hover:border-primary/50 hover:shadow-lg transition-all text-center group glow-card"
               >
                 <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/30 transition-all">
                   <MailIcon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-heading font-semibold mb-1 text-purple-200">Contact Us</h3>
+                <h3 className="font-heading font-semibold mb-1 text-white">Contact Us</h3>
                 <p className="text-sm text-gray-400">joyafindss@gmail.com</p>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function PromoSection() {
                 rel="noopener noreferrer"
                 className="inline-block bg-primary/20 px-4 md:px-6 py-2 md:py-3 rounded-full mb-5 glow-button hover:bg-primary/30 transition-all"
               >
-                <span className="text-purple-100 font-medium text-sm md:text-lg">CLICK HERE TO GET 50% OFF OF YOUR SHIPPING</span>
+                <span className="text-white font-medium text-sm md:text-lg">CLICK HERE TO GET 50% OFF OF YOUR SHIPPING</span>
               </a>
             </div>
           </div>

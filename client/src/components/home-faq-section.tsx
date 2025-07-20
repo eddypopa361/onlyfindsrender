@@ -42,7 +42,7 @@ export default function HomeFaqSection() {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left font-heading font-medium text-purple-200">
+                <AccordionTrigger className="text-left font-heading font-medium text-white">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent>
@@ -54,7 +54,7 @@ export default function HomeFaqSection() {
           
           <div className="mt-8 text-center">
             <Link href="/faq">
-              <Button variant="outline" className="border-primary text-purple-300 hover:bg-primary/20 glow-button">
+              <Button variant="outline" className="border-primary text-white hover:bg-primary/20 glow-button">
                 View All FAQs
               </Button>
             </Link>

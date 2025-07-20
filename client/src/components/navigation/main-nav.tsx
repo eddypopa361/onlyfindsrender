@@ -29,7 +29,7 @@ export default function MainNav() {
   };
 
   return (
-    <header className="sticky top-0 bg-black shadow-lg shadow-purple-600/20 z-40 border-b border-purple-600/20">
+    <header className="sticky top-0 bg-black shadow-lg shadow-primary/20 z-40 border-b border-primary/20">
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -83,7 +83,7 @@ export default function MainNav() {
       
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-black border-t border-purple-600/20">
+        <div className="md:hidden bg-black border-t border-primary/20">
           <div className="container mx-auto px-4 py-2 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 

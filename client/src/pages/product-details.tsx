@@ -43,7 +43,7 @@ const ProductDetails = () => {
           <h1 className="text-2xl text-red-400 mb-4">Produsul nu a putut fi găsit</h1>
           <p className="text-gray-300 mb-6">Produsul pe care îl cauți nu există sau a fost eliminat.</p>
           <button 
-            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white"
+            className="px-6 py-2 bg-primary hover:bg-primary/80 rounded-lg text-white"
             onClick={() => setLocation('/')}
           >
             Înapoi la pagina principală
@@ -58,7 +58,7 @@ const ProductDetails = () => {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Imaginea produsului */}
         <div className="md:w-2/5">
-          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-purple-900/30 max-w-md mx-auto">
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-primary/30 max-w-md mx-auto">
             <picture>
               <source srcSet={`${product.image}.webp`} type="image/webp" />
               <img 
@@ -79,7 +79,7 @@ const ProductDetails = () => {
         <div className="md:w-1/2">
           <h1 className="text-3xl font-bold text-white mb-4">{product.title}</h1>
           <div className="mb-4">
-            <span className="inline-block bg-purple-600/50 text-white px-3 py-1 rounded-md text-sm mr-2">
+            <span className="inline-block bg-primary/50 text-white px-3 py-1 rounded-md text-sm mr-2">
               {product.category}
             </span>
             {product.brand && (
@@ -88,7 +88,7 @@ const ProductDetails = () => {
               </span>
             )}
           </div>
-          <div className="text-2xl font-bold text-purple-300 mb-6">{product.price}</div>
+          <div className="text-2xl font-bold text-white mb-6">{product.price}</div>
           
           {/* Butoane pentru acțiuni */}
           <div className="flex flex-col space-y-4 mb-8">
@@ -96,7 +96,7 @@ const ProductDetails = () => {
               href={product.buyUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="py-3 px-6 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-center font-semibold shadow-lg transition-all duration-300 hover:shadow-purple-600/30"
+              className="py-3 px-6 bg-primary hover:bg-primary/80 text-white rounded-lg text-center font-semibold shadow-lg transition-all duration-300 hover:shadow-primary/30"
             >
               Buy Now
             </a>
@@ -111,12 +111,12 @@ const ProductDetails = () => {
           </div>
           
           {/* Promoție JoyaGoo mutată sub butoane */}
-          <div className="rounded-xl overflow-hidden shadow-2xl border border-purple-500/30 bg-black/50 relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-900 rounded-xl blur-xl opacity-50"></div>
+          <div className="rounded-xl overflow-hidden shadow-2xl border border-primary/30 bg-black/50 relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-red-900 rounded-xl blur-xl opacity-50"></div>
             <div className="relative overflow-hidden">
               {/* Background Image */}
               <div className="absolute inset-0">
-                <div className="absolute inset-0 backdrop-blur-sm bg-purple-900/50 z-10"></div>
+                <div className="absolute inset-0 backdrop-blur-sm bg-primary/30/50 z-10"></div>
                 <img 
                   src="https://i.imgur.com/Z9GcQly.jpg" 
                   alt="JoyaGoo shipping discount" 
@@ -141,8 +141,8 @@ const ProductDetails = () => {
                     rel="noopener noreferrer"
                     className="relative inline-block group"
                   >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-primary rounded-lg blur-lg opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
-                    <button className="relative px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-heading font-medium rounded-lg transition-all shadow-lg hover:shadow-purple-600/30 text-sm md:text-base">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary rounded-lg blur-lg opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
+                    <button className="relative px-6 py-2 bg-primary hover:bg-primary/80 text-white font-heading font-medium rounded-lg transition-all shadow-lg hover:shadow-primary/30 text-sm md:text-base">
                       Sign Up for JoyaGoo
                     </button>
                   </a>

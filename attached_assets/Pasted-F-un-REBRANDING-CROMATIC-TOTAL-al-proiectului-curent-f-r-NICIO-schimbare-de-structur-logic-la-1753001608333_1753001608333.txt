@@ -1,0 +1,39 @@
+Fă un REBRANDING CROMATIC TOTAL al proiectului curent, fără NICIO schimbare de structură, logică, layout, nume de componente, props, texte sau funcționalitate. DOAR culorile.
+
+Noua temă absolută (singura sursă):
+- Primary (accent, brand, accent text, link accent): #cb2410
+- Text general pe fundal închis și pe primary: #fefefe (alb)
+- Background global: #000000 (iar dacă există niveluri: #111111 / #1a1a1a / #262626 pot rămâne ca suprafețe secundare dacă deja sunt folosite)
+- Fără alte nuanțe de brand (NU violet, purple, indigo, fuchsia, magenta, tomato, #ff6347*, #ff6347cc etc.)
+
+Cerințe detaliate:
+
+1. **Inventariază întâi** toate culorile diferite de (#cb2410, #fefefe, #000000, #111111, #1a1a1a, #262626, #ffffff, #fff). Include coduri hex, var(--token), clase Tailwind (text-purple-500 etc.), gradient stops, rgba/hsla. Listează fișier + linie + valoare. NU modifica încă. (Pas audit)
+2. Construiește un mapping clar: fiecare valoare găsită -> înlocuită cu una din:
+   - #cb2410 (accent / primary / link / icon accent / buton)
+   - #fefefe (text, icon pe dark / pe accent)
+   - #000000 (background principal)
+   - Variante de transparență din #cb2410 (pentru hover / focus / shadow / overlay): 
+       * rgba(203,36,16,0.55), rgba(203,36,16,0.35), #cb2410cc (80%), #cb241066 (40%)
+     (nu inventa alte culori de bază)
+3. **Gradientele** existente: rescrie-le pornind de la #cb2410. Dacă aveau 2–3 stop-uri, acum folosește:
+   linear-gradient(135deg, #cb2410 0%, #b11f0d 55%, #ff9988 100%)
+   (unde #b11f0d și #ff9988 sunt lighten/darken derivate *DOAR în context de gradient*, nu folosite ca culori solide standalone pentru elemente; dacă trebuie definire, comentează clar).
+   Fallback solid: #cb2410.
+4. **Glow / shadow / focus rings**: 
+   - Box-shadow accent tipic: 0 0 0 3px rgba(203,36,16,0.45), 0 4px 18px -2px rgba(203,36,16,0.35)
+   - Focus ring layered: 0 0 0 2px #000000, 0 0 0 4px rgba(203,36,16,0.55)
+5. În Tailwind config (sau sistem tokens):
+   - Remapează orice “brand”, “accent”, “primary” la #cb2410 (scala poate fi minimală: 500 = #cb2410). Dacă există scale mov (ex: primary: {...}) înlocuiește-le cu o scală coerentă derivată (#cb2410 centrul) sau reduce la valorile folosite (ex: 500). Elimină alias-urile inutile mov. 
+   - Toate clasele care referă mov/fuchsia/purple/indigo (ex: text-purple-500, from-indigo-500, via-fuchsia-600, to-pink-500) devin echivalente `text-white` (dacă erau texte accent și acum dorim alb) SAU `text-primary-500` dacă era accent colorat; pentru background/gradient: `bg-primary-500`, `from-primary-500`, `via-primary-600`, `to-primary-400`.
+6. Inline styles (style="color: ...", style={{ background: '...' }}) → remapate conform mapping; elimină coduri hex vechi.
+7. NU șterge fișiere. NU redenumi componente. NU muta cod. NUMAI modificări de culoare.
+8. După aplicare, rulează o scanare internă (grep logic) și confirmă că nu mai există culori vechi (mov, purple, violet, indigo, fuchsia, magenta, tomato, #ff6347*).
+9. Livrează:
+   - Lista culorilor vechi găsite (audit inițial).
+   - Mapping aplicat.
+   - Diff (patch) pentru: tailwind.config.*, fișiere cu variabile CSS / theme, global.css, componente modificate.
+   - 1 exemplu de Button și 1 Card după schimbare (fragmente) demonstrative (fără logică nouă).
+   - Rezultatul scanării finale (“Nicio culoare veche rămasă” sau lista reziduală).
+
+Dacă vreun pas nu poate fi îndeplinit exact fără a altera funcționalitatea, menționează concret și cere confirmare înainte. Execută acum.

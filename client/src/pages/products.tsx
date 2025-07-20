@@ -116,8 +116,8 @@ export default function Products() {
         {/* Main Products Grid */}
         <section id="products" className="py-16 relative">
           {/* Purple glow effects */}
-          <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-purple-600/20 filter blur-3xl"></div>
-          <div className="absolute bottom-1/4 -right-20 w-72 h-72 rounded-full bg-purple-600/20 filter blur-3xl"></div>
+          <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-primary/20 filter blur-3xl"></div>
+          <div className="absolute bottom-1/4 -right-20 w-72 h-72 rounded-full bg-primary/20 filter blur-3xl"></div>
           <div className="container mx-auto px-4">
             <div className="text-center mb-10 slide-up">
               <h1 className="text-4xl md:text-5xl font-heading font-bold mb-2 inline-block relative text-white glow-text">
@@ -131,13 +131,13 @@ export default function Products() {
               {/* Search Bar */}
               <div className="mt-6 max-w-md mx-auto">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-purple-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white" />
                   <Input
                     type="text"
                     placeholder="Search products by name or brand..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 py-6 rounded-full bg-black border-2 border-purple-700 text-white placeholder:text-gray-400 focus:border-primary glow-card"
+                    className="pl-10 py-6 rounded-full bg-black border-2 border-primary text-white placeholder:text-gray-400 focus:border-primary glow-card"
                   />
                   {searchQuery && (
                     <Button
@@ -151,7 +151,7 @@ export default function Products() {
                   )}
                 </div>
                 {debouncedSearchQuery && (
-                  <p className="text-sm text-purple-300 mt-2 text-left ml-4">
+                  <p className="text-sm text-white mt-2 text-left ml-4">
                     Searching for: "{debouncedSearchQuery}"
                   </p>
                 )}
@@ -163,10 +163,10 @@ export default function Products() {
               {/* Tab Navigation */}
               <div className="mb-4">
                 <Tabs defaultValue="categories" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 bg-black/50 p-1 rounded-full border border-purple-500/30">
+                  <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 bg-black/50 p-1 rounded-full border border-primary/30">
                     <TabsTrigger 
                       value="categories" 
-                      className={`rounded-full ${activeTab === 'categories' ? 'bg-primary text-white' : 'text-purple-200'}`}
+                      className={`rounded-full ${activeTab === 'categories' ? 'bg-primary text-white' : 'text-white'}`}
                       onClick={() => {
                         if (brand !== "All") {
                           setBrand("All"); // Reset brand when switching to categories
@@ -177,7 +177,7 @@ export default function Products() {
                     </TabsTrigger>
                     <TabsTrigger 
                       value="brands" 
-                      className={`rounded-full ${activeTab === 'brands' ? 'bg-primary text-white' : 'text-purple-200'}`}
+                      className={`rounded-full ${activeTab === 'brands' ? 'bg-primary text-white' : 'text-white'}`}
                       onClick={() => {
                         if (category !== "All") {
                           setCategory("All"); // Reset category when switching to brands
@@ -199,7 +199,7 @@ export default function Products() {
                             variant={category === cat ? "default" : "outline"}
                             className={category === cat 
                               ? "bg-primary text-white hover:bg-primary/80 rounded-full text-sm px-6 py-2.5 font-medium"
-                              : "bg-black border border-purple-500/50 text-purple-200 hover:bg-purple-900/30 rounded-full text-sm px-6 py-2.5 font-medium"
+                              : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-sm px-6 py-2.5 font-medium"
                             }
                             onClick={() => handleCategoryChange(cat as ProductCategory)}
                           >
@@ -211,8 +211,8 @@ export default function Products() {
                     
                     {/* Show subcategories for Clothing */}
                     {category === "Clothing" && (
-                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-purple-500/30 pt-4">
-                        <h3 className="w-full text-sm text-purple-300 mb-2">Subcategories:</h3>
+                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-primary/30 pt-4">
+                        <h3 className="w-full text-sm text-white mb-2">Subcategories:</h3>
                         {["All", "T-Shirts", "Shirts", "Hoodies", "Jackets", "Sweaters", "Pants & Jeans", "Shorts", "Tracksuits", "Boxers", "Jerseys", "Socks", "Women", "Kids"]
                           .map((subCat) => (
                             <Button 
@@ -221,7 +221,7 @@ export default function Products() {
                               size="sm"
                               className={subCategory === subCat 
                                 ? "bg-primary text-white hover:bg-primary/80 rounded-full text-xs"
-                                : "bg-black border border-purple-500/50 text-purple-200 hover:bg-purple-900/30 rounded-full text-xs"
+                                : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-xs"
                               }
                               onClick={() => handleSubCategoryChange(subCat as SubCategory)}
                             >
@@ -234,8 +234,8 @@ export default function Products() {
                     
                     {/* Show subcategories for Accessories */}
                     {category === "Accessories" && (
-                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-purple-500/30 pt-4">
-                        <h3 className="w-full text-sm text-purple-300 mb-2">Subcategories:</h3>
+                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-primary/30 pt-4">
+                        <h3 className="w-full text-sm text-white mb-2">Subcategories:</h3>
                         {["All", "Eyewear", "Wallets & Small Accessories", "Fashion Accessories"]
                           .map((subCat) => (
                             <Button 
@@ -244,7 +244,7 @@ export default function Products() {
                               size="sm"
                               className={subCategory === subCat 
                                 ? "bg-primary text-white hover:bg-primary/80 rounded-full text-xs"
-                                : "bg-black border border-purple-500/50 text-purple-200 hover:bg-purple-900/30 rounded-full text-xs"
+                                : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-xs"
                               }
                               onClick={() => handleSubCategoryChange(subCat as SubCategory)}
                             >
@@ -282,7 +282,7 @@ export default function Products() {
                             variant={brand === br ? "default" : "outline"}
                             className={brand === br
                               ? "bg-primary text-white hover:bg-primary/80 rounded-full text-sm"
-                              : "bg-black border border-purple-500/50 text-purple-200 hover:bg-purple-900/30 rounded-full text-sm"
+                              : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-sm"
                             }
                             onClick={() => handleBrandChange(br as ProductBrand)}
                           >
@@ -302,7 +302,7 @@ export default function Products() {
             {isLoading && (
               <div className="flex justify-center items-center py-16">
                 <div className="flex flex-col items-center">
-                  <Loader2 className="h-12 w-12 animate-spin text-purple-500 mb-4" />
+                  <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
                   <p className="text-gray-400">Loading products...</p>
                 </div>
               </div>
@@ -342,7 +342,7 @@ export default function Products() {
             {/* Show message if no products found */}
             {!isLoading && !isError && products.length === 0 && (
               <div className="text-center py-12 rounded-xl glow-card p-8">
-                <h3 className="text-xl font-medium text-purple-200">No products found matching your criteria</h3>
+                <h3 className="text-xl font-medium text-white">No products found matching your criteria</h3>
                 <p className="mt-2 text-gray-400">Try changing your filter options</p>
                 <Button 
                   className="mt-4 bg-primary text-white hover:bg-primary/80"
@@ -359,7 +359,7 @@ export default function Products() {
                 <nav className="inline-flex rounded-full shadow-lg overflow-hidden font-heading glow-card">
                   <Button
                     variant="ghost"
-                    className="inline-flex items-center px-3 py-2 border-r border-purple-500/30 bg-black/90 text-purple-200"
+                    className="inline-flex items-center px-3 py-2 border-r border-primary/30 bg-black/90 text-white"
                     disabled={currentPage === 1}
                     onClick={() => paginate(currentPage - 1)}
                   >
@@ -387,10 +387,10 @@ export default function Products() {
                       <Button
                         key={pageNum}
                         variant="ghost"
-                        className={`inline-flex items-center px-4 py-2 border-r border-purple-500/30 ${
+                        className={`inline-flex items-center px-4 py-2 border-r border-primary/30 ${
                           currentPage === pageNum
                             ? "bg-primary text-white"
-                            : "bg-black/90 text-purple-200 hover:bg-purple-900/30"
+                            : "bg-black/90 text-white hover:bg-primary/30/30"
                         }`}
                         onClick={() => paginate(pageNum)}
                       >
@@ -401,7 +401,7 @@ export default function Products() {
                   
                   {/* Show ellipsis if more pages exist */}
                   {totalPages > 5 && currentPage < totalPages - 2 && (
-                    <span className="inline-flex items-center px-4 py-2 border-r border-purple-500/30 bg-black/90 text-sm font-medium text-purple-200">
+                    <span className="inline-flex items-center px-4 py-2 border-r border-primary/30 bg-black/90 text-sm font-medium text-white">
                       ...
                     </span>
                   )}
@@ -410,7 +410,7 @@ export default function Products() {
                   {totalPages > 5 && currentPage < totalPages - 2 && (
                     <Button
                       variant="ghost"
-                      className="inline-flex items-center px-4 py-2 border-r border-purple-500/30 bg-black/90 text-purple-200 hover:bg-purple-900/30"
+                      className="inline-flex items-center px-4 py-2 border-r border-primary/30 bg-black/90 text-white hover:bg-primary/30/30"
                       onClick={() => paginate(totalPages)}
                     >
                       {totalPages}
@@ -419,7 +419,7 @@ export default function Products() {
                   
                   <Button
                     variant="ghost"
-                    className="inline-flex items-center px-3 py-2 bg-black/90 text-purple-200"
+                    className="inline-flex items-center px-3 py-2 bg-black/90 text-white"
                     disabled={currentPage === totalPages || totalPages <= 1}
                     onClick={() => paginate(currentPage + 1)}
                   >
