@@ -78,14 +78,14 @@ export default function Home() {
                   <div className="relative overflow-hidden rounded-lg border border-primary/30 shadow-2xl">
                     {/* Background Image */}
                     <div className="absolute inset-0">
-                      <div className="absolute inset-0 backdrop-blur-sm bg-primary/50 z-10"></div>
+                      <div className="absolute inset-0 backdrop-blur-sm bg-primary/10 z-10"></div>
                       <img 
-                        src="https://i.imgur.com/Z9GcQly.jpg" 
+                        src="https://i.imgur.com/VgG5xvr.jpg" 
                         alt="CNFANS shipping discount" 
                         className="w-full h-full object-cover opacity-100"
-                        style={{ filter: 'blur(2px)' }}
+                        style={{ filter: 'blur(1px)' }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40 z-20"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/40 z-20"></div>
                     </div>
                     
                     {/* Content overlay */}
