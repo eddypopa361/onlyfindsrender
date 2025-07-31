@@ -17,10 +17,11 @@ export default function HomeReviewsSection() {
   };
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden">
-      {/* Glow effects - poziționare jos pentru alternare */}
-      <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
-      <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
+    <section className="py-16 bg-black relative overflow-hidden -mb-8">
+      {/* Glow effects - poziționare jos pentru alternare - extinse pentru continuitate */}
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
+      <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <ScrollAnimation direction="up" delay={0.1} duration={0.6}>

@@ -37,13 +37,16 @@ export default function BestSellersSection() {
   const { data: products, isLoading, isError } = useFeaturedProducts();
 
   return (
-    <section className="py-12 bg-black relative">
+    <section className="py-12 bg-black relative -mb-8">
       <div className="absolute inset-0 bg-black"></div>
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       
-      {/* Glow effects - poziționare sus pentru alternare */}
-      <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
-      <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
+      {/* Glow effects - poziționare sus pentru alternare - extinse pentru continuitate */}
+      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
+      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-primary/15 filter blur-3xl"></div>
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-primary/20 filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
