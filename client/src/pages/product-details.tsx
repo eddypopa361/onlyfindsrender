@@ -118,7 +118,7 @@ const ProductDetails = () => {
               <div className="absolute inset-0">
                 <div className="absolute inset-0 backdrop-blur-sm bg-primary/30/50 z-10"></div>
                 <img 
-                  src="https://i.imgur.com/Z9GcQly.jpg" 
+                  src="https://i.imgur.com/qXloMVw.jpg" 
                   alt="CNFANS shipping discount" 
                   loading="lazy"
                   className="w-full h-full object-cover opacity-70"

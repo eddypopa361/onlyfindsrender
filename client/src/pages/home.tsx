@@ -74,13 +74,13 @@ export default function Home() {
             <div className="container mx-auto px-4 relative z-10">
               <ScrollAnimation direction="up" delay={0.1} duration={0.5}>
                 <div className="relative overflow-hidden">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-red-900 rounded-xl blur-xl opacity-50"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-900 rounded-xl blur-xl opacity-50"></div>
                   <div className="relative overflow-hidden rounded-lg border border-primary/30 shadow-2xl">
                     {/* Background Image */}
                     <div className="absolute inset-0">
                       <div className="absolute inset-0 backdrop-blur-sm bg-primary/10 z-10"></div>
                       <img 
-                        src="https://i.imgur.com/VgG5xvr.jpg" 
+                        src="https://i.imgur.com/qXloMVw.jpg" 
                         alt="CNFANS shipping discount" 
                         className="w-full h-full object-cover opacity-100"
                         style={{ filter: 'blur(1px)' }}
@@ -103,7 +103,7 @@ export default function Home() {
                         rel="noopener noreferrer" 
                         className="relative inline-block group"
                       >
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary to-red-700 rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-700 rounded-full blur-xl opacity-70 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
                         <button className="relative px-8 py-4 bg-primary hover:bg-primary/80 text-white font-heading font-medium rounded-full transition-all shadow-lg hover:shadow-primary/30 text-lg">
                           JOIN CNFANS NOW
                         </button>
