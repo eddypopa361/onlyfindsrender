@@ -50,8 +50,9 @@ export default function Home() {
             {/* Overlay pentru tranziție netedă la început */}
             <div className="section-transition-overlay section-transition-overlay-top"></div>
             
-            <div className="bg-glow-left"></div>
-            <div className="bg-glow-right"></div>
+            {/* Glow effects - poziționare jos pentru alternare cu carousel */}
+            <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
+            <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
             <div className="relative z-10">
               <Suspense fallback={<SectionLoader />}>
                 <ScrollAnimation direction="up" delay={0.2} duration={0.6}>
@@ -125,8 +126,7 @@ export default function Home() {
             {/* Overlay pentru tranziție netedă la început */}
             <div className="section-transition-overlay section-transition-overlay-top"></div>
             
-            <div className="bg-glow-left"></div>
-            <div className="bg-glow-right"></div>
+            {/* Glow effects sunt deja în componenta BestSellersSection (poziție sus) */}
             <div className="relative z-10">
               <Suspense fallback={<SectionLoader />}>
                 <ScrollAnimation direction="up" delay={0.2}>
@@ -146,8 +146,9 @@ export default function Home() {
             {/* Overlay pentru tranziție netedă la început */}
             <div className="section-transition-overlay section-transition-overlay-top"></div>
             
-            <div className="bg-glow-left"></div>
-            <div className="bg-glow-right"></div>
+            {/* Glow effects - poziționare jos pentru alternare */}
+            <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
+            <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
             <div className="container mx-auto px-4 text-center relative z-10">
               <ScrollAnimation direction="up" delay={0.1} variant="fade">
                 <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 inline-block relative text-white">

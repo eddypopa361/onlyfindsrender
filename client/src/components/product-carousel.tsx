@@ -60,8 +60,9 @@ export default function ProductCarousel() {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black via-black/90 to-transparent"></div>
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       
-      {/* Glow effects - reduse la minim */}
-      <div className="absolute -left-20 top-1/2 w-40 h-40 rounded-full bg-primary/30 filter blur-3xl"></div>
+      {/* Glow effects - poziționare sus pentru continuitate */}
+      <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
+      <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
       
       <div className="container mx-auto relative z-10">
         <h2 className="text-3xl font-heading font-bold mb-8 text-center text-white glow-text">

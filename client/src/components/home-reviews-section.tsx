@@ -18,8 +18,9 @@ export default function HomeReviewsSection() {
 
   return (
     <section className="py-16 bg-black relative overflow-hidden">
-      <div className="bg-glow-left"></div>
-      <div className="bg-glow-right"></div>
+      {/* Glow effects - poziționare jos pentru alternare */}
+      <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
+      <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <ScrollAnimation direction="up" delay={0.1} duration={0.6}>

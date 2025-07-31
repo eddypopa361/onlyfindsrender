@@ -41,8 +41,9 @@ export default function BestSellersSection() {
       <div className="absolute inset-0 bg-black"></div>
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       
-      {/* Purple glow effects - reduse pentru performanță */}
-      <div className="absolute top-1/4 -left-20 w-72 h-72 rounded-full bg-primary/20 filter blur-3xl"></div>
+      {/* Glow effects - poziționare sus pentru alternare */}
+      <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
+      <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-primary/25 filter blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
