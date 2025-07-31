@@ -40,7 +40,7 @@ const ProductDetails = () => {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
-          <h1 className="text-2xl text-red-400 mb-4">Produsul nu a putut fi găsit</h1>
+          <h1 className="text-2xl text-blue-400 mb-4">Produsul nu a putut fi găsit</h1>
           <p className="text-gray-300 mb-6">Produsul pe care îl cauți nu există sau a fost eliminat.</p>
           <button 
             className="px-6 py-2 bg-primary hover:bg-primary/80 rounded-lg text-white"
@@ -112,7 +112,7 @@ const ProductDetails = () => {
           
           {/* Promoție CNFANS mutată sub butoane */}
           <div className="rounded-xl overflow-hidden shadow-2xl border border-primary/30 bg-black/50 relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-red-900 rounded-xl blur-xl opacity-50"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-900 rounded-xl blur-xl opacity-50"></div>
             <div className="relative overflow-hidden">
               {/* Background Image */}
               <div className="absolute inset-0">

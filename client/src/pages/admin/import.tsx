@@ -245,13 +245,13 @@ export default function ImportPage() {
               </CardHeader>
               <CardContent>
                 {currentStep === 'csv' && uploadStatus && (
-                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-red-900/20 border-red-500 mb-4"}>
+                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-blue-900/20 border-blue-500 mb-4"}>
                     {uploadStatus.success ? (
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     ) : (
-                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <AlertCircle className="h-4 w-4 text-blue-500" />
                     )}
-                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-red-400"}>
+                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-blue-400"}>
                       {uploadStatus.success ? "Succes" : "Eroare"}
                     </AlertTitle>
                     <AlertDescription className="text-gray-300">
@@ -322,13 +322,13 @@ export default function ImportPage() {
               </CardHeader>
               <CardContent>
                 {currentStep === 'images' && uploadStatus && (
-                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-red-900/20 border-red-500 mb-4"}>
+                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-blue-900/20 border-blue-500 mb-4"}>
                     {uploadStatus.success ? (
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     ) : (
-                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <AlertCircle className="h-4 w-4 text-blue-500" />
                     )}
-                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-red-400"}>
+                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-blue-400"}>
                       {uploadStatus.success ? "Succes" : "Eroare"}
                     </AlertTitle>
                     <AlertDescription className="text-gray-300">
@@ -399,13 +399,13 @@ export default function ImportPage() {
               </CardHeader>
               <CardContent>
                 {currentStep === 'export' && uploadStatus && (
-                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-red-900/20 border-red-500 mb-4"}>
+                  <Alert className={uploadStatus.success ? "bg-green-900/20 border-green-500 mb-4" : "bg-blue-900/20 border-blue-500 mb-4"}>
                     {uploadStatus.success ? (
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     ) : (
-                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <AlertCircle className="h-4 w-4 text-blue-500" />
                     )}
-                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-red-400"}>
+                    <AlertTitle className={uploadStatus.success ? "text-green-400" : "text-blue-400"}>
                       {uploadStatus.success ? "Succes" : "Eroare"}
                     </AlertTitle>
                     <AlertDescription className="text-gray-300">

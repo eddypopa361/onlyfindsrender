@@ -69,7 +69,7 @@ export default function ProductCarousel() {
         </h2>
         
         <div className="relative">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-red-900 rounded-3xl blur-xl opacity-50"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-900 rounded-3xl blur-xl opacity-50"></div>
           <div className="relative bg-black rounded-2xl p-6 md:p-8 border border-primary/20">
             
             {/* Center VIEW ALL button */}
@@ -89,7 +89,7 @@ export default function ProductCarousel() {
                 </div>
               ) : isError ? (
                 <div className="flex justify-center items-center h-40">
-                  <p className="text-red-400">Error loading products</p>
+                  <p className="text-blue-400">Error loading products</p>
                 </div>
               ) : carouselProducts.length > 0 && isClient ? (
                 <Suspense fallback={

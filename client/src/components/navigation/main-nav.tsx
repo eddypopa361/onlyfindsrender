@@ -35,7 +35,7 @@ export default function MainNav() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <img 
-            src="/images/onlyfinds_logo.png" 
+            src="/images/onlyfinds.png" 
             alt="ONLYFINDS Logo" 
             loading="eager"
             className="h-10 object-contain"

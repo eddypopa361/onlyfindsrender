@@ -311,7 +311,7 @@ export default function Products() {
             {/* Error State */}
             {isError && (
               <div className="text-center py-12 rounded-xl glow-card p-8">
-                <h3 className="text-xl font-medium text-red-400">Error loading products</h3>
+                <h3 className="text-xl font-medium text-blue-400">Error loading products</h3>
                 <p className="mt-2 text-gray-400">There was a problem fetching the products.</p>
                 <Button 
                   className="mt-4 bg-primary text-white hover:bg-primary/80"

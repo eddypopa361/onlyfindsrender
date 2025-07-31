@@ -68,7 +68,7 @@ export default function BestSellersSection() {
         {/* Error state */}
         {isError && (
           <div className="text-center py-10">
-            <p className="text-red-400">Failed to load best sellers</p>
+            <p className="text-blue-400">Failed to load best sellers</p>
           </div>
         )}
         

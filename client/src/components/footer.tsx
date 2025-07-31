@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <div className="mb-4">
               <img 
-                src="/images/onlyfinds_logo.png" 
+                src="/images/onlyfinds.png" 
                 alt="ONLYFINDS Logo" 
                 loading="lazy"
                 className="h-14 object-contain"

@@ -81,7 +81,7 @@ export default function HeroSection() {
             className="mb-6"
           >
             <img 
-              src="/images/onlyfinds_logo.png" 
+              src="/images/onlyfinds.png" 
               alt="ONLYFINDS" 
               loading="eager"
               className="h-32 md:h-44 lg:h-56 mx-auto object-contain glow-logo" 
@@ -116,7 +116,7 @@ export default function HeroSection() {
               rel="noopener noreferrer" 
               className="relative inline-block group"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-red-700 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-700 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <button className="relative px-8 py-3 bg-white text-primary hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-lg border border-primary/30">
                 GET 50% OFF SHIPPING
               </button>
