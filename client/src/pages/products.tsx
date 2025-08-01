@@ -2,26 +2,26 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ui/product-card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ProductCategory, Product, ProductBrand, ClothingSubCategory, AccessoriesSubCategory } from "@/lib/types";
+import { ProductCategory, Product, MainCategory, AccessoriesSubcategory } from "@/lib/types";
+import { CategoryTile } from "@/components/category-tile";
 import { Helmet } from "react-helmet";
-import { ChevronLeft, ChevronRight, Loader2, Search, Tag } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useProducts, useSearchProducts } from "@/hooks/use-product-data";
 import { useQuery } from "@tanstack/react-query";
 
-// Definiți un tip unificat pentru toate subcategoriile
-type SubCategory = ClothingSubCategory | AccessoriesSubCategory;
+// Updated subcategory type (now only accessories have subcategories)
+type SubCategory = AccessoriesSubcategory | "All";
 
 export default function Products() {
   const [category, setCategory] = useState<ProductCategory>("All");
   const [subCategory, setSubCategory] = useState<SubCategory>("All");
-  const [brand, setBrand] = useState<ProductBrand>("All");
+  // Brand filtering removed as per requirements
   const [sortOrder, setSortOrder] = useState<string>("featured");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<string>("categories");
+  // Removed activeTab since we're only showing categories now
   const productsPerPage = 12;
   
   // Scroll la secțiunea de produse când se încarcă pagina
@@ -55,7 +55,6 @@ export default function Products() {
     query: searchQueryTrim,
     page: currentPage,
     limit: productsPerPage,
-    brand: activeTab === "brands" && brand !== "All" ? brand : undefined,
     sort: sortOrder
   });
   
@@ -63,11 +62,10 @@ export default function Products() {
   const productResults = useProducts({
     page: currentPage,
     limit: productsPerPage,
-    category: activeTab === "categories" && category !== "All" ? category : undefined,
-    subCategory: (activeTab === "categories" && (category === "Clothing" || category === "Accessories") && subCategory !== "All") 
+    category: category !== "All" ? category : undefined,
+    subCategory: (category === "Accessories" && subCategory !== "All") 
       ? subCategory 
       : undefined,
-    brand: activeTab === "brands" && brand !== "All" ? brand : undefined,
     sort: sortOrder
   });
   
@@ -92,11 +90,7 @@ export default function Products() {
     setCurrentPage(1); // Reset to first page
   };
   
-  // Handle brand change
-  const handleBrandChange = (newBrand: ProductBrand) => {
-    setBrand(newBrand);
-    setCurrentPage(1); // Reset to first page
-  };
+  // Brand functionality removed as per requirements
 
   // Handle pagination
   const paginate = (pageNumber: number) => {
@@ -162,137 +156,64 @@ export default function Products() {
             <div className="mb-8 flex flex-col p-4 rounded-xl shadow-md glow-card">
               {/* Tab Navigation */}
               <div className="mb-4">
-                <Tabs defaultValue="categories" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 bg-black/50 p-1 rounded-full border border-primary/30">
-                    <TabsTrigger 
-                      value="categories" 
-                      className={`rounded-full ${activeTab === 'categories' ? 'bg-primary text-white' : 'text-white'}`}
-                      onClick={() => {
-                        if (brand !== "All") {
-                          setBrand("All"); // Reset brand when switching to categories
-                        }
-                      }}
-                    >
-                      Categories
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="brands" 
-                      className={`rounded-full ${activeTab === 'brands' ? 'bg-primary text-white' : 'text-white'}`}
-                      onClick={() => {
-                        if (category !== "All") {
-                          setCategory("All"); // Reset category when switching to brands
-                        }
-                      }}
-                    >
-                      <Tag className="mr-2 h-4 w-4" />
-                      Brands
-                    </TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="categories" className="mt-4">
-                    <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 w-full">
-                      {/* Generate buttons for all categories */}
-                      {["All", "Shoes", "Clothing", "Accessories", "Bags & Backpacks", "Reptronics + Watches", "Jewelry", "Opium Style", "Room Decor & Misc Items"]
-                        .map((cat) => (
-                          <Button 
-                            key={cat}
-                            variant={category === cat ? "default" : "outline"}
-                            className={category === cat 
-                              ? "bg-primary text-white hover:bg-primary/80 rounded-full text-sm px-6 py-2.5 font-medium"
-                              : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-sm px-6 py-2.5 font-medium"
-                            }
-                            onClick={() => handleCategoryChange(cat as ProductCategory)}
-                          >
-                            {cat === "All" ? "All Products" : cat}
-                          </Button>
-                        ))
-                      }
+                {/* Only categories now, no tabs needed */}
+                <div className="text-center mb-4">
+                  <h2 className="text-lg font-semibold text-white">Filter by Category</h2>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                  {/* Generate category tiles with icons */}
+                  {[
+                    "All",
+                    "Trending Now", 
+                    "Latest Finds", 
+                    "Shoes", 
+                    "T-shirt and Shorts", 
+                    "Hoodies and Pants", 
+                    "Coats and Jackets", 
+                    "Accessories", 
+                    "Electronic Products", 
+                    "Perfumes", 
+                    "Womans"
+                  ].map((cat) => (
+                    <CategoryTile
+                      key={cat}
+                      label={cat}
+                      isActive={category === cat}
+                      onClick={() => handleCategoryChange(cat as ProductCategory)}
+                    />
+                  ))}
+                </div>
+                
+                {/* Show subcategories for Accessories only */}
+                {category === "Accessories" && (
+                  <div className="mt-4 border-t border-primary/30 pt-4">
+                    <h3 className="text-sm text-white mb-3 text-center">Accessories Subcategories</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+                      {[
+                        "All",
+                        "Peaked Cap",
+                        "Knitted Hat", 
+                        "Belt",
+                        "Scarf",
+                        "Bags",
+                        "Wallet",
+                        "Jewelry",
+                        "Sunglasses",
+                        "Underwear and Socks",
+                        "Other"
+                      ].map((subCat) => (
+                        <CategoryTile
+                          key={subCat}
+                          label={subCat}
+                          isSubcategory={true}
+                          isActive={subCategory === subCat}
+                          onClick={() => handleSubCategoryChange(subCat as SubCategory)}
+                        />
+                      ))}
                     </div>
-                    
-                    {/* Show subcategories for Clothing */}
-                    {category === "Clothing" && (
-                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-primary/30 pt-4">
-                        <h3 className="w-full text-sm text-white mb-2">Subcategories:</h3>
-                        {["All", "T-Shirts", "Shirts", "Hoodies", "Jackets", "Sweaters", "Pants & Jeans", "Shorts", "Tracksuits", "Boxers", "Jerseys", "Socks", "Women", "Kids"]
-                          .map((subCat) => (
-                            <Button 
-                              key={subCat}
-                              variant={subCategory === subCat ? "default" : "outline"}
-                              size="sm"
-                              className={subCategory === subCat 
-                                ? "bg-primary text-white hover:bg-primary/80 rounded-full text-xs"
-                                : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-xs"
-                              }
-                              onClick={() => handleSubCategoryChange(subCat as SubCategory)}
-                            >
-                              {subCat === "All" ? "All Clothing" : subCat}
-                            </Button>
-                          ))
-                        }
-                      </div>
-                    )}
-                    
-                    {/* Show subcategories for Accessories */}
-                    {category === "Accessories" && (
-                      <div className="mt-4 flex flex-wrap gap-2 overflow-x-auto pb-2 w-full border-t border-primary/30 pt-4">
-                        <h3 className="w-full text-sm text-white mb-2">Subcategories:</h3>
-                        {["All", "Eyewear", "Wallets & Small Accessories", "Fashion Accessories"]
-                          .map((subCat) => (
-                            <Button 
-                              key={subCat}
-                              variant={subCategory === subCat ? "default" : "outline"}
-                              size="sm"
-                              className={subCategory === subCat 
-                                ? "bg-primary text-white hover:bg-primary/80 rounded-full text-xs"
-                                : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-xs"
-                              }
-                              onClick={() => handleSubCategoryChange(subCat as SubCategory)}
-                            >
-                              {subCat === "All" ? "All Accessories" : subCat}
-                            </Button>
-                          ))
-                        }
-                      </div>
-                    )}
-                  </TabsContent>
-                  
-                  <TabsContent value="brands" className="mt-4">
-                    <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 w-full">
-                      {/* Generate buttons for all available brands */}
-                      {["All", "33Trente", "4Tune", "ADIDAS", "ADWYSD", "AIME LEON DORE", "Air Jordan", "AKIMBO", 
-                        "ALEXANDER MCQUEEN", "AMI", "AMIRI", "ANTISOCIAL CLUB", "Arc'teryx", "ASICS", "ASTROWORLD", 
-                        "BALENCIAGA", "BAPE", "BIRKINSTOCKS", "BROKEN PLANET", "Burberry", "C.P.COMPANY", 
-                        "CACTUS JACK", "Calvin Klein", "Canada Goose", "Carhartt", "Carsicko", "Casablanca", 
-                        "CHANEL", "CHICAGO BULLS", "Chrome Hearts", "Cole Buxton", "Comme des Garçons", 
-                        "CONVERSE", "Corteiz", "CPFM", "Crocodile", "DENIM TEARS", "Diesel", "Dior", 
-                        "DREW HOUSE", "Dsquared", "EMPORIO ARMANI EA7", "ENFANTS RICHES DÉPRIMÉS", 
-                        "Eric Emanuel", "EVISU", "Fear of God Essentials", "Fendi", "Gallery Dept", 
-                        "GANNI", "GUCCI", "HELLSTAR", "House of Errors", "IDLT", "KAPITAL", "Kanye", 
-                        "Kaws", "Kenzo Paris", "KOLON SPORT", "LACOSTE", "LANVIN", "LORO PIANA", 
-                        "LOUIS VUITTON", "Maison Margiela", "MAISON MIHARA YASUHIRO", "MLB", "Moncler", 
-                        "Moose Knuckles", "MYSTERY", "NBA", "Needles", "NEW BALANCE", "Nike", "Oakley", 
-                        "OFF-WHITE", "Palm Angels", "Patagonia", "PLAYBOI CARTI", "PRADA", "RAF SIMONS", 
-                        "Ralph Lauren", "RANBO", "Represent", "REVENGE", "Rhude", "RICK OWENS", "SAINT LAURENT", 
-                        "SP5DER", "STONE ISLAND", "STUSSY", "SUBHUMAN", "SUPREME", "SYNA WORLD", 
-                        "The North Face", "Thom Browne", "TIMBERLANDS", "Trapstar", "Travis Scott", "UGG", 
-                        "Under Armour", "UNDERCOVER", "VETEMENTS", "VLONE", "Vuja De", "Y2", "YEEZY"]
-                        .map((br) => (
-                          <Button 
-                            key={br}
-                            variant={brand === br ? "default" : "outline"}
-                            className={brand === br
-                              ? "bg-primary text-white hover:bg-primary/80 rounded-full text-sm"
-                              : "bg-black border border-primary/50 text-white hover:bg-primary/30/30 rounded-full text-sm"
-                            }
-                            onClick={() => handleBrandChange(br as ProductBrand)}
-                          >
-                            {br === "All" ? "All Brands" : br}
-                          </Button>
-                        ))
-                      }
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                )}
               </div>
               
               {/* No sorting options as requested */}

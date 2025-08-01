@@ -1,40 +1,64 @@
+// Updated types for new taxonomy and pricing structure
+
+export type MainCategory =
+  | "Trending Now"
+  | "Latest Finds"
+  | "Shoes"
+  | "T-shirt and Shorts"
+  | "Hoodies and Pants"
+  | "Coats and Jackets"
+  | "Accessories"
+  | "Electronic Products"
+  | "Perfumes"
+  | "Womans";
+
+export type AccessoriesSubcategory =
+  | "Peaked Cap"
+  | "Knitted Hat"
+  | "Belt"
+  | "Scarf"
+  | "Bags"
+  | "Wallet"
+  | "Jewelry"
+  | "Sunglasses"
+  | "Underwear and Socks"
+  | "Other";
+
+// Legacy types for backward compatibility
+export type ProductCategory = MainCategory | "All";
+export type ClothingSubCategory = "All";
+
 export interface Product {
   id: number;
   title: string;
-  price: string;
+  price: string; // legacy field
+  priceUSD?: string; // new field from CSV
   image: string;
   buyUrl: string;
-  viewUrl: string;
-  category: string;
-  subCategory?: string | null;  // Subcategoria produsului (opțional)
-  brand?: string | null;  // Brand-ul produsului (opțional)
-  featured: boolean | null;
-  carousel?: boolean | null;  // Pentru produsele afișate în carousel
+  category: MainCategory;
+  subCategory?: string;
+  featured?: boolean;
+  carousel?: boolean;
 }
 
-export type ProductCategory = "All" | "Shoes" | "Clothing" | "Accessories" | "Bags & Backpacks" | "Reptronics + Watches" | "Jewelry" | "Opium Style" | "Room Decor & Misc Items";
+// CSV import helper functions
+export function parsePriceUSD(v: string): number {
+  const s = (v ?? "").toString().trim().replace(",", ".");
+  const n = Number(s);
+  return Number.isFinite(n) ? n : NaN;
+}
 
-// Subcategories for Clothing
-export type ClothingSubCategory = "All" | "T-Shirts" | "Shirts" | "Hoodies" | "Jackets" | "Sweaters" | "Pants & Jeans" | "Shorts" | "Tracksuits" | "Boxers" | "Jerseys" | "Socks" | "Women" | "Kids";
-
-// Subcategories for Accessories
-export type AccessoriesSubCategory = "All" | "Eyewear" | "Wallets & Small Accessories" | "Fashion Accessories";
-
-// Brand-uri cunoscute pentru filtrare
-export type ProductBrand = "All" | "33Trente" | "4Tune" | "ADIDAS" | "ADWYSD" | "AIME LEON DORE" | "Air Jordan" | "AKIMBO" | 
-  "ALEXANDER MCQUEEN" | "AMI" | "AMIRI" | "ANTISOCIAL CLUB" | "Arc'teryx" | "ASICS" | "ASTROWORLD" | 
-  "BALENCIAGA" | "BAPE" | "BIRKINSTOCKS" | "BROKEN PLANET" | "Burberry" | "C.P.COMPANY" | 
-  "CACTUS JACK" | "Calvin Klein" | "Canada Goose" | "Carhartt" | "Carsicko" | "Casablanca" | 
-  "CHANEL" | "CHICAGO BULLS" | "Chrome Hearts" | "Cole Buxton" | "Comme des Garçons" | 
-  "CONVERSE" | "Corteiz" | "CPFM" | "Crocodile" | "DENIM TEARS" | "Diesel" | "Dior" | 
-  "DREW HOUSE" | "Dsquared" | "EMPORIO ARMANI EA7" | "ENFANTS RICHES DÉPRIMÉS" | 
-  "Eric Emanuel" | "EVISU" | "Fear of God Essentials" | "Fendi" | "Gallery Dept" | 
-  "GANNI" | "GUCCI" | "HELLSTAR" | "House of Errors" | "IDLT" | "KAPITAL" | "Kanye" | 
-  "Kaws" | "Kenzo Paris" | "KOLON SPORT" | "LACOSTE" | "LANVIN" | "LORO PIANA" | 
-  "LOUIS VUITTON" | "Maison Margiela" | "MAISON MIHARA YASUHIRO" | "MLB" | "Moncler" | 
-  "Moose Knuckles" | "MYSTERY" | "NBA" | "Needles" | "NEW BALANCE" | "Nike" | "Oakley" | 
-  "OFF-WHITE" | "Palm Angels" | "Patagonia" | "PLAYBOI CARTI" | "PRADA" | "RAF SIMONS" | 
-  "Ralph Lauren" | "RANBO" | "Represent" | "REVENGE" | "Rhude" | "RICK OWENS" | "SAINT LAURENT" | 
-  "SP5DER" | "STONE ISLAND" | "STUSSY" | "SUBHUMAN" | "SUPREME" | "SYNA WORLD" | 
-  "The North Face" | "Thom Browne" | "TIMBERLANDS" | "Trapstar" | "Travis Scott" | "UGG" | 
-  "Under Armour" | "UNDERCOVER" | "VETEMENTS" | "VLONE" | "Vuja De" | "Y2" | "YEEZY" | "Other";
+export function normalizeCSVRow(row: Record<string, string>) {
+  const priceNum = parsePriceUSD(row.priceUSD || "0");
+  return {
+    title: row.title?.trim() || "",
+    priceUSD: priceNum.toString(),
+    price: `$${priceNum.toFixed(2)}`, // legacy format
+    image: row.image?.trim() || "",
+    buyUrl: row.buyUrl?.trim() || "",
+    category: row.category?.trim() as MainCategory,
+    subCategory: row.subcategory?.trim() || undefined,
+    featured: String(row.featured || "false").toLowerCase() === "true",
+    carousel: false, // default value
+  };
+}

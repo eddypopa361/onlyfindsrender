@@ -273,7 +273,7 @@ export default function ImportPage() {
                       className="text-white bg-gray-900 border-gray-700"
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      Fișierul CSV trebuie să conțină coloanele: title, price, image, buyUrl, viewUrl, category, brand, subcategory (sau Subcategory) și featured
+                      Fișierul CSV trebuie să conțină coloanele: title, priceUSD, image, buyUrl, category, subcategory, featured
                     </p>
                   </div>
                 </div>

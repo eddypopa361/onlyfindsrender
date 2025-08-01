@@ -1,0 +1,214 @@
+Vreau următoarele modificări la pagina /products și la importul CSV, fără să afectezi restul funcționalităților:
+
+1) TAXONOMIE CATEGORII
+   - Elimină orice filtrare/categorizare pe Brand (brand-uri). Nu mai afișăm și nu mai stocăm brand ca subcategorie / facet.
+   - Păstrăm categoriile principale EXACT așa:
+     ["Trending Now","Latest Finds","Shoes","T-shirt and Shorts","Hoodies and Pants","Coats and Jackets","Accessories","Electronic Products","Perfumes","Womans"]
+   - Pentru categoria "Accessories" adăugăm subcategoriile EXACT:
+     ["Peaked Cap","Knitted Hat","Belt","Scarf","Bags","Wallet","Jewelry","Sunglasses","Underwear and Socks","Other"]
+   - Dacă există alte subcategorii istorice, le ignorăm (nu le mai afișăm).
+
+   Tipuri/validări:
+   - Actualizează tipurile/enum-urile (TS) pentru Category/Subcategory și orice validare aferentă.
+
+2) DESIGN CONTAINERE CATEGORII/SUBCATEGORII
+   - Fiecare card de categorie/subcategorie trebuie să aibă o mică pictogramă deasupra textului.
+   - Folosește un set de icoane deja în proiect (dacă avem) sau, dacă nu, importă o bibliotecă lightweight (ex: lucide-react).
+   - Creează un mapping `iconByCategory` și `iconBySubcategory` și randează iconul centrat, deasupra label-ului.
+
+3) CSV IMPORT (/admin/import)
+   - Schimbăm formatul acceptat. De acum folosim aceste coloane (în această ordine ideală):
+     title,priceUSD,image,buyUrl,category,subcategory,featured
+     * `priceUSD` va fi de forma "22.23" (string/număr), fără simbolul "$".
+     * `viewUrl` NU mai este folosit — elimină suportul pt. viewUrl din import, tipuri, validări și UI.
+   - La import, curăță whitespace și validează că `priceUSD` este numeric (poate fi string dar parseable în float).
+   - Dacă lipsesc `category` și/sau `subcategory`, acceptă totuși produsul (dar fără brand logic).
+   - Documentează în README/admin ce coloană trebuie folosită.
+
+4) CARD PRODUS (grid / listă din /products)
+   - Elimină butoanele "View Details" și "More Info".
+   - Fă întreg cardul **clickable** (ancoră unică ce duce la `buyUrl`). Nu crea ancore imbricate.
+   - Butonul care exista în card devine un badge/CTA vizual ce afișează **prețul** (format: `$22.23` folosind `priceUSD`).
+   - Păstrează restul layout-ului; ajustează aria/accessibility pentru card-link.
+
+5) TESTE & VERIFICARE
+   - Actualizează tipurile (TS) pentru `Product` și import.
+   - Dacă există căutare/filtre pe brand, scoate-le (UI + logică).
+   - Afișează iconul corespunzător pe card-urile de categorie/subcategorie.
+
+6) OUTPUT
+   - Listează fișierele modificate și diffs.
+   - Arată un exemplu minim de CSV nou (3 rânduri).
+   - Explică pe scurt cum s-a făcut clickarea întregului card și cum se formatează `priceUSD`.
+✅ Fragmente utile (pe care le poate insera Agentul)
+1) Tipuri (TS)
+ts
+Copy
+Edit
+// types/product.ts
+export type MainCategory =
+  | "Trending Now"
+  | "Latest Finds"
+  | "Shoes"
+  | "T-shirt and Shorts"
+  | "Hoodies and Pants"
+  | "Coats and Jackets"
+  | "Accessories"
+  | "Electronic Products"
+  | "Perfumes"
+  | "Womans";
+
+export type AccessoriesSubcategory =
+  | "Peaked Cap"
+  | "Knitted Hat"
+  | "Belt"
+  | "Scarf"
+  | "Bags"
+  | "Wallet"
+  | "Jewelry"
+  | "Sunglasses"
+  | "Underwear and Socks"
+  | "Other";
+
+export type Product = {
+  id: string;
+  title: string;
+  priceUSD: number;         // numeric după import
+  image: string;
+  buyUrl: string;
+  category?: MainCategory;
+  subcategory?: string;     // AccessoriesSubcategory | string
+  featured?: boolean;
+  // brand?: string;        // eliminat din UI/filtre
+};
+2) Import CSV (parser simplu)
+ts
+Copy
+Edit
+// lib/importCsv.ts
+export function parsePriceUSD(v: string): number {
+  const s = (v ?? "").toString().trim().replace(",", ".");
+  const n = Number(s);
+  return Number.isFinite(n) ? n : NaN;
+}
+
+// așteptăm headerele: title,priceUSD,image,buyUrl,category,subcategory,featured
+export function normalizeRow(row: Record<string,string>) {
+  const priceNum = parsePriceUSD(row.priceUSD);
+  return {
+    title: row.title?.trim(),
+    priceUSD: priceNum,
+    image: row.image?.trim(),
+    buyUrl: row.buyUrl?.trim(),
+    category: row.category?.trim() as any,
+    subcategory: row.subcategory?.trim() || undefined,
+    featured: String(row.featured).toLowerCase() === "true",
+  };
+}
+3) Card produs clickable + preț în “buton”
+tsx
+Copy
+Edit
+// components/ProductCard.tsx
+import { cn } from "@/lib/cn";
+
+type Props = {
+  product: import("@/types/product").Product;
+};
+
+export default function ProductCard({ product }: Props) {
+  const priceLabel = Number.isFinite(product.priceUSD)
+    ? `$${product.priceUSD.toFixed(2)}`
+    : "";
+
+  return (
+    <a
+      href={product.buyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        "group block rounded-xl border border-neutral-800 bg-neutral-950 p-4 hover:border-primary-500 hover:shadow-glow-primary transition"
+      )}
+      aria-label={`Open ${product.title}`}
+    >
+      <div className="aspect-square w-full overflow-hidden rounded-lg bg-neutral-900">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={product.image}
+          alt={product.title}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+
+      <div className="mt-3 flex items-start justify-between gap-2">
+        <h3 className="text-base font-medium text-white line-clamp-2">
+          {product.title}
+        </h3>
+
+        {priceLabel && (
+          <span className="shrink-0 rounded-md bg-primary-500/10 px-2 py-1 text-xs font-semibold text-white ring-1 ring-inset ring-primary-500/40">
+            {priceLabel}
+          </span>
+        )}
+      </div>
+      {/* Eliminat "View Details" / "More Info" */}
+    </a>
+  );
+}
+4) Icon mapping pentru categorii (ex. lucide-react)
+tsx
+Copy
+Edit
+// components/categoryIcons.tsx
+import { Tag, Flame, Clock, Shoe, Shirt, Hoodie, Coat, Backpack, Cpu, Perfume, VenetianMask, Glasses, Wallet, Gem, ShoppingBag, Underline } from "lucide-react";
+
+export const iconByCategory: Record<string, any> = {
+  "Trending Now": Flame,
+  "Latest Finds": Clock,
+  "Shoes": Shoe,
+  "T-shirt and Shorts": Shirt,
+  "Hoodies and Pants": Hoodie,
+  "Coats and Jackets": Coat,
+  "Accessories": Backpack,
+  "Electronic Products": Cpu,
+  "Perfumes": Perfume,
+  "Womans": VenetianMask
+};
+
+export const iconBySubcategory: Record<string, any> = {
+  "Peaked Cap": Tag,
+  "Knitted Hat": Hoodie,
+  "Belt": Underline,
+  "Scarf": Coat,
+  "Bags": ShoppingBag,
+  "Wallet": Wallet,
+  "Jewelry": Gem,
+  "Sunglasses": Glasses,
+  "Underwear and Socks": Shirt,
+  "Other": Tag
+};
+5) Card categorie cu icon deasupra textului
+tsx
+Copy
+Edit
+// components/CategoryTile.tsx
+import { iconByCategory } from "./categoryIcons";
+
+export function CategoryTile({ label }: { label: string }) {
+  const Icon = iconByCategory[label];
+  return (
+    <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950 p-4 hover:border-primary-500 transition">
+      {Icon ? <Icon className="h-6 w-6 text-primary-500" aria-hidden /> : null}
+      <span className="text-sm font-medium text-white text-center">{label}</span>
+    </div>
+  );
+}
+📄 CSV nou: exemplu (fără viewUrl)
+arduino
+Copy
+Edit
+title,priceUSD,image,buyUrl,category,subcategory,featured
+"Air Max 270","129.99","https://cdn.example.com/270.jpg","https://shop.example.com/270","Shoes","",true
+"Classic Wallet","39.90","https://cdn.example.com/wallet.jpg","https://shop.example.com/wallet","Accessories","Wallet",false
+"Knitted Beanie","24.50","https://cdn.example.com/beanie.jpg","https://shop.example.com/beanie","Accessories","Knitted Hat",false
