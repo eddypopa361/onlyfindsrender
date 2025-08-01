@@ -22,8 +22,11 @@ export function ProductCard({ product }: ProductCardProps) {
       href={product.buyUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-2xl border border-gray-900 bg-black hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300"
+      className="group block rounded-2xl border-2 border-primary/40 bg-black hover:border-primary/70 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 outline outline-1 outline-primary/60 outline-offset-2 hover:outline-primary/90 hover:outline-offset-3"
       aria-label={`Buy ${product.title}`}
+      style={{
+        boxShadow: '0 0 15px rgba(0, 189, 255, 0.3), 0 0 30px rgba(0, 189, 255, 0.1)'
+      }}
     >
       <Card className="rounded-2xl overflow-hidden bg-transparent border-0 h-full">
         <div className="relative pb-[100%] overflow-hidden">
