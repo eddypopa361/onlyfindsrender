@@ -1,0 +1,4 @@
+title,priceUSD,image,buyUrl,category,subcategory,featured
+Air Force 1 Test,25.99,test-image.jpg,https://cnfans.com/product?platform=WEIDIAN&id=test123,Shoes,,true
+Adidas Test Hoodie,45.50,test-hoodie.jpg,https://cnfans.com/product?platform=WEIDIAN&id=test456,Hoodies and Pants,,false
+Test Sunglasses,15.00,test-glasses.jpg,https://cnfans.com/product?platform=WEIDIAN&id=test789,Accessories,Sunglasses,false

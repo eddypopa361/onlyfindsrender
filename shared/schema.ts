@@ -23,7 +23,9 @@ export const products = pgTable("products", {
   priceUSD: text("price_usd"), // New numeric price field
   image: text("image").notNull(),
   buyUrl: text("buy_url").notNull(),
+  viewUrl: text("view_url"), // Made optional
   category: text("category").notNull(),
+  brand: text("brand"), // Made optional  
   subCategory: text("sub_category"),  // Subcategoria pentru filtrare suplimentară
   featured: boolean("featured").default(false),
   carousel: boolean("carousel").default(false), // Indicator pentru produsele din carusel
@@ -35,7 +37,9 @@ export const insertProductSchema = createInsertSchema(products).pick({
   priceUSD: true,
   image: true,
   buyUrl: true,
+  viewUrl: true,
   category: true,
+  brand: true,
   subCategory: true,
   featured: true,
   carousel: true,

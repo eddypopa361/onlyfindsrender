@@ -465,39 +465,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
             imagePath = `/uploads/${imagePath}`;
           }
           
-          // Detectăm brand-ul din titlu
-          const detectBrand = (title: string): string => {
-            const brands = [
-              "Nike", "Adidas", "Jordan", "Yeezy", "Puma", "Reebok", "New Balance", 
-              "Converse", "Vans", "Under Armour", "Balenciaga", "Gucci", "Louis Vuitton", 
-              "Dior", "Off-White", "Supreme", "Prada", "Versace", "Valentino", "North Face"
-            ];
-            
-            for (const brand of brands) {
-              if (title.toUpperCase().includes(brand.toUpperCase())) {
-                return brand;
-              }
-            }
-            
-            return "Other";
-          };
-          
+          // New CSV format: title, priceUSD, image, buyUrl, category, subcategory, featured
           const productTitle = record.title || "";
-          const productBrand = record.brand || detectBrand(productTitle);
-          
-          // Obținem subcategoria din înregistrare
+          const priceUSD = record.priceUSD || record.priceUsd || record.price_usd || null;
           const subCategoryValue = record.subcategory || record.Subcategory || record.subCategory || null;
           
           const product = {
             title: productTitle,
-            price: record.price || "0",
+            price: priceUSD || "0", // Use priceUSD as fallback for legacy price
+            priceUSD: priceUSD,
             image: imagePath,
             buyUrl: record.buyUrl || record.buy_url || "",
-            viewUrl: record.viewUrl || record.view_url || "",
+            viewUrl: null, // Not required in new format
             category: record.category || "Other",
-            brand: productBrand,
+            brand: null, // Not used in new format
             subCategory: subCategoryValue,
-            featured: record.featured === "true" || record.featured === "1"
+            featured: record.featured === "true" || record.featured === "1" || false,
+            carousel: false
           };
           
           // Validate each product
@@ -510,8 +494,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
-        // Delete the temporary file
-        fs.unlinkSync(req.file.path);
+        // Delete the temporary file safely
+        try {
+          if (fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+          }
+        } catch (unlinkError) {
+          console.warn("Warning: Could not delete temporary file:", unlinkError);
+        }
         
         // Insert validated products in chunks
         if (records.length > 0) {
@@ -526,9 +516,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } catch (error: any) {
         console.error("CSV import error:", error);
-        // Delete the temporary file in case of error
+        // Delete the temporary file in case of error (safely)
         if (req.file) {
-          fs.unlinkSync(req.file.path);
+          try {
+            if (fs.existsSync(req.file.path)) {
+              fs.unlinkSync(req.file.path);
+            }
+          } catch (unlinkError) {
+            console.warn("Warning: Could not delete temporary file:", unlinkError);
+          }
         }
         return res.status(500).json({ 
           message: "Eroare la procesarea fișierului CSV", 
