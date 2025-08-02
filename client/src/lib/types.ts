@@ -10,7 +10,7 @@ export type MainCategory =
   | "Accessories"
   | "Electronic Products"
   | "Perfumes"
-  | "Womans";
+  | "Women";
 
 export type AccessoriesSubcategory =
   | "Peaked Cap"

@@ -32,7 +32,7 @@ export const iconByCategory: Record<string, any> = {
   "Accessories": Backpack,
   "Electronic Products": Cpu,
   "Perfumes": Sparkles,
-  "Womans": Crown
+  "Women": Crown
 };
 
 export const iconBySubcategory: Record<string, any> = {
