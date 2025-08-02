@@ -1,11 +1,15 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Product } from "@/lib/types";
+import { HelpCircle } from "lucide-react";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const [imageError, setImageError] = useState(false);
+  
   // Calculate price label from priceUSD or fallback to legacy price
   const getPriceLabel = () => {
     if (product.priceUSD) {
@@ -16,6 +20,10 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   const priceLabel = getPriceLabel();
+  
+  // Check if image is missing or invalid
+  const hasValidImage = product.image && product.image.trim() !== '';
+  const shouldShowFallback = !hasValidImage || imageError;
 
   return (
     <a
@@ -30,19 +38,22 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <Card className="rounded-2xl overflow-hidden bg-transparent border-0 h-full">
         <div className="relative pb-[100%] overflow-hidden">
-          <picture>
-            <source srcSet={`${product.image}.webp`} type="image/webp" />
-            <img 
-              src={product.image} 
-              alt={product.title}
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/uploads/placeholder-shoe.jpg';
-              }}
-            />
-          </picture>
+          {shouldShowFallback ? (
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-900/50 rounded-t-2xl">
+              <HelpCircle className="w-12 h-12 text-primary" />
+            </div>
+          ) : (
+            <picture>
+              <source srcSet={`${product.image}.webp`} type="image/webp" />
+              <img 
+                src={product.image} 
+                alt={product.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                onError={() => setImageError(true)}
+              />
+            </picture>
+          )}
         </div>
         <CardContent className="p-4 text-white">
           <div className="flex items-start justify-between gap-2">

@@ -98,10 +98,15 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFeaturedProducts(): Promise<Product[]> {
-    return await db.select().from(products)
+    const featuredProducts = await db.select().from(products)
       .where(eq(products.featured, true))
       .orderBy(desc(products.id))
-      .limit(8);
+      .limit(16); // Get more to filter and ensure we have enough with images
+    
+    // Filter out products without valid images
+    return featuredProducts
+      .filter(product => product.image && product.image.trim() !== '')
+      .slice(0, 8); // Return max 8 with valid images
   }
   
   async getCarouselProducts(): Promise<Product[]> {
@@ -113,7 +118,8 @@ export class DatabaseStorage implements IStorage {
     
     for (const id of carouselIds) {
       const [product] = await db.select().from(products).where(eq(products.id, id));
-      if (product) {
+      // Only include products with valid images for carousel
+      if (product && product.image && product.image.trim() !== '') {
         carouselProducts.push(product);
       }
     }
