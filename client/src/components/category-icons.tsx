@@ -18,9 +18,9 @@ export const imageBySubcategory: Record<string, string> = {
   "Belt": "/uploads/Belt.webp",
   "Scarf": "/uploads/Scarf.webp",
   "Bags": "/uploads/Bags.webp",
-  "Wallet": "/uploads/Bags.webp", // Use Bags as fallback for Wallet
+  "Wallet": "/uploads/Wallet.webp",
   "Jewelry": "/uploads/Jewerly.webp", // Note: filename has typo but matches upload
-  "Sunglasses": "/uploads/Bags.webp", // Use Bags as fallback for Sunglasses
-  "Underwear and Socks": "/uploads/Bags.webp", // Use Bags as fallback for Underwear
-  "Other": "/uploads/Bags.webp" // Use Bags as fallback for Other
+  "Sunglasses": "/uploads/Sunglasses.webp",
+  "Underwear and Socks": "/uploads/Underwear and Socks.webp",
+  "Other": "/uploads/Other.webp"
 };
