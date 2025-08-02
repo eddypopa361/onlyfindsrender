@@ -174,7 +174,7 @@ export default function Products() {
                     "Accessories", 
                     "Electronic Products", 
                     "Perfumes", 
-                    "Womans"
+                    "Women"
                   ].map((cat) => (
                     <CategoryTile
                       key={cat}
