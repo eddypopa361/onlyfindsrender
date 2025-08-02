@@ -28,14 +28,14 @@ function generateProductPageHtml(product: any) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${product.title} - TJREPS DEMO</title>
+  <title>${product.title} - OnlyFinds</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">TJREPS <span>DEMO</span></a>
+      <a href="/" class="logo">OnlyFinds <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
@@ -94,7 +94,7 @@ function generateProductPageHtml(product: any) {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>© ${new Date().getFullYear()} OnlyFinds - Static Export</p>
     </div>
   </footer>
   
@@ -203,14 +203,14 @@ function generateCategoryPageHtml(category: string, products: any[]) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${category} Products - TJREPS DEMO</title>
+  <title>${category} Products - OnlyFinds</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">TJREPS <span>DEMO</span></a>
+      <a href="/" class="logo">OnlyFinds <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
