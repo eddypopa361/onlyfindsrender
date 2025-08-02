@@ -1,4 +1,4 @@
-import { iconByCategory, iconBySubcategory } from "./category-icons";
+import { imageByCategory, imageBySubcategory } from "./category-icons";
 
 interface CategoryTileProps {
   label: string;
@@ -13,26 +13,31 @@ export function CategoryTile({
   isActive = false, 
   onClick 
 }: CategoryTileProps) {
-  const Icon = isSubcategory ? iconBySubcategory[label] : iconByCategory[label];
+  const imageUrl = isSubcategory ? imageBySubcategory[label] : imageByCategory[label];
   
   return (
     <button
       onClick={onClick}
-      className={`flex flex-col items-center justify-center gap-2 rounded-xl border p-4 transition-all duration-300 ${
+      className={`flex flex-col items-center justify-center gap-3 rounded-xl border p-6 transition-all duration-300 min-h-[120px] ${
         isActive
           ? "border-primary/50 bg-primary/20 shadow-lg shadow-primary/20"
           : "border-gray-800 bg-gray-950 hover:border-primary/30 hover:bg-gray-900"
       }`}
     >
-      {Icon && (
-        <Icon 
-          className={`h-6 w-6 ${
-            isActive ? "text-primary" : "text-primary/70"
-          }`} 
-          aria-hidden="true" 
-        />
+      {imageUrl && (
+        <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+          <img 
+            src={imageUrl}
+            alt={label}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Fallback to a placeholder if image fails to load
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
       )}
-      <span className={`text-sm font-medium text-center ${
+      <span className={`text-sm font-medium text-center leading-tight ${
         isActive ? "text-white" : "text-gray-300"
       }`}>
         {label}

@@ -161,7 +161,7 @@ export default function Products() {
                   <h2 className="text-lg font-semibold text-white">Filter by Category</h2>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
                   {/* Generate category tiles with icons */}
                   {[
                     "All",
@@ -189,7 +189,7 @@ export default function Products() {
                 {category === "Accessories" && (
                   <div className="mt-4 border-t border-primary/30 pt-4">
                     <h3 className="text-sm text-white mb-3 text-center">Accessories Subcategories</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                       {[
                         "All",
                         "Peaked Cap",

@@ -1,49 +1,26 @@
-import { 
-  Flame, 
-  Clock, 
-  Footprints, 
-  Shirt, 
-  Layers, 
-  Shield, 
-  Backpack, 
-  Cpu, 
-  Sparkles, 
-  Crown,
-  // Subcategory icons
-  HardHat,
-  Package2,
-  Circle,
-  Wind,
-  ShoppingBag,
-  Wallet,
-  Gem,
-  Glasses,
-  Package,
-  Tag
-} from "lucide-react";
-
-export const iconByCategory: Record<string, any> = {
-  "Trending Now": Flame,
-  "Latest Finds": Clock,
-  "Shoes": Footprints,
-  "T-shirt and Shorts": Shirt,
-  "Hoodies and Pants": Layers,
-  "Coats and Jackets": Shield,
-  "Accessories": Backpack,
-  "Electronic Products": Cpu,
-  "Perfumes": Sparkles,
-  "Women": Crown
+// Category and subcategory image mappings
+export const imageByCategory: Record<string, string> = {
+  "Trending Now": "/uploads/Trending Now.webp",
+  "Latest Finds": "/uploads/Latest Finds.webp",
+  "Shoes": "/uploads/Shoes.webp",
+  "T-shirt and Shorts": "/uploads/T-shirt and Shorts.webp",
+  "Hoodies and Pants": "/uploads/Hoodies and Pants.webp",
+  "Coats and Jackets": "/uploads/Coats and Jackets.webp",
+  "Accessories": "/uploads/Bags.webp", // Use Bags as generic accessories image
+  "Electronic Products": "/uploads/Electronic Products.webp",
+  "Perfumes": "/uploads/Perfumes.webp",
+  "Women": "/uploads/Women.webp"
 };
 
-export const iconBySubcategory: Record<string, any> = {
-  "Peaked Cap": HardHat,
-  "Knitted Hat": Package2,
-  "Belt": Circle,
-  "Scarf": Wind,
-  "Bags": ShoppingBag,
-  "Wallet": Wallet,
-  "Jewelry": Gem,
-  "Sunglasses": Glasses,
-  "Underwear and Socks": Package,
-  "Other": Tag
+export const imageBySubcategory: Record<string, string> = {
+  "Peaked Cap": "/uploads/Peaked Hat.webp",
+  "Knitted Hat": "/uploads/Knitted Hat.webp",
+  "Belt": "/uploads/Belt.webp",
+  "Scarf": "/uploads/Scarf.webp",
+  "Bags": "/uploads/Bags.webp",
+  "Wallet": "/uploads/Bags.webp", // Use Bags as fallback for Wallet
+  "Jewelry": "/uploads/Jewerly.webp", // Note: filename has typo but matches upload
+  "Sunglasses": "/uploads/Bags.webp", // Use Bags as fallback for Sunglasses
+  "Underwear and Socks": "/uploads/Bags.webp", // Use Bags as fallback for Underwear
+  "Other": "/uploads/Bags.webp" // Use Bags as fallback for Other
 };
