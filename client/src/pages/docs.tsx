@@ -70,6 +70,42 @@ export default function DocsPage() {
       readTime: "8 min read",
       tags: ["affiliate", "cnfans", "marketing", "referral", "content"],
       date: "2025-02-03"
+    },
+    {
+      title: "How to Save on Shipping: Complete CNFANS Discount Guide",
+      description: "Master shipping savings with CNFANS discount codes, register coupons, and proven cost-cutting strategies. Get access to the $129 CNFANS coupon and exclusive shipping deals.",
+      slug: "how-to-save-shipping-cnfans",
+      icon: DollarSign,
+      readTime: "9 min read",
+      tags: ["shipping", "discount", "cnfans", "coupons", "savings"],
+      date: "2025-02-03"
+    },
+    {
+      title: "Best Shipping Discounts CNFANS: 2025 Complete Guide",
+      description: "Discover the best CNFANS shipping discounts, promo codes, and money-saving tips. Learn how to use CNFANS coupons effectively and find cheap shipping options.",
+      slug: "best-cnfans-shipping-discounts-2025",
+      icon: Truck,
+      readTime: "11 min read",
+      tags: ["shipping", "discounts", "cnfans", "best-deals", "guide"],
+      date: "2025-02-03"
+    },
+    {
+      title: "Spreadsheet Product Import: Complete Ecommerce Guide",
+      description: "Learn how to import products from spreadsheet to your ecommerce store. Master Google Sheets product export, Excel import scripts, and automated catalog management.",
+      slug: "spreadsheet-product-import-guide",
+      icon: FileText,
+      readTime: "13 min read",
+      tags: ["spreadsheet", "import", "ecommerce", "automation", "catalog"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS Product Import Tips: Streamline Your Catalog",
+      description: "Optimize your product catalog with CNFANS import strategies. Discover spreadsheet automation, CSV export techniques, and efficient product management workflows.",
+      slug: "cnfans-product-import-tips",
+      icon: BookOpen,
+      readTime: "10 min read",
+      tags: ["cnfans", "import", "products", "automation", "workflow"],
+      date: "2025-02-03"
     }
   ];
 
