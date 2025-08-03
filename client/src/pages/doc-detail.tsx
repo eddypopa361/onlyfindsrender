@@ -34,6 +34,7 @@ export default function DocDetailPage() {
 
   const loadDocument = async (slug: string) => {
     try {
+      console.log("Loading document for slug:", slug);
       
       // Load documentation content - All 11 articles included
       const docMap: { [key: string]: DocContent } = {
@@ -2229,6 +2230,10 @@ Last updated: August 3, 2025.`
       };
 
       const content = docMap[slug];
+      console.log("Available keys:", Object.keys(docMap));
+      console.log("Looking for slug:", slug);
+      console.log("Found content:", !!content);
+      
       if (content) {
         setDocContent(content);
       } else {
