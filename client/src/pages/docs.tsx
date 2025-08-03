@@ -109,6 +109,10 @@ export default function DocsPage() {
     }
   ];
 
+  // Debug: Verificăm câte articole avem
+  console.log('Total docs:', docs.length);
+  console.log('Last 4 docs:', docs.slice(-4).map(d => d.title));
+
   return (
     <>
       <Helmet>
@@ -158,7 +162,7 @@ export default function DocsPage() {
             {docs.map((doc, index) => {
               const IconComponent = doc.icon;
               return (
-                <div key={doc.slug}>
+                <div key={`${doc.slug}-${index}`}>
                   <Card className="bg-gray-900/50 border-gray-800 hover:border-primary/30 transition-all group">
                     <CardHeader>
                       <div className="flex items-start gap-4">
