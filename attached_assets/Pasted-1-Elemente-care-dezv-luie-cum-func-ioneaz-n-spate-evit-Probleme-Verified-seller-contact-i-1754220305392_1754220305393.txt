@@ -1,0 +1,133 @@
+1) Elemente care dezvăluie „cum funcționează” în spate (evită)
+Probleme:
+
+„Verified seller contact information, reputation scores”
+
+„Shipping weight estimates and cost calculations”, „cost calculators”
+
+„Embedded coupon codes”
+
+„Regular update schedules and maintenance protocols”
+
+„Automated systems pulling real-time data, AI-powered…, price monitoring”
+
+„Group buying coordination features”, „community reporting & audits”
+
+De ce e rău: indică faptul că menții o bază de date internă, instrumente automate sau procese operaționale detaliate (ușor de contestat sau copiat).
+
+Înlocuire sigură:
+
+„Curated public links and category overviews, updated periodically.”
+
+„High-level savings tips and shipping guidance—no calculators or seller contacts published.”
+
+„Coupon reminders and best-practice guidance.”
+
+2) Termeni sensibili legali/brand
+Probleme:
+
+Repetiții despre „replica” / „designer replicas”, liste de branduri de lux.
+
+„Verification and authentication standards” (sună ca autenticare oficială).
+
+Risc: Expunere legală (mărci, IP).
+Înlocuire:
+
+Folosește „fashion finds / popular styles” și evită nume de brand.
+
+Elimină „authentication standards”; păstrează „general quality checks”.
+
+3) Dezvăluiri despre pipeline-ul tău de date
+Probleme:
+
+„Google Sheets product export”, „Excel scripts”, „ecommerce product import CSV”, „automate product catalog spreadsheet”.
+
+„image / buyUrl / priceUSD” (nume de câmp din schemă).
+
+Risc: arăți cum e construit site-ul și cum arată schema.
+Înlocuire:
+
+„Keep your catalog organized and ensure images and purchase links are valid.”
+
+Evită nume de câmp; spune „images” și „purchase links”, nu „buyUrl/priceUSD”.
+
+4) Afirmații neacoperite / superlative riscante
+Probleme:
+
+„the most comprehensive CNFANS spreadsheet collection”, „ultimate guide”, „revolutionize your shopping”.
+
+Procente: „20–40%” fără sursă.
+
+Corecții:
+
+„A comprehensive, curated overview…”, „in-depth guide…”.
+
+„Consolidation can significantly lower cost (results vary by line/zone).”
+
+5) Recomandări discutabile de rețea/securitate
+Probleme:
+
+Mențiuni de „VPN / different IP”, „monitor API calls in dev tools”.
+
+Risc: semnal prost de conformitate + prea tehnic pentru public.
+Înlocuire:
+
+„Try a different browser or private window; contact support with screenshots.”
+
+6) Platforme și comunități terțe
+Probleme:
+
+„Reddit, Discord, Telegram…” ca surse pentru „spreadsheets” + „invitation-only”.
+Risc: te poziționează ca intermediar spre comunități pe care nu le controlezi.
+Soluție:
+
+Menține focus pe propriul site și „public resources”. Fără liste de canale.
+
+7) Afirmații despre instrumente pe care (probabil) nu le ai
+Probleme:
+
+„Mobile apps for spreadsheet navigation”, „voice search”, „real-time inventory tracking”.
+Soluție:
+
+Elimină complet dacă nu există; altfel devine „false advertising”.
+
+Propuneri de rescriere (ready-to-paste)
+Titlu + lead
+Înlocuiește:
+“Access the most comprehensive CNFANS spreadsheet collection with verified links, organized categories, embedded coupon codes, and detailed product information…”
+
+Cu:
+“Explore curated CNFANS spreadsheet overviews with organized categories, current public links, and practical savings guidance for a smoother shopping experience.”
+
+„Core Components”
+Înlocuiește lista cu:
+
+“Curated categories and current public links”
+
+“High-level notes to help you compare options”
+
+“Periodic checks for freshness and relevance”
+
+“Practical coupon reminders and shipping tips”
+
+Șterge complet secțiunile:
+„Automated systems pulling real-time data / AI-powered…”
+
+„Group buying coordination / invite-only…”
+
+„Seller contact info, reputation scores, dispute resolution”
+
+„Legal guidance on replicas” (sau reformulează generic: „Always follow local laws and platform rules.”)
+
+Call-to-action + disclosure
+Păstrează CTA către linkul de înregistrare, dar adaugă disclosure în footerul articolului:
+“This article contains an affiliate link. We may earn a commission at no extra cost to you.”
+Și în anchor: rel="nofollow sponsored noopener".
+
+Verificare rapidă (ce să cauți și să ștergi)
+Cuvinte cheie sensibile: spreadsheet, Excel, CSV, script, seller contact, reputation, authentication, group buy, VPN, proxy, API call, response code, replica, liste de branduri.
+
+Nume de câmp: buyUrl, viewUrl, priceUSD.
+
+Superlative absolute: most comprehensive, ultimate, revolutionize.
+
