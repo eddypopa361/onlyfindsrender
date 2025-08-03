@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet";
-import { FileText, BookOpen, Users, ArrowRight, Clock, Tags } from "lucide-react";
+import { FileText, BookOpen, Users, ArrowRight, Clock, Tags, DollarSign, Truck } from "lucide-react";
 import ScrollAnimation from "@/components/ui/scroll-animation";
 
 interface DocItem {
@@ -43,6 +43,33 @@ export default function DocsPage() {
       readTime: "6 min read",
       tags: ["community", "guidelines", "ethics", "responsibility"],
       date: "2025-01-16"
+    },
+    {
+      title: "Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes",
+      description: "Complete guide to cutting CNFANS shipping costs with coupons, smart packaging, and order consolidation. Includes practical examples and the latest promo codes for maximum savings.",
+      slug: "cheap-cnfans-shipping-2025",
+      icon: DollarSign,
+      readTime: "12 min read",
+      tags: ["shipping", "cnfans", "coupons", "savings", "promo-codes"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS Shipping Tips Every Buyer Should Know",
+      description: "Master CNFANS shipping with proven strategies, discount codes, and optimization techniques. Learn consolidation tactics and spreadsheet workflows that keep costs low.",
+      slug: "cnfans-shipping-tips",
+      icon: Truck,
+      readTime: "10 min read",
+      tags: ["shipping", "cnfans", "tips", "optimization", "workflow"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS Affiliate Link Guide: How It Works & How to Share",
+      description: "Learn how to effectively use and share CNFANS affiliate links. Discover best practices for content creation, high-converting copy, and responsible promotion strategies.",
+      slug: "cnfans-affiliate-guide",
+      icon: Users,
+      readTime: "8 min read",
+      tags: ["affiliate", "cnfans", "marketing", "referral", "content"],
+      date: "2025-02-03"
     }
   ];
 
