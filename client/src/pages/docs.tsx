@@ -24,7 +24,7 @@ export default function DocsPage() {
       icon: BookOpen,
       readTime: "5 min read",
       tags: ["getting-started", "guide", "basics"],
-      date: "2025-01-20"
+      date: "2025-08-03"
     },
     {
       title: "Optimizing Your Shopping Experience",
@@ -33,7 +33,7 @@ export default function DocsPage() {
       icon: FileText,
       readTime: "8 min read",
       tags: ["optimization", "savings", "tips", "cnfans"],
-      date: "2025-01-18"
+      date: "2025-08-03"
     },
     {
       title: "Community Guidelines and Best Practices",
@@ -42,7 +42,7 @@ export default function DocsPage() {
       icon: Users,
       readTime: "6 min read",
       tags: ["community", "guidelines", "ethics", "responsibility"],
-      date: "2025-01-16"
+      date: "2025-08-03"
     },
     {
       title: "Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes",
@@ -51,7 +51,7 @@ export default function DocsPage() {
       icon: DollarSign,
       readTime: "12 min read",
       tags: ["shipping", "cnfans", "coupons", "savings", "promo-codes"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "CNFANS Shipping Tips Every Buyer Should Know",
@@ -60,7 +60,7 @@ export default function DocsPage() {
       icon: Truck,
       readTime: "10 min read",
       tags: ["shipping", "cnfans", "tips", "optimization", "workflow"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "CNFANS Affiliate Link Guide: How It Works & How to Share",
@@ -69,7 +69,7 @@ export default function DocsPage() {
       icon: Users,
       readTime: "8 min read",
       tags: ["affiliate", "cnfans", "marketing", "referral", "content"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025",
@@ -78,7 +78,7 @@ export default function DocsPage() {
       icon: DollarSign,
       readTime: "6 min read",
       tags: ["cnfans-coupon", "129-coupon", "welcome-bonus", "shipping-discount"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals",
@@ -87,7 +87,7 @@ export default function DocsPage() {
       icon: Calendar,
       readTime: "9 min read",
       tags: ["seasonal-coupons", "black-friday", "1111-coupon", "1212-coupon"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "Best CNFANS Spreadsheets 2025: Updated Links & Categories",
@@ -96,7 +96,7 @@ export default function DocsPage() {
       icon: Download,
       readTime: "7 min read",
       tags: ["cnfans-spreadsheet", "verified-links", "categories", "templates"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     },
     {
       title: "CNFANS Coupon Not Working? Troubleshooting Guide 2025",
@@ -105,7 +105,7 @@ export default function DocsPage() {
       icon: Star,
       readTime: "5 min read",
       tags: ["coupon-troubleshooting", "promo-code-issues", "eligibility", "discount-fixes"],
-      date: "2025-02-03"
+      date: "2025-08-03"
     }
   ];
 
