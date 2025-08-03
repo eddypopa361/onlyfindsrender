@@ -106,7 +106,7 @@ export default function HeroSection() {
           >
             <Link 
               href="/products" 
-              className="px-8 py-3 bg-primary text-white font-heading font-medium rounded-full glow-button transition-all hover:bg-primary/80 text-lg flex items-center justify-center gap-2 group"
+              className="px-6 sm:px-8 py-3 bg-primary text-white font-heading font-medium rounded-full glow-button transition-all hover:bg-primary/80 text-base sm:text-lg flex items-center justify-center gap-2 group"
             >
               EXPLORE PRODUCTS
               <MoveRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -118,7 +118,7 @@ export default function HeroSection() {
               className="relative inline-block group"
             >
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-700 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
-              <button className="relative px-8 py-3 bg-white text-primary hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-lg border border-primary/30">
+              <button className="relative px-6 sm:px-8 py-3 bg-white text-primary hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-base sm:text-lg border border-primary/30">
                 GET $129 COUPONS
               </button>
             </a>
