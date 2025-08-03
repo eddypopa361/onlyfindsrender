@@ -35,7 +35,7 @@ export default function DocDetailPage() {
   const loadDocument = async (slug: string) => {
     try {
       
-      // Simulate loading markdown content - in a real app, this would fetch from an API
+      // Load documentation content
       const docMap: { [key: string]: DocContent } = {
         "getting-started": {
           metadata: {
@@ -94,16 +94,10 @@ Before diving into replica shopping, it's crucial to understand the legal landsc
 
 ### Step 1: Account Setup and Verification
 
-**Creating Your ONLYFINDS Account**:
-1. Visit our homepage and click "Sign Up"
-2. Provide a valid email address and create a secure password
-3. Verify your email address through the confirmation link
-4. Complete your profile with accurate shipping information
-
-**Setting Up CNFANS Partnership**:
-1. Register for CNFANS using our exclusive link: [https://cnfans.com/register/?ref=571435](https://cnfans.com/register/?ref=571435)
-2. Complete CNFANS account verification process
-3. Link your accounts for seamless order processing
+**Getting Started**:
+1. Browse our curated product selection
+2. Connect with CNFANS for shipping services
+3. Register using our partner link: [https://cnfans.com/register/?ref=571435](https://cnfans.com/register/?ref=571435)
 4. Claim your $129 shipping credit bonus
 
 ### Step 2: Understanding Our Product Categories
@@ -128,23 +122,17 @@ Before diving into replica shopping, it's crucial to understand the legal landsc
 
 ### Step 3: Product Research and Selection
 
-**Using Our Search and Filter System**:
-- Category-based browsing for efficient product discovery
-- Price range filters to match your budget
-- Quality tier indicators to set expectations
-- Customer review integration for informed decisions
+**Product Discovery**:
+- Browse by category and style preference
+- Compare different quality levels and pricing
+- Read customer experiences and recommendations
+- Understand shipping options and timelines
 
-**Reading Product Descriptions**:
-- Material composition and quality indicators
-- Size charts and fitting recommendations
-- Shipping timelines and method options
-- Supplier reliability ratings
-
-**Understanding Pricing Structure**:
-- Product cost breakdown including item price
-- Shipping costs and timeline estimates
-- International fees and tax considerations
-- Total cost calculation before checkout
+**Making Informed Decisions**:
+- Review product details and specifications
+- Check size guides and customer feedback
+- Consider total costs including shipping
+- Plan for international delivery requirements
 
 ## Making Your First Purchase
 
@@ -164,23 +152,17 @@ Before diving into replica shopping, it's crucial to understand the legal landsc
 
 ### Order Process Walkthrough
 
-**Product Selection and Customization**:
-1. Choose your preferred items and add to cart
-2. Select size, color, and any available customization options
-3. Review product details and shipping information
-4. Apply any available discount codes or promotions
+**Ordering Process**:
+1. Select your preferred items and specifications
+2. Review details and shipping information
+3. Complete purchase through our partner channels
+4. Track shipment progress and prepare for delivery
 
-**Checkout and Payment**:
-1. Review your complete order including all fees
-2. Select your preferred shipping method and timeline
-3. Choose payment method (we accept major credit cards and PayPal)
-4. Confirm order details and complete purchase
-
-**Post-Order Management**:
-1. Receive order confirmation with tracking information
-2. Monitor shipping progress through our tracking system
-3. Prepare for delivery and customs clearance if applicable
-4. Plan for quality inspection upon arrival
+**After Your Order**:
+1. Monitor tracking information provided
+2. Prepare for international delivery
+3. Inspect items upon arrival
+4. Share your experience with the community
 
 ## Quality Expectations and Management
 
@@ -227,17 +209,17 @@ Replica products can vary significantly in quality depending on the manufacturer
 
 ### Getting Help When You Need It
 
-**Customer Support Channels**:
-- Email support for order and product questions
-- Live chat during business hours for immediate assistance
-- Community forums for peer-to-peer support
-- FAQ section for common questions and issues
+**Getting Help**:
+- Community forums for shared experiences
+- Partner platform support for shipping questions
+- Educational guides and resources
+- Peer-to-peer assistance and advice
 
-**Common Issues and Solutions**:
-- Size and fit problems: Check size charts and customer feedback
-- Quality concerns: Contact support with photos and detailed descriptions
-- Shipping delays: Track packages and understand international shipping timelines
-- Customs issues: Research local import regulations and prepare documentation
+**Common Situations**:
+- Size questions: Review guides and customer experiences
+- Quality expectations: Learn from community feedback
+- Shipping timelines: Understand international delivery
+- Customs preparation: Research local regulations
 
 ## Advanced Shopping Strategies
 
@@ -2425,13 +2407,13 @@ Successful international shopping requires more than just finding products and p
 - Annual spending targets for tier advancement
 - Order timing coordination for maximum benefit
 - Consolidation strategies that support tier progression
-- Service utilization patterns that unlock premium features
+- Service usage patterns for better benefits
 
 **Profile Customization**: Optimizing your account settings for better service.
 - Shipping preferences configured for your location and needs
 - Communication preferences for timely updates and notifications
-- Payment method configuration for smooth transactions
-- Address book management for efficient order processing
+- Payment preferences for smooth transactions
+- Address management for efficient order processing
 
 ### Relationship Building with Customer Service
 
@@ -2442,7 +2424,7 @@ Successful international shopping requires more than just finding products and p
 - Recognition and appreciation for exceptional service
 
 **Problem Prevention**: Working with customer service to prevent issues before they occur.
-- Account health monitoring and optimization
+- Account status monitoring and optimization
 - Shipping route planning with support input
 - Quality expectation alignment through communication
 - Risk mitigation strategies for valuable shipments
@@ -2537,15 +2519,15 @@ Successful international shopping requires more than just finding products and p
 
 **Price Tracking**: Setting up systems for monitoring price changes and opportunities.
 
-**Automated Alerts**: Configuring notifications for important events and opportunities.
-- Price drop notifications for wishlist items
+**Smart Notifications**: Setting up alerts for important events and opportunities.
+- Price change notifications for watched items
 - Shipping promotion alerts for planned purchases
-- Account status updates and tier progression notifications
-- Customer service communication alerts and follow-ups
+- Account status updates and progress notifications
+- Customer service communication alerts
 
-**Data Management**: Organizing information for better decision-making.
+**Information Organization**: Managing data for better decision-making.
 - Purchase history tracking and analysis
-- Supplier performance database maintenance
+- Supplier performance record maintenance
 - Shipping cost and timeline documentation
 - Quality assessment record keeping
 
@@ -2965,21 +2947,21 @@ Master CNFANS shipping with proven strategies, insider tips, discount codes, and
 
 ### Understanding CNFANS Shipping Structure
 
-CNFANS operates as an international shipping consolidation service that helps customers save money on shipping costs by combining multiple packages into single shipments. Understanding their system is crucial for optimizing your shipping experience and costs.
+CNFANS specializes in international shipping solutions that help customers save money by combining multiple packages into efficient shipments. Understanding their approach helps optimize your shipping experience and costs.
 
-**Core Service Components**:
-- Package receiving and consolidation at Chinese warehouses
-- Quality inspection and photo services for verification
-- Multiple shipping line options for different speed and cost requirements
-- Customs declaration assistance and documentation
-- Package tracking and customer service support
+**Key Service Features**:
+- Package consolidation for cost efficiency
+- Quality verification services  
+- Multiple shipping speed options
+- Customs assistance and guidance
+- Tracking and customer support
 
-**Shipping Cost Factors**:
-- Package weight (actual vs. volumetric weight calculation)
-- Destination country and specific shipping zone
-- Selected shipping line and service level
-- Package dimensions and consolidation efficiency
-- Additional services like insurance and enhanced packaging
+**Cost Considerations**:
+- Package weight and dimensions
+- Destination location
+- Shipping speed preferences
+- Consolidation opportunities
+- Optional protection services
 
 ### Shipping Line Options and Selection Criteria
 
@@ -3004,11 +2986,11 @@ CNFANS operates as an international shipping consolidation service that helps cu
 
 **Strategic Order Timing**: Coordinating multiple purchases to arrive at the warehouse simultaneously for optimal consolidation.
 
-**Weight Distribution Techniques**: Understanding how to balance actual weight vs. volumetric weight for better shipping rates.
-- Volumetric weight calculation: (Length × Width × Height) ÷ Divisor
-- Air shipping divisor typically ranges from 5000-6000
-- Combining heavy and light items for optimal weight distribution
-- Removing unnecessary packaging and boxes to reduce dimensions
+**Smart Packaging**: Optimizing package weight and size for better rates.
+- Understanding dimensional pricing factors
+- Balancing package contents efficiently
+- Combining items strategically
+- Minimizing unnecessary packaging materials
 
 **Item Selection Strategy**: Choosing products that ship well together.
 - Fragility compatibility for safe packaging together
@@ -3040,11 +3022,11 @@ CNFANS operates as an international shipping consolidation service that helps cu
 
 ### Warehouse and Storage Optimization
 
-**Free Storage Period Management**: Maximizing the complimentary storage time.
-- Understanding storage time limits for different membership tiers
-- Strategic order coordination to minimize storage fees
-- Package consolidation timing for optimal storage utilization
-- Extended storage planning for seasonal consolidation
+**Storage Optimization**: Making the most of available storage periods.
+- Planning order timing strategically
+- Coordinating multiple purchases efficiently
+- Understanding consolidation timeframes
+- Seasonal planning considerations
 
 **Photo Service Utilization**: Using inspection services effectively.
 - Quality verification before expensive international shipping
@@ -3124,17 +3106,17 @@ CNFANS operates as an international shipping consolidation service that helps cu
 
 **Cost Estimation**: Using available tools for accurate shipping cost prediction.
 
-**Planning and Optimization Software**: Leveraging technology for better shipping decisions.
-- Consolidation optimization calculators
-- Shipping cost comparison tools
-- Delivery timeline estimation utilities
-- Package dimension and weight optimization guides
+**Planning Tools**: Using available resources for better shipping decisions.
+- Consolidation planning guides
+- Cost comparison resources
+- Timeline estimation references
+- Packaging optimization tips
 
-**Mobile App Features**: Taking advantage of mobile-specific functionality.
-- Real-time tracking and notification
-- Photo upload for customer service communication
-- Mobile payment and order management
-- Location-based shipping options and recommendations
+**Mobile Features**: Convenient mobile access for better experience.
+- Tracking notifications and updates
+- Photo sharing for customer service
+- Easy order management
+- Location-relevant shipping options
 
 ### Community Resources and Information Sharing
 
@@ -3150,13 +3132,13 @@ CNFANS operates as an international shipping consolidation service that helps cu
 
 ### Membership Tier Advancement
 
-**VIP Status Benefits**: Understanding how to reach and maintain higher membership levels.
+**Membership Benefits**: Understanding how to access better service levels.
 
-**Tier Progression Planning**: Strategic spending and usage for better benefits.
-- Annual volume planning for tier advancement
-- Service utilization optimization for tier benefits
-- Loyalty demonstration through consistent platform usage
-- Community participation for reputation building
+**Building Better Status**: Strategic approaches for enhanced benefits.
+- Consistent usage for status improvement
+- Smart service utilization for better value
+- Building platform relationships
+- Active community participation
 
 **Long-term Relationship Building**: Developing sustainable shipping strategies.
 - Consistent supplier relationship development
@@ -3169,10 +3151,10 @@ CNFANS operates as an international shipping consolidation service that helps cu
 **Performance Monitoring**: Tracking shipping success and identifying improvement opportunities.
 
 **Cost Analysis**: Understanding your shipping patterns for optimization.
-- Shipping cost as percentage of total purchase tracking
-- Delivery time and reliability assessment
-- Customer service experience evaluation
-- Overall satisfaction measurement and improvement planning
+- Monitoring shipping expenses relative to purchases
+- Evaluating delivery time and reliability
+- Assessing customer service experiences
+- Measuring overall satisfaction and improvements
 
 **Market Awareness**: Staying informed about shipping industry changes.
 - New shipping line evaluation and testing
@@ -3223,10 +3205,10 @@ Learn how to effectively use and share CNFANS affiliate links for best results w
 CNFANS affiliate links are specially coded URLs that track referrals from your recommendations to new user registrations and subsequent platform usage. When someone clicks your affiliate link and creates an account, the platform credits you for that referral.
 
 **Link Structure and Tracking**:
-- Base registration URL with unique referral code
-- Cookie-based tracking for attribution
-- Commission calculation based on referred user activity
-- Performance reporting and analytics access
+- Registration URL with unique referral code
+- Referral tracking for proper attribution
+- Commission based on successful referrals
+- Performance monitoring capabilities
 
 **Commission Structure**:
 - Initial registration bonuses for successful referrals
