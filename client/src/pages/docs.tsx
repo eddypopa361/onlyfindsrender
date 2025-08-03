@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet";
 import { FileText, BookOpen, Users, ArrowRight, Clock, Tags, DollarSign, Truck, Calendar, Star, Percent, Download } from "lucide-react";
-import ScrollAnimation from "@/components/ui/scroll-animation";
+// import ScrollAnimation from "@/components/ui/scroll-animation";
 
 interface DocItem {
   title: string;
@@ -119,7 +119,6 @@ export default function DocsPage() {
       <main className="pt-24 pb-16 bg-black text-white min-h-screen">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Header */}
-          <ScrollAnimation direction="up" delay={0.1} duration={0.6}>
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 glow-text">
                 Documentation & Guides
@@ -128,10 +127,8 @@ export default function DocsPage() {
                 Everything you need to know about shopping smart and getting the most out of ONLYFINDS. From beginner guides to advanced optimization strategies.
               </p>
             </div>
-          </ScrollAnimation>
 
           {/* Quick Navigation */}
-          <ScrollAnimation direction="up" delay={0.2} duration={0.6}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
               <Card className="bg-gray-900/50 border-gray-800 hover:border-primary/30 transition-all">
                 <CardContent className="p-4 text-center">
@@ -155,19 +152,13 @@ export default function DocsPage() {
                 </CardContent>
               </Card>
             </div>
-          </ScrollAnimation>
 
           {/* Documentation List */}
           <div className="space-y-6">
             {docs.map((doc, index) => {
               const IconComponent = doc.icon;
               return (
-                <ScrollAnimation 
-                  key={doc.slug} 
-                  direction="up" 
-                  delay={0.3 + (index * 0.1)} 
-                  duration={0.6}
-                >
+                <div key={doc.slug}>
                   <Card className="bg-gray-900/50 border-gray-800 hover:border-primary/30 transition-all group">
                     <CardHeader>
                       <div className="flex items-start gap-4">
@@ -225,13 +216,12 @@ export default function DocsPage() {
                       </div>
                     </CardContent>
                   </Card>
-                </ScrollAnimation>
+                </div>
               );
             })}
           </div>
 
           {/* Call to Action */}
-          <ScrollAnimation direction="up" delay={0.7} duration={0.6}>
             <div className="mt-16 text-center">
               <Card className="bg-gradient-to-r from-primary/10 to-red-900/10 border-primary/20">
                 <CardContent className="p-8">
@@ -256,7 +246,6 @@ export default function DocsPage() {
                 </CardContent>
               </Card>
             </div>
-          </ScrollAnimation>
         </div>
       </main>
     </>
