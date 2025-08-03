@@ -100,7 +100,7 @@ body {
 /* Section connector for smooth transitions */
 .section-connector {
   position: relative;
-  background: linear-gradient(135deg, hsl(195, 100%, 15%) 0%, hsl(195, 100%, 8%) 50%, hsl(195, 100%, 12%) 100%);
+  background-color: #000000;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -134,7 +134,7 @@ body {
 
 .promo-section-wrapper {
   position: relative;
-  background: linear-gradient(135deg, hsl(195, 100%, 15%) 0%, hsl(195, 100%, 8%) 50%, hsl(195, 100%, 12%) 100%);
+  background: #000000;
   margin: 0;
   padding: 0;
   z-index: 1;

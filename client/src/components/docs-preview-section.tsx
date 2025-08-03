@@ -43,7 +43,7 @@ export default function DocsPreviewSection() {
   ];
 
   return (
-    <section className="py-16 relative overflow-hidden mt-[97px] mb-[97px]" style={{background: 'linear-gradient(135deg, hsl(195, 100%, 15%) 0%, hsl(195, 100%, 8%) 50%, hsl(195, 100%, 12%) 100%)'}}>
+    <section className="py-16 bg-black relative overflow-hidden mt-[97px] mb-[97px]">
       {/* Glow effects - poziționare sus pentru alternare - extinse pentru continuitate */}
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
