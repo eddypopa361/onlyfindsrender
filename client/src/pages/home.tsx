@@ -37,6 +37,7 @@ export default function Home() {
         <link rel="preconnect" href="https://prod.spline.design" />
         <link rel="preconnect" href="http://cnfans.com" />
       </Helmet>
+      
       <main className="bg-black continuous-glow-bg">
         {/* Hero Section - prima componentă se încarcă imediat */}
         <Suspense fallback={<SectionLoader />}>
@@ -147,7 +148,7 @@ export default function Home() {
             <div className="section-transition-overlay section-transition-overlay-top"></div>
             
             {/* Glow effects - poziționare jos pentru alternare - extinse */}
-            <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full filter blur-3xl bg-[00bfff1f]"></div>
+            <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
             <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
             <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
             <div className="container mx-auto px-4 text-center relative z-10">
