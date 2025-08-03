@@ -2,6 +2,7 @@ import { users, type User, type InsertUser, products, type Product, type InsertP
 import { db } from "./db";
 import { eq, desc, asc, sql, like, and, or, ne, not, inArray } from "drizzle-orm";
 
+
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
@@ -98,33 +99,56 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFeaturedProducts(): Promise<Product[]> {
-    const featuredProducts = await db.select().from(products)
-      .where(eq(products.featured, true))
-      .orderBy(desc(products.id))
-      .limit(16); // Get more to filter and ensure we have enough with images
+    // Get all products with valid images and buyUrl
+    const allProducts = await db.select().from(products);
     
-    // Filter out products without valid images
-    return featuredProducts
-      .filter(product => product.image && product.image.trim() !== '')
-      .slice(0, 8); // Return max 8 with valid images
+    // Use sampleDistinct function for stable daily selection of 12 products
+    const validProducts = allProducts.filter(p => 
+      p.image && p.image.trim() !== '' && 
+      p.buyUrl && p.buyUrl.trim() !== ''
+    );
+    
+    // Sample 12 distinct products for best sellers
+    return this.sampleDistinct(validProducts, 12);
   }
   
   async getCarouselProducts(): Promise<Product[]> {
-    // IDs specifice pentru produsele din carousel: 312, 333, 871, 271, 622, 711, 888, 621, 1012, 299
-    const carouselIds = [312, 333, 871, 271, 622, 711, 888, 621, 1012, 299];
+    // Get all products with valid images and buyUrl
+    const allProducts = await db.select().from(products);
     
-    // Get products with specific IDs and preserve the order
-    const carouselProducts = [];
+    // Use sampleDistinct function for stable daily selection of 8 products  
+    const validProducts = allProducts.filter(p => 
+      p.image && p.image.trim() !== '' && 
+      p.buyUrl && p.buyUrl.trim() !== ''
+    );
     
-    for (const id of carouselIds) {
-      const [product] = await db.select().from(products).where(eq(products.id, id));
-      // Only include products with valid images for carousel
-      if (product && product.image && product.image.trim() !== '') {
-        carouselProducts.push(product);
-      }
+    // Sample 8 distinct products for carousel
+    return this.sampleDistinct(validProducts, 8);
+  }
+
+  /**
+   * Sample N distinct items from an array using a date-based seed for stability
+   */
+  private sampleDistinct<T>(items: T[], count: number): T[] {
+    if (items.length <= count) return [...items];
+    
+    const dateString = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const shuffled = [...items];
+    
+    // Simple seeded shuffle using date string as seed
+    let seedValue = 0;
+    for (let i = 0; i < dateString.length; i++) {
+      seedValue += dateString.charCodeAt(i);
     }
     
-    return carouselProducts;
+    // Fisher-Yates shuffle with seeded random
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      seedValue = (seedValue * 9301 + 49297) % 233280; // Simple LCG
+      const j = Math.floor((seedValue / 233280) * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    return shuffled.slice(0, count);
   }
 
   async createProduct(product: InsertProduct): Promise<Product> {

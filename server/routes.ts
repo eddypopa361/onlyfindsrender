@@ -13,6 +13,7 @@ import AdmZip from 'adm-zip';
 import { db } from "./db";
 import { desc, asc, eq, like, and, or } from "drizzle-orm";
 
+
 // Ensure uploads directory exists
 if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads', { recursive: true });
@@ -28,14 +29,14 @@ function generateProductPageHtml(product: any) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${product.title} - OnlyFinds</title>
+  <title>${product.title} - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">OnlyFinds <span>DEMO</span></a>
+      <a href="/" class="logo">ONLYFINDS <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
@@ -94,7 +95,7 @@ function generateProductPageHtml(product: any) {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} OnlyFinds - Static Export</p>
+      <p>© ${new Date().getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -203,14 +204,14 @@ function generateCategoryPageHtml(category: string, products: any[]) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${category} Products - OnlyFinds</title>
+  <title>${category} Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">OnlyFinds <span>DEMO</span></a>
+      <a href="/" class="logo">ONLYFINDS <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
@@ -228,7 +229,7 @@ function generateCategoryPageHtml(category: string, products: any[]) {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>© ${new Date().getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
 </body>
@@ -283,7 +284,7 @@ function generateBrandPageHtml(brand: string, products: any[]) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${brand} Products - TJREPS DEMO</title>
+  <title>${brand} Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -308,7 +309,7 @@ function generateBrandPageHtml(brand: string, products: any[]) {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>© ${new Date().getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
 </body>
@@ -1000,7 +1001,7 @@ body {
         
         // Create JavaScript files
         const dataLoaderJs = `
-// Static data loader for TJREPS DEMO
+// Static data loader for ONLYFINDS
 window.TJREPS = {
   dataUrl: '/data',
   
@@ -1088,7 +1089,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>TJREPS DEMO - Designer Products Showcase</title>
+  <title>ONLYFINDS - Designer Products Showcase</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/data-loader.js" defer></script>
@@ -1107,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <main class="container">
     <section style="margin-bottom: 3rem;">
       <h1 style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center; color: white;">
-        Welcome to <span style="color: rgb(138, 43, 226);">TJREPS DEMO</span>
+        Welcome to <span style="color: rgb(138, 43, 226);">ONLYFINDS</span>
       </h1>
       <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #ccc;">
         Discover our curated collection of premium designer products at exceptional prices. 
@@ -1127,7 +1128,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>© ${new Date().getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -1207,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>All Products - TJREPS DEMO</title>
+  <title>All Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/data-loader.js" defer></script>
@@ -1245,7 +1246,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   <footer class="footer">
     <div class="container">
-      <p>© ${new Date().getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>© ${new Date().getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -1380,9 +1381,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Creating documentation files...");
         
         const readmeContent = `
-# TJREPS DEMO - Static Export for Netlify
+# ONLYFINDS - Static Export for Netlify
 
-This is a complete static export of the TJREPS DEMO website, ready to be deployed to Netlify or other static hosting services.
+This is a complete static export of the ONLYFINDS website, ready to be deployed to Netlify or other static hosting services.
 
 ## Features
 
@@ -1415,7 +1416,7 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
         
         // Create export metadata
         const exportInfo = {
-          name: "TJREPS DEMO Static Export",
+          name: "ONLYFINDS Static Export",
           version: "1.0.0",
           exportDate: new Date().toISOString(),
           totalProducts: allProducts.length,

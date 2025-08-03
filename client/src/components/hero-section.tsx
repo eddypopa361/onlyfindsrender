@@ -3,6 +3,7 @@ import { MoveRight, ArrowDownCircle } from "lucide-react";
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Link } from "wouter";
 import { motion } from 'framer-motion';
+import { CNFANS_REGISTER } from "@/lib/constants";
 
 // Lazy load Spline pentru o încărcare inițială mai rapidă
 const Spline = lazy(() => import('@splinetool/react-spline'));
@@ -71,7 +72,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
             className="bg-primary/30 inline-block px-4 py-2 rounded-full mb-5 backdrop-blur-sm"
           >
-            <span className="text-white font-medium tracking-wide">GET 50% OFF SHIPPING WITH CNFANS</span>
+            <span className="text-white font-medium tracking-wide">GET $129 COUPONS WITH CNFANS</span>
           </motion.div>
           
           <motion.div
@@ -111,14 +112,14 @@ export default function HeroSection() {
               <MoveRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <a 
-              href="http://cnfans.com/register/?ref=300004734" 
+              href={CNFANS_REGISTER} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="relative inline-block group"
             >
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-700 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <button className="relative px-8 py-3 bg-white text-primary hover:bg-gray-100 rounded-full font-bold tracking-wider transition-all duration-300 text-lg border border-primary/30">
-                GET 50% OFF SHIPPING
+                GET $129 COUPONS
               </button>
             </a>
           </motion.div>

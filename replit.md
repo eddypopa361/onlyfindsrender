@@ -1,4 +1,4 @@
-# JOYAFINDS - Designer Products Showcase
+# ONLYFINDS - Designer Products Showcase
 
 ## Overview
 
@@ -125,8 +125,16 @@ The project includes numerous utility scripts in the `/scripts` directory for:
 - ✓ Completed global replacement of all red color references while maintaining functionality
 - ✓ Replaced all logo references from onlyfinds_logo.png to onlyfinds.png throughout project
 
+**February 3, 2025**: Complete Brand and Copy Updates with CNFANS Integration
+- ✓ Updated all CTA buttons with new CNFANS_REGISTER constant (https://cnfans.com/register/?ref=571435)
+- ✓ Changed all "Get 50% off shipping" copy to "Get $129 coupons" across site
+- ✓ Added Privacy Policy section to FAQ page with CNFANS partner information  
+- ✓ Added Documentation link to footer under "How To Order" section
+- ✓ Updated favicon and HTML title to use ONLYFINDS branding
+- ✓ Implemented stable daily product selection with sampleDistinct function for carousel (8) and best sellers (12)
+
 **January 20, 2025**: Complete Brand Name Rebranding and New Feature Implementation
-- ✓ Executed comprehensive textual rebranding from JOYAFINDS to ONLYFINDS and JOYAGOO to CNFANS
+- ✓ Executed comprehensive textual rebranding from ONLYFINDS to ONLYFINDS and CNFANS to CNFANS
 - ✓ Updated all brand references across 15+ component files and pages
 - ✓ Replaced logo references from joyafinds_logo.png to onlyfinds_logo.png
 - ✓ Updated email addresses from joyafindss@gmail.com to onlyfinds@gmail.com

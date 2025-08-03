@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MailIcon, MessageCircleIcon, UserIcon } from "lucide-react";
+import { CNFANS_REGISTER } from "@/lib/constants";
 
 export default function PromoSection() {
   return (
@@ -50,12 +51,12 @@ export default function PromoSection() {
             
             <div className="mt-10 text-center">
               <a 
-                href="http://cnfans.com/register/?ref=300004734" 
+                href={CNFANS_REGISTER} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-block bg-primary/20 px-4 md:px-6 py-2 md:py-3 rounded-full mb-5 glow-button hover:bg-primary/30 transition-all"
               >
-                <span className="text-white font-medium text-sm md:text-lg">CLICK HERE TO GET 50% OFF OF YOUR SHIPPING</span>
+                <span className="text-white font-medium text-sm md:text-lg">CLICK HERE TO GET $129 COUPONS</span>
               </a>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { CNFANS_REGISTER } from "@/lib/constants";
 
 export default function HowToOrder() {
   return (
@@ -41,10 +42,10 @@ export default function HowToOrder() {
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">Sign Up for CNFANS</h3>
                     <p className="text-gray-300">
-                      Create your account on CNFANS using our special referral link to get 50% off on shipping. Click the "GET 50% OFF SHIPPING" button on our website to be redirected to the sign-up page.
+                      Create your account on CNFANS using our special referral link to get $129 coupons. Click the "GET $129 COUPONS" button on our website to be redirected to the sign-up page.
                     </p>
                     <a 
-                      href="http://cnfans.com/register/?ref=300004734" 
+                      href={CNFANS_REGISTER} 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="relative inline-block mt-4 group"

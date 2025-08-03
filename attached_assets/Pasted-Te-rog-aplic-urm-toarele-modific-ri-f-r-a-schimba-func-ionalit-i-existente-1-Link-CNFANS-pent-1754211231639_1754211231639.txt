@@ -1,0 +1,48 @@
+Te rog aplică următoarele modificări, fără a schimba funcționalități existente:
+
+1) Link CNFANS pentru CTA-uri
+   - Definește constantă:  const CNFANS_REGISTER = "https://cnfans.com/register/?ref=571435"
+   - Leagă acest link (target="_blank" rel="noopener noreferrer") pentru butoanele/CTA-urile:
+     • "Get 50% off shipping"
+     • "JOIN CNFANS NOW"
+     • "Click here to get 50% off of your shipping"
+     • "Sign up now" (din pagina /howto)
+   - Păstrează restul stilurilor/props; nu crea ancore imbricate.
+
+2) Rebranding text public
+   - În TOT conținutul vizibil public (UI, meta tags, alt text, /public, MDX/Markdown, JSON de conținut), înlocuiește (case-insensitive):
+     "TJ", "TJREPS", "TJREPS DEMO", "JOYAFINDS", "JOYAGOO", "JOYA"
+     cu: ONLYFINDS
+   - NU modifica identificatori tehnici critici (ex. nume de pachete, chei env) dacă ar rupe build-ul. Raportează dacă găsești astfel de cazuri.
+
+3) Copy update pentru “50% off shipping”
+   - În toate locurile unde apare sintagma (titluri, butoane, paragrafe), schimbă în:
+     • "Get $129 coupons"
+     • "Click here to get $129 coupons"
+   - Menține “Sign up now” ca text (doar linkul merge la CNFANS_REGISTER).
+
+4) Carousel & Best Sellers (alegere random, disjuncte)
+   - Din baza de date/colecția existentă de produse, alege SETURI DIFERITE:
+     • Carousel: N=8 (sau numărul actual din UI)
+     • Best Sellers: M=12 (sau numărul actual)
+   - Reguli: include doar produse cu image != empty și buyUrl valid; seturile să fie disjuncte; dacă ai mai puține, redu M/N dar păstrează disjuncția.
+   - Fă selecția stabilă pe zi (seed bazat pe YYYY-MM-DD) pentru a evita schimbări la fiecare build.
+   - Expune funcții utilitare (sampleDistinct) într-un fișier lib și folosește-le unde se construiesc aceste liste.
+
+5) /faq – mică secțiune “Privacy Policy”
+   - În pagina /faq, adaugă la final o secțiune:
+     Heading: "Privacy Policy"
+     Text scurt (2–3 fraze): explică pe scurt că ONLYFINDS nu stochează date de plată, că folosește linkuri către parteneri (CNFANS) și că datele minime (cookies/analytics) sunt folosite pentru îmbunătățirea serviciului. Link “Read full policy” -> /privacy (creează ruta doar dacă există infrastructură; altfel ancorează în /faq).
+
+6) Footer
+   - Sub grupa "How To Order", adaugă un item: "Documentation" -> /docs
+
+7) Favicon (logo OnlyFinds)
+   - Setează logo-ul OnlyFinds ca favicon:
+     • dacă proiectul folosește /public/favicon.ico, înlocuiește-l cu varianta nouă (sau actualizează <link rel="icon" href="/images/onlyfinds.png" sizes="any">).
+     • pentru Next.js (app router), adaugă /app/icon.png sau /public/favicon.ico corespunzător.
+
+8) Output
+   - Listează fișierele modificate și diffs.
+   - Arată unde ai setat CNFANS_REGISTER.
+   - Confirmă că nu mai există ocurențe ale stringurilor vechi și ale textului “50% off shipping” (arată un rezumat de grep).

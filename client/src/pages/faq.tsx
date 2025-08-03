@@ -105,6 +105,20 @@ export default function FAQ() {
             </p>
           </CardContent>
         </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl font-heading">Privacy Policy</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">
+              ONLYFINDS is committed to protecting your privacy and personal information. We do not store payment data as all transactions are processed through our trusted partner CNFANS. We collect minimal data such as cookies and basic analytics to improve our service and user experience.
+            </p>
+            <p className="text-sm text-gray-600">
+              <a href="/privacy" className="text-primary hover:underline">Read full policy</a>
+            </p>
+          </CardContent>
+        </Card>
       </main>
     </>
   );
