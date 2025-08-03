@@ -211,9 +211,6 @@ export default function Home() {
         {/* Promo Section */}
         <div className="promo-section-wrapper">
           <section className="section-connector relative">
-            {/* Overlay pentru tranziție netedă la început */}
-            <div className="section-transition-overlay section-transition-overlay-top"></div>
-            
             <Suspense fallback={<SectionLoader />}>
               <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
                 <PromoSection />
