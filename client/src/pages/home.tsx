@@ -37,7 +37,6 @@ export default function Home() {
         <link rel="preconnect" href="https://prod.spline.design" />
         <link rel="preconnect" href="http://cnfans.com" />
       </Helmet>
-      
       <main className="bg-black continuous-glow-bg">
         {/* Hero Section - prima componentă se încarcă imediat */}
         <Suspense fallback={<SectionLoader />}>
@@ -151,7 +150,7 @@ export default function Home() {
             <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
             <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
             <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
-            <div className="container mx-auto px-4 text-center relative z-10">
+            <div className="container mx-auto px-4 text-center relative z-10 ml-[103.5px] mr-[103.5px] pl-[64px] pr-[64px] pt-[39px] pb-[39px] mt-[66px] mb-[66px]">
               <ScrollAnimation direction="up" delay={0.1} variant="fade">
                 <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 inline-block relative text-white">
                   <span className="relative z-10">Browse Our Collections</span>
