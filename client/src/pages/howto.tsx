@@ -11,7 +11,6 @@ export default function HowToOrder() {
           content="Learn how to place an order on CNFANS, the trusted platform for high-quality replicas. Step-by-step tutorial and guide." 
         />
       </Helmet>
-
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-16">
           {/* Header section with title */}
@@ -105,7 +104,7 @@ export default function HowToOrder() {
                 Pro Tips
               </h2>
               <ul className="list-disc pl-6 space-y-3 text-gray-300">
-                <li>Sign up with our referral link for 50% off shipping</li>
+                <li>Sign up with our referral link for $129 Coupons!</li>
                 <li>Order multiple items to save on shipping costs</li>
                 <li>Check our site regularly for new arrivals and promotions</li>
                 <li>For questions about products or orders, contact CNFANS customer service directly</li>
