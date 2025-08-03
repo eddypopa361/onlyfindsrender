@@ -1,10 +1,6 @@
-import { useRoute } from "wouter";
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
-import { ArrowLeft, Clock, Tags, Calendar } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "wouter";
+import { marked } from "marked";
 
 interface DocMetadata {
   title: string;
@@ -20,8 +16,8 @@ interface DocContent {
   content: string;
 }
 
-export default function DocDetailPage() {
-  const [, params] = useRoute("/docs/:slug");
+export default function DocDetail() {
+  const params = useParams();
   const [docContent, setDocContent] = useState<DocContent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,14 +32,14 @@ export default function DocDetailPage() {
     try {
       console.log("Loading document for slug:", slug);
       
-      // Load documentation content - All 11 articles included
+      // Load documentation content - All 11 articles included with exact content
       const docMap: { [key: string]: DocContent } = {
         "getting-started": {
           metadata: {
-            title: "Getting Started with ONLYFINDS",
+            title: "Getting Started with ONLYFINDS: Complete Beginner's Guide 2025",
             slug: "getting-started",
             date: "2025-08-03",
-            description: "Complete beginner's guide to navigating ONLYFINDS and making your first purchase through our trusted partners.",
+            description: "Welcome to ONLYFINDS — a curated place to discover quality fashion alternatives and designer-inspired styles at accessible prices.",
             tags: ["getting-started", "guide", "basics"],
             draft: false
           },
@@ -64,1134 +60,658 @@ ONLYFINDS does not sell products. We showcase curated public links from partner 
 
 **Transparency**: Clear copy, clear links, no hidden steps.
 
-**Practicality**: Realistic guidance for budget-conscious shoppers.
+**Community value**: User feedback helps others make informed choices.
 
-### What makes us different?
+**Responsible shopping**: Always follow local laws and platform rules.
 
-Instead of overwhelming you with generic recommendations, we focus on streamlined discovery tools: quality filters, category organization, verified partner links, and shipping optimization guides.
+**Important**: Nothing here is legal or financial advice. Please review your country's regulations before ordering internationally. ONLYFINDS links to third-party platforms and is not responsible for third-party listings or services.
 
-## Your first steps on ONLYFINDS
+### Your First Steps
 
-### 1. Explore the catalog
+**1) Create your partner account**
+Register on CNFANS and look for welcome offers in your dashboard (often including a shipping coupon).
+→ <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-Browse our organized categories (Shoes, Clothing, Accessories) to see what catches your eye. Each product includes:
+**2) Explore categories on ONLYFINDS**
+Browse by theme (e.g., Trending Now, Latest Finds, Shoes, Accessories, Coats & Jackets, Hoodies & Pants, T-Shirt & Shorts, Electronic Products, Perfumes, Womans) to get a feel for styles, budgets, and what ships well.
 
-- High-quality images from original sources
-- Clear pricing (in original currency)
-- Direct links to partner platforms
-- Category tags for easy filtering
+**3) Compare items thoughtfully**
+Look at photos, materials, construction details, and recent user impressions. If you're new, start with a small order to calibrate expectations (fit, finish, shipping time).
 
-### 2. Filter and refine
+**4) Plan total cost**
+Consider product price, shipping, taxes/duties, and your preferred timeline. If you plan to buy multiple items, consolidation can help reduce the effective per-item shipping cost (results vary by line and destination).
 
-Use our filtering system to narrow down by:
-- Category and subcategory
-- Brand preferences
-- Price ranges
-- Featured vs. trending items
+## Making Your First Purchase
 
-### 3. Read the buying guide
+**Pre-purchase checklist**
 
-Before making any purchase, check our shipping and buying guides to understand the full process, timeline expectations, and cost optimization strategies.
+Confirm size and measurements.
 
-## Understanding partner platforms
+Review recent feedback or community notes.
 
-### CNFANS platform basics
+Ensure the purchase link is current.
 
-When you click a product link, you'll be directed to CNFANS — a shopping service that handles international orders. Here's what to expect:
+Decide how you want items packed (e.g., lighter packaging to control volume/weight).
 
-**Registration**: Required for checkout, often includes welcome bonuses like shipping coupons.
+**Order flow (high level)**
 
-**Product pages**: Same items as featured on ONLYFINDS, with additional details, size charts, and customer photos.
+Select item and options.
 
-**Payment**: Secure payment processing with multiple options including cards and digital wallets.
+Review the shipping method that fits your budget and timeline.
 
-**Shipping**: International shipping with tracking, consolidation options, and insurance.
+Apply any available CNFANS coupon at checkout (check your dashboard first).
 
-### Typical order flow
+Place the order and track progress.
 
-1. **Browse on ONLYFINDS** → Find items you like
-2. **Click to partner site** → Review details, check sizing
-3. **Add to cart** → Build your order
-4. **Register/login** → Complete account setup if needed
-5. **Checkout** → Apply any available coupons
-6. **Shipping selection** → Choose speed vs. cost preference
-7. **Payment** → Secure checkout process
-8. **Tracking** → Monitor your order progress
+**After your order arrives**
 
-## Smart shopping tips for beginners
+Inspect stitching, hardware/finishes, and overall construction.
 
-### Start small
+Compare color/fit with the listing photos.
 
-Your first order doesn't need to be large. Try 1-2 items to test:
-- Shipping times to your location
-- Product quality vs. expectations
-- Overall service experience
+Keep photos and order details in case you need support.
 
-### Check sizing carefully
+## Understanding Quality & Materials
 
-International sizing can vary. Always check:
-- Size charts on product pages
-- Customer review photos
-- Measurement guides in centimeters
+Quality varies by maker, material, and batch. Here's what to look for:
 
-### Use consolidation
+**Materials**: Fabrics, leather alternatives, weight, lining.
 
-If ordering multiple items:
-- Add them to cart within a few days
-- Request consolidated shipping to save money
-- Consider timing for seasonal sales
+**Construction**: Stitching consistency, zippers, buttons/hardware.
 
-### Apply coupons
+**Finishing**: Edges, seams, color accuracy, symmetry.
 
-New customer benefits often include:
-- Welcome shipping discounts
-- First-order percentage off
-- Free or discounted consolidation
+**Tip**: When you're new, start small. Use early purchases to learn what matches your preferences.
 
-## Managing expectations
+## Community & Support
 
-### Shipping times
+**Reviews help everyone**: Share honest impressions (fit, build, color accuracy, shipping experience).
 
-International shipping typically ranges:
-- **Economy**: 15-30 days, lowest cost
-- **Standard**: 10-20 days, balanced cost/speed
-- **Express**: 5-12 days, highest cost but fastest
+**Respectful Q&A**: Ask clear questions; respond to others with specifics.
 
-### Product quality
+**Shipping questions**: For courier/line issues, contact the partner platform's support with screenshots and order IDs.
 
-Items featured on ONLYFINDS represent good value for the price point. Expect:
-- Quality materials for the cost
-- Accurate product photos
-- Some variation in finishing vs. premium retail
+ONLYFINDS can't change third-party orders, but we can point you to useful resources and encourage good documentation.
 
-### Customer service
+## Smart Ways to Save
 
-CNFANS provides:
-- Order tracking and updates
-- Problem resolution support
-- Return/exchange policies where applicable
+**Welcome & seasonal offers**: Look for dashboard coupons (e.g., CNFANS welcome offers) and seasonal promotions.
 
-## Common beginner questions
+**Consolidation**: If you're ordering multiple items, one outbound parcel often reduces total cost compared to several small ones.
 
-**Is it safe to order internationally?**
-Yes, established platforms like CNFANS use secure payment processing and have customer protection policies.
+**Timing**: Shipping lines can fluctuate around major holidays; plan ahead when possible.
 
-**How much will shipping cost?**
-Varies by weight, destination, and shipping method. Check current rates and available coupons during checkout.
+Check for CNFANS coupons here:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupons</a>
 
-**What if something doesn't fit?**
-Review return/exchange policies on the partner platform. Some items may be returnable, others may not be due to international shipping costs.
+## Frequently Asked Questions
 
-**Can I track my order?**
-Yes, you'll receive tracking information once your order ships. Processing time varies by item availability.
+**Do you sell products on ONLYFINDS?**
+No. We curate public links to third-party platforms for easier discovery.
 
-**Are there additional fees?**
-Possible customs/import duties depending on your country's regulations and order value. Check local guidelines.
+**Are the links sponsored?**
+Some links may be affiliate links. See the disclosure below.
 
-## Building your shopping strategy
+**How do I use a CNFANS coupon?**
+Register, open your Coupons/Promotions panel in the CNFANS dashboard, and apply an eligible code at checkout for your chosen shipping line.
 
-### Seasonal timing
+**How long does shipping take?**
+It depends on the line and destination. Check the estimate provided by the partner platform at checkout.
 
-Consider ordering during:
-- Platform promotional periods (11.11, Black Friday, etc.)
-- Off-season for better availability
-- When you have time to wait for economic shipping
+## Final Steps
 
-### Budget planning
+Set up your CNFANS account and check coupons:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register & check coupons</a>
 
-Factor in:
-- Product cost
-- Shipping fees
-- Potential customs duties
-- Currency conversion (if applicable)
+Start with one or two items to learn sizing, finish, and shipping.
 
-### Quality vs. quantity
+Share feedback so others can benefit from your experience.
 
-Rather than many cheap items, consider:
-- Fewer, higher-quality pieces
-- Items you'll actually wear regularly
-- Classic styles over fast fashion trends
-
-## Next steps
-
-Once you're comfortable with the basics:
-
-1. **Explore advanced guides**: Learn about shipping optimization and seasonal promotions
-2. **Join the community**: Connect with other ONLYFINDS users for tips and experiences
-3. **Share responsibly**: If you enjoy the platform, share it thoughtfully with friends
-
-## Need help?
-
-- **Browse our documentation**: Additional guides cover shipping, optimization, and troubleshooting
-- **Contact partner support**: For order-specific questions, reach out to CNFANS customer service
-- **Community resources**: Connect with other users for shared experiences and advice
-
-**Disclosure**: ONLYFINDS includes affiliate links to partner platforms. We may earn commission at no extra cost to you.
-Last updated: August 3, 2025.`
-        },
-        "community-guidelines": {
-          metadata: {
-            title: "Community Guidelines and Best Practices",
-            slug: "community-guidelines",
-            date: "2025-08-03",
-            description: "Building a responsible shopping ecosystem through community standards and ethical practices.",
-            tags: ["community", "guidelines", "ethics", "standards"],
-            draft: false
-          },
-          content: `# Community Guidelines and Best Practices: Building a Responsible Shopping Ecosystem
-
-**Purpose**: These guidelines help maintain a positive, helpful community around ONLYFINDS while promoting responsible shopping practices and ethical affiliate sharing.
-
-Get started with CNFANS responsibly: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register with welcome coupons</a>
-
-## Core Community Values
-
-### Authenticity first
-Share genuine experiences, honest reviews, and realistic expectations. Avoid exaggerated claims about products, shipping times, or savings.
-
-### Helpful, not pushy
-Focus on providing value through guides, tips, and support rather than aggressive promotion of affiliate links.
-
-### Transparency always
-Clearly disclose affiliate relationships, commission structures, and any potential conflicts of interest.
-
-### Respect for diversity
-Welcome shoppers with different budgets, style preferences, and experience levels. Avoid judgment about shopping choices.
-
-## Content sharing standards
-
-### When sharing products or links
-
-**Do include**:
-- Honest assessment of quality for the price
-- Realistic sizing information
-- Actual shipping costs and timeframes
-- Any issues or limitations you experienced
-- Clear affiliate disclosure when applicable
-
-**Don't include**:
-- Misleading "brand name" claims
-- Unrealistic shipping promises
-- Hidden costs or fees
-- Pressure tactics or artificial urgency
-
-### Product reviews and experiences
-
-**Helpful reviews mention**:
-- How items fit compared to expected sizing
-- Quality of materials and construction
-- Shipping experience and timing
-- Value assessment for the price paid
-- Photos showing actual received items
-
-**Avoid in reviews**:
-- Comparing to authentic designer items by name
-- Making brand authenticity claims
-- Exaggerating quality or durability
-- Sharing personal information or order details
-
-## Affiliate link best practices
-
-### Appropriate sharing contexts
-
-**Good places for affiliate links**:
-- In relevant product discussions where you can add genuine value
-- When directly asked for shopping recommendations
-- In comprehensive guides or reviews you've created
-- When sharing your actual purchase experiences
-
-**Inappropriate contexts**:
-- Spam posts or comments without context
-- Unrelated conversations or threads
-- Repeated posting of the same link
-- Comments on others' posts without adding value
-
-### Disclosure requirements
-
-Always include clear disclosure language such as:
-- "This contains affiliate links. I may earn commission at no extra cost to you."
-- "Affiliate link - thanks for supporting the community!"
-- "Contains referral links that may provide commission"
-
-### Building trust through value
-
-**Focus on helping others by**:
-- Sharing sizing guides and fit information
-- Explaining shipping consolidation strategies
-- Providing cost breakdowns and budgeting tips
-- Offering style advice and coordination ideas
-
-**Avoid trust-breaking behaviors like**:
-- Only posting when you have links to share
-- Making claims you can't personally verify
-- Hiding your affiliate relationship
-- Prioritizing commissions over community help
-
-## Platform-specific guidelines
-
-### Social media sharing
-
-**Instagram/TikTok**: Use platform disclosure features (#ad, #affiliate) in addition to verbal/written disclosure
-
-**Reddit**: Follow subreddit rules about promotional content and always disclose affiliate relationships
-
-**Discord/Forums**: Respect community rules about commercial links and maintain helpful, not promotional, tone
-
-**Personal blogs/websites**: Include clear affiliate policy pages and consistent disclosure practices
-
-### Email and messaging
-
-**Group chats**: Don't spam affiliate links; share only when relevant and helpful
-
-**Email lists**: Include unsubscribe options and clear disclosure in every affiliate-containing message
-
-**Direct messages**: Only share links when specifically requested; never send unsolicited promotional messages
-
-## Quality standards for shared content
-
-### Product recommendations
-
-**Include essential details**:
-- Size/fit guidance based on your experience
-- Quality assessment relative to price point
-- Shipping cost and timeline information
-- Any issues or limitations you discovered
-
-**Maintain realistic expectations**:
-- Present items as alternatives or inspired styles, not replicas
-- Discuss quality appropriate for the price range
-- Share both positive and negative aspects of your experience
-
-### Educational content
-
-**Create valuable guides about**:
-- Sizing conversion and fit tips
-- Shipping cost optimization
-- Seasonal sale timing
-- Order consolidation strategies
-- Customer service experiences
-
-**Ensure accuracy by**:
-- Basing advice on personal experience
-- Updating information when policies change
-- Linking to official sources when possible
-- Acknowledging limitations of your knowledge
-
-## Building positive community relationships
-
-### Supporting other community members
-
-**Helpful behaviors**:
-- Answering questions based on your experience
-- Sharing tips and strategies that worked for you
-- Offering encouragement to newcomers
-- Providing honest feedback when asked
-
-**Community-damaging behaviors**:
-- Competing aggressively with other affiliate users
-- Criticizing others' shopping choices or budgets
-- Monopolizing conversations with promotional content
-- Spreading misinformation about products or services
-
-### Conflict resolution
-
-**When disagreements arise**:
-- Focus on facts and personal experiences
-- Avoid personal attacks or aggressive language
-- Acknowledge different perspectives and experiences
-- Redirect to constructive problem-solving
-
-**For community moderators**:
-- Apply guidelines consistently and fairly
-- Explain decisions when removing content
-- Provide clear paths for appeals or clarification
-- Focus on education over punishment when possible
-
-## Long-term community health
-
-### Sustainable practices
-
-**Build for the long term by**:
-- Prioritizing community value over short-term affiliate income
-- Maintaining consistent quality in your contributions
-- Adapting to changing community needs and preferences
-- Supporting platform growth through positive participation
-
-**Avoid practices that harm community trust**:
-- Excessive focus on commission generation
-- Inconsistent or misleading information sharing
-- Prioritizing quantity over quality in content
-- Ignoring community feedback or guidelines
-
-### Continuous improvement
-
-**Stay current with**:
-- Platform policy changes that affect affiliate sharing
-- Community feedback about content quality and helpfulness
-- Industry best practices for ethical affiliate marketing
-- Legal requirements for disclosure in your jurisdiction
-
-**Regularly evaluate**:
-- Whether your content truly helps community members
-- If your affiliate sharing maintains appropriate balance
-- How community members respond to your contributions
-- Whether you're meeting the standards you'd want from others
-
-## Getting started with community participation
-
-### New member checklist
-
-✓ Read and understand these community guidelines
-✓ Review platform-specific rules where you plan to participate  
-✓ Prepare standard disclosure language for affiliate links
-✓ Plan how you'll add value beyond just sharing links
-✓ Connect with existing community members to learn norms
-
-### Building your reputation
-
-**Week 1-4**: Focus entirely on helping others without sharing any affiliate links
-**Month 2-3**: Begin sharing personal experiences with clear disclosures
-**Month 4+**: Establish yourself as a trusted community resource before increasing affiliate sharing
-
-**Disclosure**: This guide is provided by ONLYFINDS, which includes affiliate links to partner platforms. We may earn commission at no extra cost to you.
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "optimization-strategies": {
           metadata: {
-            title: "Optimizing Your Shopping Experience",
-            slug: "optimization-strategies", 
+            title: "Optimizing Your Shopping Experience: Advanced Strategies for ONLYFINDS & CNFANS 2025",
+            slug: "optimization-strategies",
             date: "2025-08-03",
-            description: "Advanced strategies for maximizing value, minimizing costs, and enhancing your ONLYFINDS and CNFANS shopping experience.",
+            description: "Learn how to maximize savings and streamline your process on ONLYFINDS and partner platforms.",
             tags: ["optimization", "advanced", "strategies", "savings"],
             draft: false
           },
           content: `# Optimizing Your Shopping Experience: Advanced Strategies for ONLYFINDS & CNFANS (2025)
 
-Learn how to maximize value and minimize costs through strategic shopping approaches. This guide covers advanced techniques for experienced users who want to optimize every aspect of their international shopping experience.
+Learn how to maximize savings and streamline your process on ONLYFINDS and partner platforms. This in-depth guide covers advanced tactics experienced shoppers use to get great value with clear, responsible practices.
 
-Start optimizing with CNFANS coupons: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Claim $129 shipping coupons</a>
+New here? Check your dashboard for CNFANS $129 coupons after registration:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Strategic Order Planning
+## The Optimization Mindset
 
-### Consolidation mastery
+Successful international shopping is more than adding items to cart. It means timing purchases, comparing options, understanding shipping choices, and building a simple system you can repeat.
 
-**Optimal consolidation windows**:
-- Plan orders within 7-14 days for best availability
-- Most warehouses hold items 30-90 days free
-- Consider seasonal processing delays during peak periods
+### Core principles
 
-**Weight optimization techniques**:
-- Remove unnecessary packaging materials
-- Request vacuum sealing for soft items
-- Ship shoes without boxes to save volumetric weight
-- Combine multiple small items in single packages
+**Plan with intent**: time orders around seasonal promos and shipping windows.
 
-**Advanced consolidation strategies**:
-- Group items by fragility level for better protection
-- Separate urgent vs. non-urgent items for flexible shipping
-- Use warehouse photos to verify consolidation before shipping
-- Request specific packing arrangements for delicate items
+**Compare smartly**: balance price, quality, and delivery timeline.
 
-### Seasonal timing optimization
+**Keep records**: track what worked (items, shipping lines, total costs).
 
-**Best ordering periods**:
-- **January-February**: Post-holiday clearance, less warehouse congestion
-- **April-May**: Spring restocks, stable shipping times
-- **September-October**: Pre-holiday prep, good availability
+**Stay compliant**: follow local laws and platform rules.
 
-**Periods to avoid or plan carefully**:
-- **November-December**: Holiday delays, premium shipping costs
-- **Chinese New Year (Feb)**: Extended processing delays
-- **11.11/Black Friday**: Great prices but delayed processing
+**Note**: ONLYFINDS doesn't sell products. We curate public links to third-party platforms.
 
-**Sale timing strategies**:
-- Pre-order before major sales to secure popular items
-- Use price tracking to identify genuine vs. artificial discounts
-- Stack platform coupons with seasonal promotions
-- Plan larger orders around major promotional periods
+## Set Practical, Measurable Goals
 
-## Advanced Cost Optimization
+Lower total cost by consolidating multiple items into one outbound parcel when it makes sense (results vary by line/zone).
 
-### Shipping line selection mastery
+Reduce re-ship risk by checking sizes/materials and reviewing recent feedback before you buy.
 
-**Route-specific optimization**:
-- Test different lines to your location for cost/speed sweet spots
-- Document successful shipping experiences for future reference
-- Consider seasonal variation in line performance
-- Factor in tracking quality vs. cost for valuable orders
+Save time with a lightweight checklist you reuse for every order.
 
-**Multi-line strategies**:
-- Ship urgent items express, others economy
-- Use different lines based on item value and fragility
-- Test new lines with small orders first
-- Keep spreadsheet of line performance to your location
+## CNFANS Account Basics (High-Level)
 
-### Payment and currency optimization
+**Registration & coupons**: after sign-up, open Coupons/Promotions in your CNFANS dashboard and apply eligible codes at checkout.
 
-**Currency considerations**:
-- Monitor exchange rates for large orders
-- Consider timing purchases around favorable rates
-- Factor currency conversion fees into total cost calculations
-- Use payment methods with favorable international rates
+**Preferences**: select notification and shipping preferences that fit your region and timeline.
 
-**Payment method optimization**:
-- Credit cards with international purchase protections
-- Digital wallets for faster checkout processes
-- Avoid payment methods with high international fees
-- Keep backup payment options for checkout issues
+**Benefits vary**: features, promos, and lines can change; review your dashboard for current options and terms.
 
-## Quality Assessment and Verification
+## Product Research & Selection
 
-### Pre-purchase research techniques
+**Compare options**: look at photos, materials, stitching, hardware/finishes, and recent user impressions.
 
-**Product verification strategies**:
-- Cross-reference multiple product photos
-- Check customer reviews and photos across platforms
-- Verify size charts and measurement accuracy
-- Research seller history and reliability ratings
+**Start small**: first orders help you calibrate sizing, finish, and shipping times.
 
-**Risk assessment frameworks**:
-- Evaluate cost vs. potential disappointment
-- Consider return/exchange feasibility for international orders
-- Factor shipping costs into value calculations
-- Assess item urgency vs. order timing flexibility
+**Plan total cost**: product + shipping + taxes/duties; choose the line (economy / priority economy / express) that fits your budget and deadline.
 
-### Post-purchase quality control
+## Shipping & Logistics Optimization
 
-**Warehouse inspection requests**:
-- Request detailed photos before shipping
-- Ask for measurements of specific items
-- Verify color accuracy under good lighting
-- Check for obvious defects or damage
+### Consolidation
 
-**Quality documentation practices**:
-- Photo items immediately upon receipt
-- Document any discrepancies from expected quality
-- Keep records for future reference when reordering
-- Share honest assessments with community when appropriate
+One outbound parcel often beats multiple small parcels because you pay linehaul/handling once. If you're ordering several items, plan to ship together when feasible.
 
-## Advanced Filtering and Discovery
+### Packaging choices
 
-### Platform navigation optimization
+Ask for lighter packaging where available to reduce volumetric weight.
 
-**Efficient browsing techniques**:
-- Use multiple browser tabs for comparison shopping
-- Bookmark favorite sellers and categories
-- Set up price alerts for items you're monitoring
-- Create wish lists organized by priority and budget
+Group small accessories; avoid over-stuffing that bumps you into a higher tier.
 
-**Search optimization strategies**:
-- Learn platform-specific search terms and keywords
-- Use image search when available for style matching
-- Filter by customer review scores and order volumes
-- Sort by different criteria to discover hidden gems
+### Line selection
 
-### Trend identification and timing
+Economy is cheaper, priority economy balances speed and cost, express is fastest but pricier. Compare ETA and cost before paying.
 
-**Market timing strategies**:
-- Identify seasonal demand patterns for better prices
-- Track new product releases and availability cycles
-- Monitor community discussions for emerging trends
-- Balance trendy vs. timeless pieces in your orders
+### Timing
 
-**Value identification techniques**:
-- Compare prices across multiple platforms
-- Factor total cost including shipping into value assessments
-- Identify sellers offering consistent quality at good prices
-- Recognize when higher initial cost provides better long-term value
+Around major shopping periods (e.g., 11.11, 12.12, Black Friday/Cyber Monday), promos and capacity fluctuate. If timing is flexible, schedule shipments to avoid peak surcharges.
 
-## Community and Social Optimization
+### Quality check
 
-### Information sharing strategies
+Approve photo/video QC (when available) before consolidation to reduce returns and extra cost.
 
-**Building valuable connections**:
-- Participate in community discussions with helpful insights
-- Share honest reviews and experiences with specific products
-- Ask specific questions rather than general advice requests
-- Offer assistance to newcomers based on your experience
+## Price Awareness & Fair Negotiation
 
-**Knowledge aggregation techniques**:
-- Keep personal notes on successful orders and strategies
-- Track seasonal patterns in pricing and availability
-- Document sizing information for future reference
-- Maintain contact with other experienced community members
+**Research the range**: compare similar items across multiple sellers to understand typical pricing.
 
-### Responsible affiliate optimization
+**Value over absolute lowest**: factor quality, ship time, and after-sales support into the decision.
 
-**Ethical affiliate practices**:
-- Focus on genuine recommendations based on personal experience
-- Disclose affiliate relationships clearly and consistently
-- Provide value through helpful content, not just promotional links
-- Balance community contribution with affiliate income goals
+**Bundle wisely**: if you're buying complementary items, ask about bundle-friendly options (when appropriate).
 
-**Long-term relationship building**:
-- Prioritize community trust over short-term commission gains
-- Maintain consistent quality in shared content and recommendations
-- Respond thoughtfully to questions and feedback from community members
-- Support platform growth through positive, constructive participation
+## Simple Tools That Help
 
-## Technology and Tools Integration
+**Watchlist**: keep links, estimated ship dates, and notes in a small tracker (not public).
 
-### Organization and tracking systems
+**Reminders**: set a reminder for coupon expiry and planned ship dates.
 
-**Personal inventory management**:
-- Spreadsheet templates for tracking orders, costs, and satisfaction
-- Photo organization system for reference when reordering
-- Size and fit database for consistent ordering across brands
-- Wishlist management with priority ranking and budget allocation
+**Receipts & photos**: store them together for easy support conversations.
 
-**Automation and monitoring tools**:
-- Price tracking apps for items you're considering
-- Currency exchange rate monitors for optimal timing
-- Community forum notifications for relevant discussions
-- Order tracking consolidation across multiple platforms
+## Community & Support
 
-### Security and privacy optimization
+Share helpful feedback after receiving items (fit, finish, color accuracy, shipping experience).
 
-**Account security best practices**:
-- Use unique, strong passwords for shopping platforms
-- Enable two-factor authentication where available
-- Monitor account activity regularly for unauthorized access
-- Keep payment information updated and secure
+Ask specific questions (materials, sizing, timelines).
 
-**Privacy protection strategies**:
-- Use platform privacy settings appropriately
-- Be cautious about sharing personal information in community discussions
-- Understand data sharing policies of platforms you use
-- Consider using dedicated email addresses for shopping accounts
+For shipping issues, contact the partner platform's support with order IDs and screenshots.
 
-## Troubleshooting and Problem Resolution
+## Frequently Asked Questions
 
-### Proactive problem prevention
+**How do I use a CNFANS coupon?**  
+Register → open Coupons/Promotions in your dashboard → choose an eligible code → apply at checkout.
 
-**Order verification checklists**:
-- Confirm shipping address accuracy before finalizing orders
-- Verify item details, sizes, and quantities in cart
-- Check coupon application and discount calculations
-- Screenshot order confirmations for your records
+**Can I stack multiple coupons?**  
+Usually one per order. Pick the highest-value eligible option for your chosen line.
 
-**Communication optimization**:
-- Learn basic customer service phrases in relevant languages
-- Keep order numbers and reference information easily accessible
-- Document any special requests or modifications clearly
-- Maintain polite, professional tone in all platform communications
+**Which shipping line is "best"?**  
+There isn't a single best line for everyone. Compare price vs speed for your destination.
 
-### Advanced problem-solving techniques
+**Is consolidation always cheaper?**  
+Often, but not always. Check dimensional weight and thresholds for your chosen line.
 
-**Escalation strategies**:
-- Understand platform dispute resolution processes
-- Know when and how to involve payment method protection services
-- Document issues thoroughly with photos and correspondence
-- Seek community advice for complex problems
+## Final Steps
 
-**Recovery and learning approaches**:
-- Analyze what went wrong in problematic orders
-- Adjust future strategies based on negative experiences
-- Share lessons learned with community when appropriate
-- Maintain perspective on occasional disappointments as part of international shopping
+Register and check coupons:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupons</a>
 
-## Measuring and Improving Your Optimization
+Start with a small order to learn sizing and finish.
 
-### Performance tracking metrics
+Use a repeatable checklist for each shipment.
 
-**Cost efficiency measurements**:
-- Track average cost per item including all fees
-- Monitor shipping cost as percentage of total order value
-- Calculate time invested vs. savings achieved
-- Measure satisfaction scores for different strategies
+Share your experience to help others.
 
-**Quality and satisfaction assessments**:
-- Rate each order on multiple criteria (quality, service, value)
-- Track repeat purchase rates from preferred sellers
-- Monitor how often items meet or exceed expectations
-- Assess overall satisfaction trends over time
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
+Last updated: August 3, 2025.`
+        },
+        "community-guidelines": {
+          metadata: {
+            title: "Community Guidelines and Best Practices: Building a Responsible Shopping Ecosystem",
+            slug: "community-guidelines",
+            date: "2025-08-03",
+            description: "These guidelines help EVERYONE keep ONLYFINDS welcoming, useful, and responsible.",
+            tags: ["community", "guidelines", "responsible-shopping"],
+            draft: false
+          },
+          content: `# Community Guidelines and Best Practices: Building a Responsible Shopping Ecosystem
 
-### Continuous improvement processes
+**Purpose**: These guidelines help EVERYONE keep ONLYFINDS welcoming, useful, and responsible. They set expectations for respectful behavior, accurate information, and thoughtful, lawful shopping—especially when using third-party partner platforms.
 
-**Regular strategy reviews**:
-- Monthly assessment of what's working vs. what needs adjustment
-- Seasonal evaluation of shipping and timing strategies
-- Annual review of overall shopping goals and budget allocation
-- Community feedback integration into personal optimization approaches
+New here? Check for CNFANS $129 coupons after registration:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-**Adaptation and evolution**:
-- Stay current with platform changes and new features
-- Experiment with new optimization techniques on small orders
-- Learn from other community members' successful strategies
-- Adjust approaches based on changing personal needs and preferences
+## Our Community Values
 
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+### Core principles
+
+**Honesty & transparency**: Share clear, experience-based information.
+
+**Respect**: Treat other members—and sellers on partner platforms—fairly.
+
+**Responsibility**: Shop thoughtfully; consider cost, quality, and impact.
+
+**Intellectual property awareness**: Respect creators and follow local laws.
+
+**Education**: Help others learn with practical, accurate guidance.
+
+## Legal & Ethical Framework (Plain Language)
+
+ONLYFINDS does not sell products. We curate public links to third-party platforms.
+
+Follow your local laws. Rules differ by country. Nothing here is legal advice.
+
+Respect IP. Choose designer-inspired or fashion alternatives responsibly.
+
+Be truthful. Never misrepresent an item's origin or authenticity.
+
+If you're unsure about what's allowed in your country, check official sources or seek professional advice before ordering internationally.
+
+## Communication Standards & Etiquette
+
+**Be constructive**. Share real experiences; avoid personal attacks.
+
+**Separate taste from facts**. "I prefer heavier fabric" ≠ "This is low quality."
+
+**Resolve calmly**. Try direct, respectful messages before public disputes.
+
+**Assume good intent**. Ask clarifying questions; don't jump to conclusions.
+
+## Information-Sharing Ethics
+
+**Accuracy first**. Post only what you know or have verified.
+
+**Cite sources when relevant**. Credit helpful posts or reviewers.
+
+**Respect privacy**. Don't share private messages, addresses, or personal data.
+
+**Keep info current**. Update or correct posts if things change.
+
+## Working With Sellers on Partner Platforms
+
+**Professional tone**. Be clear about sizing, materials, timelines, and budget.
+
+**Fair expectations**. Understand that availability and timelines can vary.
+
+**Constructive feedback**. If something's off, explain calmly with photos.
+
+**Timely payment & follow-through**. Keep interactions courteous and reliable.
+
+### If problems arise
+
+Contact the seller with specifics (order ID, photos, dates).
+
+Use the partner platform's support/mediation if needed.
+
+Post public reviews responsibly—factual, balanced, and updated if resolved.
+
+## Reviews, Recommendations & Educational Content
+
+### Helpful reviews include
+
+Photos that reflect real color/finish.
+
+Notes on stitching, hardware, fit, and comfort.
+
+Sizing context (height/weight or usual size) to guide others.
+
+A balanced view: what worked and what didn't.
+
+### Guides & tutorials
+
+Keep steps accurate and tested.
+
+Flag risks or caveats.
+
+Update if platforms or policies change.
+
+### Market talk
+
+Avoid speculation. If you share trends, say what they're based on (e.g., "recent listings," "seasonal promos," etc.).
+
+## Environmental & Social Responsibility
+
+**Quality over quantity**. Buy what you'll actually use.
+
+**Minimize waste**. Request lighter packaging when possible; recycle.
+
+**Consolidate shipments** when it makes sense to reduce total materials and trips.
+
+**Be mindful of impact**. Consider how choices affect people and the planet.
+
+## New Member Support & Community Growth
+
+**Welcome newcomers**. Share tips without gatekeeping.
+
+**Teach responsibly**. Highlight rules, risks, and best practices.
+
+**Give constructive feedback** on platform features and policies.
+
+**Lead by example**. Set the tone you want to see.
+
+## Quality Signals to Look For (Practical, Non-technical)
+
+**Materials & construction**: Fabric weight, stitching consistency, hardware feel.
+
+**Finishing**: Seams, edges, symmetry, color accuracy.
+
+**Fit & comfort**: Compare size charts with community feedback.
+
+**Consistency over time**: Re-order experiences matter; share trends.
+
+## Conflict Resolution & Governance
+
+**Start private, then escalate**. Many issues resolve with calm DMs.
+
+**Use platform channels**. When needed, contact partner support with evidence.
+
+**Be fair in public**. Include context, timelines, and any fixes offered.
+
+**Evolve together**. Community standards improve as we learn—participate in updates.
+
+## Quick Checklist (Save/Share)
+
+✓ Treat others with respect.
+
+✓ Share accurate, current info (update when needed).
+
+✓ Respect IP and local laws.
+
+✓ Protect privacy—yours and others'.
+
+✓ Post balanced reviews with clear photos and sizing context.
+
+✓ Consolidate and reduce waste when feasible.
+
+✓ Use partner support channels for disputes before going public.
+
+## Join Responsibly, Shop Smart
+
+Ready to explore and save—responsibly? Start by checking your partner dashboard for current offers.
+
+Check CNFANS coupons:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Get $129 coupons</a>
+
+**Disclosure**: This page may contain an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cheap-shipping-cnfans": {
           metadata: {
-            title: "Finding Cheap Shipping on CNFANS",
+            title: "Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes",
             slug: "cheap-shipping-cnfans",
             date: "2025-08-03",
-            description: "Complete guide to reducing shipping costs on CNFANS with proven strategies, promo codes, and optimization techniques.",
+            description: "Looking for cheap shipping CNFANS options this year? This guide summarizes practical ways to lower costs.",
             tags: ["shipping", "cnfans", "savings", "optimization"],
             draft: false
           },
-          content: `# Finding Cheap Shipping on CNFANS: 2025 Tips & Promo Codes
+          content: `# Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes
 
-Looking for cheap shipping CNFANS options? This comprehensive guide reveals proven strategies to minimize your international shipping costs while maintaining reliable delivery. Learn about current promo codes, consolidation techniques, and timing strategies that can save you significant money.
+Looking for cheap shipping CNFANS options this year? This guide summarizes practical ways to lower costs—how to find a CNFANS shipping coupon, compare shipping lines, and pack smart so you pay less without guesswork.
 
-Start saving immediately: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Claim CNFANS $129 coupons</a>
+New here? After registering, check your dashboard for current offers (often including a welcome coupon).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Essential CNFANS Shipping Knowledge
+## How CNFANS shipping costs are calculated
 
-### Understanding CNFANS shipping structure
+### Common drivers
 
-CNFANS calculates shipping costs using volumetric weight vs. actual weight (whichever is higher). The formula: length × width × height ÷ 5000 = volumetric weight in kg.
+**Weight & size**: Carriers consider actual or volumetric weight (whichever is higher). Reducing package volume can lower charges.
 
-**Why this matters**: A lightweight but bulky item may cost more to ship than a heavy but compact item.
+**Destination**: Rates vary by region and service availability.
 
-### Available shipping lines and costs
+**Shipping line**: Economy tends to be cheaper; priority economy balances speed and price; express is fastest and usually costs more.
 
-**Economy lines (15-30 days)**:
-- Lowest cost option, basic tracking
-- Best for non-urgent orders
-- Typical cost: $15-25 for first kg
+**Seasonality**: Demand spikes around major shopping periods can influence prices and capacity.
 
-**Standard lines (10-20 days)**:
-- Balanced cost and speed
-- Better tracking and reliability
-- Typical cost: $20-35 for first kg
+### Other fees to be aware of
 
-**Express lines (5-12 days)**:
-- Fastest delivery, premium tracking
-- Higher cost but includes insurance
-- Typical cost: $35-55 for first kg
+**Platform & service fees**: Processing, handling, and optional services (e.g., extra photos, special packing) may add cost.
 
-## Proven Cost-Reduction Strategies
+**Storage**: Warehousing beyond free windows can incur daily fees.
 
-### 1. Master consolidation timing
+**Insurance**: Optional but useful for higher-value parcels.
 
-**Optimal strategy**: Order 3-5 items within a 1-2 week window, then ship together.
+## Finding CNFANS coupons & promo opportunities (2025)
 
-**Why it works**: You spread the base shipping cost across multiple items instead of paying separate shipping for each item.
+**Welcome offers for new users**: After sign-up, open Coupons/Promotions in your dashboard to see what's available.
 
-**Advanced tip**: Most warehouses hold items for 30-90 days free. Use this time to accumulate items for more efficient shipping.
+**Seasonal promos**: Big shopping periods (e.g., 11.11, 12.12, Black Friday/Cyber Monday) often bring stronger promotions with limited windows.
 
-### 2. Request packaging optimization
+**First shipments & events**: Occasionally there are special discounts for early orders or time-boxed events.
 
-When placing orders, add these notes:
-- "Please use lightest packaging materials available"
-- "Remove all retail boxes and unnecessary packaging"
-- "Vacuum seal clothing items if possible"
-- "Consolidate similar items in same packaging"
+**How to apply**: Choose your shipping line, then apply an eligible CNFANS discount code at checkout; confirm the price reflects the discount before paying.
 
-**Real example**: A customer saved $18 on shipping by requesting shoe box removal, reducing volumetric weight by 40%.
+**Tip**: Set a reminder for coupon expiry so you don't miss the window.
 
-### 3. Strategic shipping line selection
+## Packaging & consolidation tips that usually save money
 
-**For budget-conscious orders**: Use economy lines with consolidation
-**For mixed urgency**: Ship urgent items express, others economy
-**For high-value items**: Standard lines offer good tracking without premium express costs
+**Consolidate when it makes sense**: One outbound parcel often costs less than several smaller ones because you pay handling/linehaul once.
 
-### 4. Leverage seasonal timing
+**Reduce volume where available**: Request lighter packaging options; avoid excess filler; group small accessories together.
 
-**Best shipping periods**:
-- January-March: Post-holiday reduced warehouse congestion
-- April-June: Stable processing times and competitive rates
-- September: Pre-holiday preparation period
+**Protect wisely**: Use enough protection for delicate items without over-packing.
 
-**Avoid if possible**:
-- November-December: Holiday surcharges and delays
-- Chinese New Year period: Extended processing delays
-- 11.11 sales period: Increased warehouse processing time
+**Quality check**: Approve photo/video QC (when offered) before consolidation to reduce re-ship risk.
 
-## Current Promo Codes and Coupons
+## Choosing the right shipping line
 
-### New customer benefits
+**Economy**: Lower cost if your timeline is flexible.
 
-**CNFANS welcome package**: Often includes $129 in shipping coupons
-- Usually applies to first 3-5 orders
-- May include percentage discounts on shipping
-- Check your account dashboard after registration
+**Priority economy**: Often a good balance of speed and price.
 
-### Seasonal promotions
+**Express**: Fastest option for time-sensitive items.
 
-**Regular promotional periods**:
-- Spring cleaning sales (March-April)
-- Summer shipping specials (June-July)
-- Back-to-school promotions (August-September)
-- 11.11 and Black Friday events (November)
+Compare ETA, tracking, and cost for your destination before paying.
 
-**How to find current codes**:
-- Check CNFANS homepage banners
-- Review your account dashboard "Promotions" section
-- Follow CNFANS social media for flash promotions
-- Join customer groups for exclusive codes
+## Regional considerations
 
-### Platform-specific discounts
+Popular routes may have more frequent departures and competitive pricing.
 
-**First-time shipping discounts**: Often 20-50% off first shipment
-**Volume discounts**: Reduced rates for orders over certain weight thresholds
-**Loyalty discounts**: Better rates for customers with shipping history
-**Line-specific promotions**: Temporary discounts on specific shipping routes
+Remote destinations might benefit from careful planning (e.g., consolidate, compare lines, allow extra time).
 
-## Advanced Optimization Techniques
+Always verify available lines and estimates for your specific address at checkout.
 
-### Weight and dimension strategies
+## Customs & import basics (compliance first)
 
-**Clothing optimization**:
-- Request removal of tags, extra packaging
-- Ask for vacuum sealing of soft items
-- Avoid shipping hangers or garment bags
+**Know your local rules**: Duties/taxes, documentation, and thresholds are set by your country.
 
-**Shoe shipping tips**:
-- Ship without boxes to save 30-50% on volumetric weight
-- Request consolidation of multiple pairs
-- Consider seasonal timing when boxes matter less
+**Declare accurately**: Follow the law for item descriptions and values.
 
-**Accessory bundling**:
-- Combine small items with larger orders
-- Use jewelry and small accessories to fill shipping weight brackets efficiently
+**Consider professional help**: For complex shipments, a licensed customs broker can advise on documentation and process.
 
-### Route and destination optimization
+## Tracking, delivery & support
 
-**Address considerations**:
-- Use business addresses where possible (sometimes better rates)
-- Consider package forwarding services for remote locations
-- Verify address format matches carrier requirements exactly
+**Track across platforms**: Check both the partner dashboard and the carrier's tracking page.
 
-**Regional timing factors**:
-- Research typical customs processing times for your location
-- Understand local import duty thresholds
-- Factor regional holidays into delivery estimates
+**Enable notifications**: Get alerts for key milestones.
 
-### Payment and currency timing
+**Delivery readiness**: Ensure address accuracy and that someone can receive the parcel.
 
-**Currency optimization**:
-- Monitor exchange rates for large shipments
-- Consider timing payments during favorable currency periods
-- Factor currency conversion fees into total cost calculations
+**If issues arise**: Gather order IDs and screenshots, then contact customer support through official channels.
 
-**Payment method selection**:
-- Some payment methods offer better international transaction rates
-- Credit cards may provide additional shipping protection
-- Digital wallets sometimes process faster for quicker dispatch
+## Quick checklist before you ship
 
-## Real Cost Examples and Savings
+✓ Items arrived and checked (photos/size/finish)
 
-### Single item vs. consolidation comparison
+✓ Chosen the line that fits budget vs. speed
 
-**Single item example (1kg to US)**:
-- Item cost: $45
-- Individual shipping: $28
-- Total: $73
+✓ Coupon applied and reflected in total
 
-**Consolidated example (3kg to US, 3 items)**:
-- Items cost: $45 + $38 + $52 = $135
-- Consolidated shipping: $45
-- Total: $180
-- **Savings**: $21 compared to individual shipping ($206)
+✓ Packaging request submitted (lighter packaging, if available)
 
-### Seasonal timing impact
+✓ Storage window confirmed (to avoid extra fees)
 
-**Peak season order (December)**:
-- 2kg shipment: $38 + $12 holiday surcharge = $50
+✓ Customs rules reviewed for your country
 
-**Off-season order (February)**:
-- Same 2kg shipment: $32 + $5 promotional discount = $27
-- **Savings**: $23 (46% reduction)
+## FAQ
 
-### Packaging optimization results
+**Where do I find current CNFANS promo codes?**
+Register, then open Coupons/Promotions in your dashboard. Watch seasonal banners and email updates.
 
-**Before optimization**: 2.5kg actual weight, 4.2kg volumetric weight
-- Shipping cost: $42 (based on volumetric weight)
+**Can I stack multiple coupons?**
+Usually one per order. Pick the highest-value eligible discount for your chosen line.
 
-**After optimization**: 2.5kg actual weight, 2.8kg volumetric weight  
-- Shipping cost: $28 (based on actual weight)
-- **Savings**: $14 (33% reduction)
+**Is consolidation always cheaper?**
+Often—but not always. Check volumetric weight and thresholds for your line and destination.
 
-## Troubleshooting High Shipping Costs
+**Which line is best?**
+There isn't a single best line for everyone. Compare ETA, tracking, and price for your region.
 
-### Common cost drivers and solutions
+## Get started
 
-**Oversized packages**:
-- **Problem**: Large dimensions creating high volumetric weight
-- **Solution**: Request item repackaging, remove boxes, consolidate shapes
+Register and check your dashboard for current offers:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupons</a>
 
-**Inefficient consolidation**:
-- **Problem**: Items shipped separately despite ordering together
-- **Solution**: Coordinate timing, request specific consolidation, verify warehouse policies
+Start with a small shipment to learn timing and packaging preferences.
 
-**Peak season surcharges**:
-- **Problem**: Temporary rate increases during busy periods
-- **Solution**: Plan orders around known peak seasons, use economy lines during surcharges
+Reuse the checklist above to keep costs predictable.
 
-**Address and documentation issues**:
-- **Problem**: Delays or returns causing additional fees
-- **Solution**: Verify address format, include phone numbers, understand local customs requirements
-
-### When to consider alternative strategies
-
-**For very small orders**: Individual shipping might be more cost-effective than waiting to consolidate
-
-**For urgent items**: Express shipping premium might be justified vs. economy delays
-
-**For high-value items**: Insurance and premium tracking might offset higher shipping costs
-
-**For remote locations**: Consider package forwarding services or alternative carriers
-
-## Building Your Shipping Strategy
-
-### Create a personal optimization checklist
-
-✓ Check current promotions before placing orders
-✓ Plan consolidation timing for multiple items  
-✓ Request packaging optimization for every order
-✓ Compare shipping lines for your specific route
-✓ Factor total cost (item + shipping + duties) into purchase decisions
-✓ Document successful strategies for future reference
-
-### Long-term cost management
-
-**Track and analyze**:
-- Keep spreadsheet of shipping costs per order
-- Monitor which strategies provide best savings for your location
-- Note seasonal patterns in costs and delivery times
-- Identify optimal order sizes for your budget and needs
-
-**Continuous improvement**:
-- Test new shipping lines with small orders
-- Experiment with different consolidation strategies
-- Stay updated on new promotional programs
-- Share successful strategies with community for reciprocal advice
-
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-129-coupon": {
           metadata: {
-            title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025",
+            title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus (2025)",
             slug: "cnfans-129-coupon",
             date: "2025-08-03",
-            description: "Step-by-step guide to claiming and using your CNFANS $129 shipping coupon welcome bonus effectively.",
+            description: "Want cheap shipping CNFANS on your first orders? This guide explains how to find and redeem a CNFANS $129 coupon.",
             tags: ["cnfans", "coupon", "welcome-bonus", "savings"],
             draft: false
           },
-          content: `# CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025
+          content: `# CNFANS $129 Coupon: How to Redeem Your Welcome Bonus (2025)
 
-Want cheap shipping CNFANS on your first orders? The CNFANS $129 coupon welcome bonus can significantly reduce your initial shipping costs. This guide shows you exactly how to claim, apply, and maximize this valuable new customer benefit.
+Want cheap shipping CNFANS on your first orders? This guide explains how to find and redeem a CNFANS $129 coupon (when available), plus practical tips to get the most value from your welcome offer.
 
-Claim your bonus now: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Get CNFANS $129 coupons</a>
+Start here: After registering, open your dashboard and check Coupons/Promotions for current offers.
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Understanding the CNFANS $129 Welcome Bonus
+## What the CNFANS $129 coupon is (plain English)
 
-### What's included in the package
+The CNFANS $129 coupon is a new-user shipping discount that may appear in your account after registration, subject to CNFANS's current terms. Availability, eligibility, and how the discount applies can change—always verify in your dashboard before you ship.
 
-The CNFANS register coupon typically includes:
-- Multiple shipping discount coupons totaling $129 value
-- Percentage-based discounts for different order sizes
-- First-order shipping credits
-- Consolidation service discounts
+### Key points to remember
 
-**Important note**: The exact composition may vary based on current promotions. Always check your account dashboard after registration for the most current offer details.
+It reduces shipping cost (not product price).
 
-### Eligibility requirements
+Eligibility and application rules depend on CNFANS's current promo.
 
-**Who qualifies**:
-- New CNFANS accounts only
-- Valid email verification required
-- Must register through eligible promotional links
-- One welcome bonus per person/household
+Some lines or routes may have restrictions; check details next to the offer.
 
-**Verification process**:
-- Complete account registration with valid information
-- Verify email address through confirmation link
-- Coupons typically appear in account within 24-48 hours
-- Some bonuses may require first order to activate
+## Step-by-step: How to redeem
 
-## Step-by-Step Redemption Process
+### Register an account
+Create your account and confirm any email/SMS verification if prompted.
+→ <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-### Step 1: Account registration
+### Open Coupons/Promotions
+After login, go to Coupons (or Promotions) in your dashboard. Look for a $129 welcome coupon or other CNFANS discount code. If an activation button is shown, click it.
 
-1. **Click the promotional link**: Use verified CNFANS registration links to ensure bonus eligibility
-2. **Complete registration form**: Provide accurate information including valid email
-3. **Verify email address**: Check inbox (and spam folder) for verification email
-4. **Complete profile setup**: Add basic shipping information to activate account features
+### Check the terms
+Review eligibility: expiry date, applicable shipping lines, any minimums, and your region.
 
-### Step 2: Locate your coupons
+### Prepare your shipment
+Add items to your warehouse/cart, choose a shipping line (economy / priority economy / express), and confirm the coupon applies at checkout before paying.
 
-1. **Log into your CNFANS account**
-2. **Navigate to "My Account" or "Dashboard"**
-3. **Look for "Coupons," "Promotions," or "My Discounts" section**
-4. **Screenshot or note down available coupons and their terms**
+## How to maximize the value
 
-**Common coupon locations**:
-- Account dashboard main page
-- Dedicated coupons/promotions tab
-- Checkout page during order process
-- Email notifications after registration
+### Consolidate when it makes sense
+One outbound parcel often costs less than several small ones because you pay handling/linehaul once. (Results vary by line/zone.)
 
-### Step 3: Understanding coupon terms
+### Reduce volumetric weight
+Request lighter packaging where available, avoid excess filler, and group small accessories together so L×W×H stays compact.
 
-**Typical coupon structure**:
-- **Shipping discount coupons**: $10-25 off shipping costs
-- **Percentage discounts**: 20-50% off shipping for specific lines
-- **Minimum order requirements**: Some coupons require minimum purchase amounts
-- **Expiration dates**: Usually 30-90 days from account creation
+### Time it well
+If your schedule is flexible, avoid peak rushes. Seasonal events can bring good promos but also higher demand—plan accordingly.
 
-**Important restrictions**:
-- May not combine with other promotional offers
-- Specific shipping lines may be excluded
-- One coupon per order typically
-- Cannot be used retroactively on completed orders
+### QC before shipping
+Approve photo/video checks (when offered) to avoid re-ship costs.
 
-## Maximizing Your Coupon Value
+## Troubleshooting (quick fixes)
 
-### Strategic order planning
+**Coupon not showing?**
+Log out/in, refresh the page, and recheck Coupons/Promotions. If it still doesn't appear, contact support via official channels.
 
-**For multiple coupons**: Plan 3-5 separate orders to use different coupons rather than one large order
+**Discount not applying at checkout?**
+Re-select the shipping line, ensure the coupon is eligible for that route, and confirm the total updates before you pay.
 
-**Timing consideration**: Use higher-value coupons on heavier shipments where shipping costs are naturally higher
+**Expired or not eligible?**
+Look for alternate CNFANS shipping deals or seasonal offers in the dashboard and email notifications.
 
-**Line selection**: Apply coupons to premium shipping lines for maximum savings impact
+## FAQ
 
-### Smart consolidation strategies
+**Is there always a CNFANS $129 coupon?**
+Not guaranteed. Availability varies—check your dashboard after registration.
 
-**Coupon stacking with consolidation**:
-1. Order items over 1-2 weeks to build consolidation package
-2. Apply largest shipping coupon to the consolidated shipment
-3. Save smaller coupons for future individual items
+**Can I stack multiple coupons?**
+Usually one per order. Choose the highest-value eligible coupon for your route.
 
-**Value comparison**:
-- Calculate savings from coupon vs. potential consolidation savings
-- Sometimes individual shipping with coupons beats consolidation without
-- Consider timing: use coupons before expiration even if consolidation isn't optimal
+**Does the coupon work on every line?**
+Not necessarily. Read the terms next to the offer for line/region restrictions.
 
-### Order size optimization
+**What does the coupon cover?**
+Shipping charges on CNFANS (not the product price paid to sellers).
 
-**Match coupon value to shipping cost**:
-- Use percentage-based coupons on larger, heavier orders
-- Apply fixed-amount coupons to smaller shipments
-- Calculate total savings to determine best coupon application
+## Quick checklist (save this)
 
-**Weight bracket strategy**:
-- Understand shipping weight brackets (0-1kg, 1-2kg, etc.)
-- Apply coupons at weight points where shipping jumps significantly
-- Consider adding small items to reach next weight bracket if coupon savings exceed item cost
+✓ Account registered and verified
 
-## Common Issues and Solutions
+✓ Coupons/Promotions checked for a CNFANS $129 coupon
 
-### Coupon not appearing in account
+✓ Terms read (expiry, eligible lines, region)
 
-**Troubleshooting steps**:
-1. **Wait 48 hours**: Some coupons have delayed activation
-2. **Check spam folder**: Welcome emails sometimes filtered incorrectly
-3. **Verify registration source**: Ensure you used a qualifying promotional link
-4. **Contact customer service**: Provide registration details and promotional link used
+✓ Items consolidated (if useful) and packaging request set
 
-**Documentation to keep**:
-- Screenshot of promotional offer before registration
-- Registration confirmation email
-- Any promotional emails received
+✓ Coupon applied and visible in the total before payment
 
-### Coupon not applying at checkout
+✓ Tracking notifications enabled
 
-**Common causes and fixes**:
-- **Minimum order not met**: Check coupon terms for purchase requirements
-- **Shipping line restrictions**: Some coupons only work with specific carriers
-- **Expiration date passed**: Verify coupon is still valid
-- **Technical issues**: Try different browser or clear cache
+## Get started
 
-**Alternative approaches**:
-- Apply coupon code manually if auto-application fails
-- Contact customer service chat during checkout for immediate assistance
-- Complete order and request coupon application retroactively (not always possible)
+Register and check your dashboard for welcome offers:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
 
-### Multiple account restrictions
+Start with a small shipment to learn timing and packaging preferences.
 
-**Policy considerations**:
-- CNFANS typically allows one welcome bonus per person
-- Using multiple accounts may result in account suspension
-- Family members can have separate accounts with separate bonuses
-- Business vs. personal accounts may have different policies
+Reuse the checklist to keep costs predictable on every order.
 
-## Advanced Coupon Strategies
-
-### Seasonal timing optimization
-
-**Best times to use coupons**:
-- **Off-peak seasons**: Combine coupon savings with naturally lower shipping rates
-- **Before major sales**: Use coupons on regular-price shipping before promotional rates begin
-- **End of coupon validity**: Don't let valuable coupons expire unused
-
-**Seasonal considerations**:
-- Holiday shipping surcharges may reduce coupon effectiveness
-- Peak season delays might affect coupon expiration timing
-- Off-season shipping lines might offer better coupon combination opportunities
-
-### Community sharing and learning
-
-**Ethical information sharing**:
-- Share general strategies and tips with other users
-- Discuss coupon terms and experiences (without sharing personal codes)
-- Help newcomers understand how to maximize their welcome bonuses
-- Report changes in promotional terms to help community stay current
-
-**Learning from others**:
-- Join user communities to learn optimization strategies
-- Ask questions about specific coupon terms or applications
-- Share successful combinations of coupons with consolidation or timing strategies
-
-## Beyond the Welcome Bonus
-
-### Building long-term savings strategies
-
-**After using welcome coupons**:
-- Learn consolidation techniques for ongoing savings
-- Monitor seasonal promotions and flash sales
-- Build relationship with customer service for problem resolution
-- Develop personal shipping optimization checklist
-
-**Ongoing promotional opportunities**:
-- Loyalty program benefits for repeat customers
-- Seasonal promotional codes throughout the year
-- Referral programs for bringing new customers
-- Volume discounts for larger or frequent orders
-
-### Sharing responsibly (if applicable)
-
-**If you decide to share CNFANS**:
-- Only recommend based on positive personal experience
-- Clearly disclose any referral relationships
-- Focus on helping others save money rather than just earning referral bonuses
-- Provide honest assessment of pros and cons
-
-**Community contribution**:
-- Share successful strategies and tips
-- Help troubleshoot others' coupon issues
-- Contribute to knowledge base about changing promotional terms
-- Support positive community culture around shared savings
-
-## Tracking Your Savings
-
-### Documentation for optimization
-
-**Keep records of**:
-- Original shipping quotes before coupon application
-- Final shipping costs after coupon use
-- Delivery times and service quality for different lines
-- Overall satisfaction with orders where coupons were used
-
-**Calculate total value**:
-- Add up all coupon savings across multiple orders
-- Compare to what shipping would have cost without welcome bonus
-- Factor in any improved service or faster shipping lines you could afford with savings
-
-### Planning future orders
-
-**Use welcome bonus experience to**:
-- Identify which shipping lines work best for your location
-- Understand typical processing and delivery times
-- Develop preferences for consolidation vs. individual shipping
-- Build confidence in platform for larger future orders
-
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-seasonal-coupons": {
@@ -1199,261 +719,145 @@ Last updated: August 3, 2025.`
             title: "CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals",
             slug: "cnfans-seasonal-coupons",
             date: "2025-08-03",
-            description: "Stay ahead of CNFANS seasonal coupons and major shopping events with this complete 2025 calendar and strategy guide.",
+            description: "Stay ahead of CNFANS seasonal coupons with a simple plan for 2025.",
             tags: ["cnfans", "seasonal", "coupons", "sales"],
             draft: false
           },
           content: `# CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals
 
-Stay ahead of CNFANS seasonal coupons and major shopping holidays. This comprehensive guide covers all major sales events, typical discount patterns, and strategic timing to maximize your savings throughout 2025.
+Stay ahead of CNFANS seasonal coupons with a simple plan for 2025. This guide shows when savings typically appear (11.11, 12.12, Black Friday/Cyber Monday) and how to prepare so you actually capture cheap shipping CNFANS deals when they go live.
 
-Get started with base coupons: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Claim CNFANS $129 welcome coupons</a>
+New here? After registration, open your dashboard and check Coupons/Promotions for current offers (often a welcome bonus).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Major Shopping Events Calendar 2025
+## How CNFANS seasonal promos usually work
+
+**Aligned with global events**: Expect promo activity around 11.11, 12.12, and Black Friday/Cyber Monday, plus regional holidays.
+
+**Shipping-first discounts**: CNFANS focuses on shipping cost reductions, not product pricing.
+
+**Limited windows & capacity**: Popular lines and coupons can be time-boxed and limited—be ready before the event.
+
+**Details vary**: Eligibility, lines, regions, and terms can change. Always check the promo card in your dashboard.
+
+## 2025 planning snapshot (what to watch)
+
+**Q1 (Jan–Mar)**: Post-holiday cleanup, Chinese New Year impacts (processing may slow).
+
+**Q2 (Apr–Jun)**: Spring promos; watch the 6.18 mid-year festival for trial runs.
+
+**Q3 (Jul–Sep)**: Back-to-school timing; prep lists and addresses for Q4.
+
+**Q4 (Oct–Dec)**: 11.11 Singles' Day, Black Friday/Cyber Monday, 12.12—the busy season for CNFANS shipping deals.
+
+## Event playbooks (safe & effective)
 
 ### 11.11 Singles' Day (November 11)
-**Biggest sale event of the year**
 
-**Typical CNFANS 11.11 offers**:
-- Up to 50% off shipping on premium lines
-- Stacked coupons: platform + brand + shipping discounts
-- Extended consolidation periods (up to 120 days)
-- Special pricing on express shipping lines
+**Why it matters**: Traditionally the strongest wave of e-commerce promos.
 
-**Preparation timeline**:
-- **October 1-15**: Start adding items to wishlist, research prices
-- **October 15-31**: Finalize shopping list, prepare payment methods
-- **November 1-10**: Pre-order available items, stack applicable coupons
-- **November 11**: Complete remaining orders, apply seasonal codes
+**Your prep checklist**:
 
-**Pro strategy**: Use the week before 11.11 to consolidate previous orders with 11.11 purchases for maximum shipping efficiency.
+Register and verify your account early → <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
 
-### Black Friday & Cyber Monday (November 24-27)
-**Western-focused sales event with international shipping deals**
+Bookmark items and estimate weights/sizes.
 
-**Expected CNFANS Black Friday benefits**:
-- Shipping discounts: 20-40% off international lines
-- Free consolidation services (normally $2-5 fee)
-- Express line promotions for holiday delivery
-- Extended return/exchange windows
+Confirm addresses, payment methods, and notifications.
 
-**Timing considerations**:
-- **November 1-20**: Research and plan purchases
-- **November 21-24**: Apply early bird discounts
-- **November 24-27**: Main event shopping
-- **November 28-30**: Cyber Monday extensions
+Check Coupons/Promotions the morning of 11.11 and apply eligible offers before paying.
 
-**Holiday shipping note**: Factor in December delivery delays when choosing shipping lines during Black Friday promotions.
+**After the event**: Consolidate thoughtfully, choose a line that fits budget vs. ETA, and track closely during high volume.
 
-### 12.12 Double 12 (December 12)
-**End-of-year clearance and holiday shopping event**
+### Black Friday / Cyber Monday
 
-**Typical 12.12 CNFANS promotions**:
-- Year-end shipping clearance: discounted rates on slower lines
-- Holiday gift consolidation specials
-- Last-chance deals on items from earlier sales
-- New Year preparation promotions
+**What to expect**: Western-market focus; watch weekend-long waves of offers.
 
-**Strategic approach**:
-- Use for non-urgent items that can arrive in January
-- Combine with any remaining 11.11 items still in warehouse
-- Focus on economy shipping lines with maximum discount application
-- Plan for extended delivery times due to holiday season
+**Tips**:
 
-### Chinese New Year Period (January 28 - February 11, 2025)
-**Service limitations but potential pre-holiday savings**
+Review lines/prices a day before.
 
-**What to expect**:
-- **Pre-CNY rush (Jan 1-25)**: Discounted shipping to clear warehouses
-- **CNY closure (Jan 28-Feb 11)**: Limited or no shipping services
-- **Post-CNY restart (Feb 12+)**: Gradual service resumption
+Try app + desktop; refresh if traffic is high.
 
-**Optimization strategy**:
-- Ship all consolidated orders by January 25
-- Use pre-holiday discounts for items you can wait for
-- Avoid urgent orders during closure period
-- Plan post-holiday orders for March delivery
+Confirm the discount appears at checkout (before you pay).
 
-## Quarterly Seasonal Patterns
+### 12.12 (Double Twelve)
 
-### Q1 (January-March): Post-Holiday Clearance
-**Best for**: Clearing inventory, trying new sellers, budget optimization
+**Why it matters**: Final big push before year-end.
 
-**Typical promotions**:
-- New Year fresh start: 20-30% shipping discounts
-- Valentine's Day specials: expedited shipping for gifts
-- Spring preparation: consolidated shipping deals
+**Tips**:
 
-**Optimization tips**:
-- Take advantage of reduced warehouse congestion
-- Use this period to test new shipping lines at discounted rates
-- Plan larger consolidated orders while processing times are faster
+Consolidate remaining items.
 
-### Q2 (April-June): Stable Season Shopping
-**Best for**: Regular orders, consistent pricing, reliable timelines
+Check insurance/tracking options that fit holiday timelines.
 
-**Promotional characteristics**:
-- Steady, predictable shipping rates
-- Mother's Day express shipping promotions
-- Early summer preparation deals
+Plan for holiday carrier congestion; enable delivery notifications.
 
-**Strategy focus**:
-- Use this period for important or time-sensitive orders
-- Build inventory for potential Q3/Q4 delays
-- Establish baseline shipping costs for comparison with seasonal deals
+## Practical ways to capture the discount
 
-### Q3 (July-September): Back-to-School and Pre-Holiday
-**Best for**: Major wardrobe updates, holiday preparation
+**Be early**: Coupons and preferred lines can go fast.
 
-**Expected seasonal offers**:
-- Back-to-school shipping bundles
-- Pre-11.11 warm-up promotions (September)
-- End-of-summer clearance shipping deals
+**Consolidate when it helps**: One outbound parcel often beats multiple small ones (depends on line/zone).
 
-**Planning approach**:
-- Use August-September for major orders before holiday rush
-- Take advantage of pre-11.11 promotions
-- Prepare for Q4 delays by ordering early
+**Reduce volume**: Request lighter packaging (where available), avoid excess filler, and group small accessories—this can lower volumetric weight.
 
-### Q4 (October-December): Peak Season Complexity
-**Best for**: Strategic timing around major sales events
+**QC before shipping**: Approve photo/video checks (when offered) to avoid costly re-ships.
 
-**Seasonal characteristics**:
-- Highest discount potential during 11.11 and Black Friday
-- Increased shipping costs and delays in December
-- Limited availability during Chinese New Year preparation
+**Set reminders**: For event dates and coupon expiry.
 
-**Advanced timing strategy**:
-- Front-load orders in October before warehouse congestion
-- Use major sales events for maximum discount stacking
-- Plan December orders carefully around holiday delays
+## Compliance-first customs note
 
-## Coupon Stacking and Optimization
+**Know your local rules**: Duties/taxes, documentation, and thresholds are set by your country.
 
-### Understanding coupon types
+**Declare accurately**: Follow legal requirements for item descriptions and values.
 
-**Platform-wide coupons**: Apply to shipping costs across all lines
-**Line-specific coupons**: Discounts for particular shipping carriers
-**Threshold coupons**: Activate when order meets minimum requirements
-**Percentage vs. fixed-amount**: Different optimal use cases
+**Ask a pro if needed**: For complex cases, consult a licensed customs broker.
 
-### Advanced stacking strategies
+## Troubleshooting (peak-season realities)
 
-**Legal stacking combinations**:
-- Welcome bonus + seasonal promotion (when permitted)
-- Platform coupon + payment method discount
-- Consolidation discount + shipping line promotion
+**Checkout won't apply the code**: Re-select the shipping line, refresh, and confirm eligibility in the coupon's terms.
 
-**Timing optimization**:
-- Use smaller coupons during off-peak seasons
-- Save percentage-based coupons for major sale events
-- Apply fixed-amount coupons when shipping costs are naturally high
+**Site/app busy**: Try both mobile app and desktop; keep a secondary browser handy.
 
-### Maximum value calculation
+**Delayed updates**: High demand can slow tracking/processing—monitor and contact support with order IDs if needed.
 
-**Before applying coupons, calculate**:
-1. Base shipping cost for your order
-2. Available coupon options and restrictions
-3. Potential savings from each combination
-4. Long-term value vs. immediate use
+## Quick calendar you can copy
 
-**Example optimization**:
-- $45 shipping cost with 30% seasonal coupon = $31.50
-- Same order with $20 fixed coupon = $25
-- Choose fixed coupon, save percentage coupon for larger order
+**Now**: Register, verify, set notifications.
 
-## Seasonal Shopping Strategies
+**Q2 (around 6.18)**: Do a small test shipment to learn lines/timing.
 
-### Event preparation checklists
+**Q4**:
 
-**30 days before major sales**:
-✓ Review previous year's promotional terms
-✓ Create wishlist and research regular pricing
-✓ Verify account status and available coupons
-✓ Plan consolidated shipping strategy
+**11.11**: Primary savings window—act early.
 
-**7 days before major sales**:
-✓ Finalize shopping list and budget
-✓ Prepare multiple payment options
-✓ Check warehouse storage policies for extended consolidation
-✓ Set up price alerts for target items
+**Black Friday/Cyber Monday**: Weekend waves—double-check eligibility before paying.
 
-**During sales events**:
-✓ Apply best available coupon combinations
-✓ Monitor for flash promotions throughout the day
-✓ Complete orders early to avoid system congestion
-✓ Screenshot all promotional terms and applied discounts
+**12.12**: Year-end consolidation and insurance/tracking choices.
 
-### Post-event optimization
+## FAQ
 
-**After major sales events**:
-- Document total savings achieved vs. regular pricing
-- Note which coupon combinations provided best value
-- Assess order processing and delivery performance during peak periods
-- Plan future strategies based on experience
+**Are seasonal coupons guaranteed?**
+No—availability varies by region, line, and timing. Always check your dashboard.
 
-**Long-term pattern recognition**:
-- Track seasonal discount percentages year-over-year
-- Identify personal optimal shopping rhythms
-- Build confidence in timing larger purchases around predictable promotions
+**Can I stack multiple coupons?**
+Usually one per order. Choose the highest-value eligible offer for your route.
 
-## Advanced Seasonal Strategies
+**Which line is "best"?**
+It depends on destination and timeline. Compare economy, priority economy, and express for your address.
 
-### Multi-event planning
+**Is consolidation always cheaper?**
+Often—but not always. Check volumetric weight and line thresholds.
 
-**Coordinating across sale events**:
-- Use 11.11 for major purchases, Black Friday for shipping optimization
-- Plan 12.12 orders to arrive after holiday season delays
-- Leverage CNY pre-closure discounts for patient purchases
+## Get started
 
-**Resource allocation**:
-- Budget planning across multiple seasonal events
-- Coupon conservation for maximum-impact events
-- Warehouse space planning for extended consolidation periods
+Register and check your dashboard for current CNFANS seasonal coupons and welcome offers:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register & check coupons</a>
 
-### Geographic and timing considerations
+Do a small test shipment before major events.
 
-**Regional factor optimization**:
-- Understand your local customs processing during holiday seasons
-- Factor regional holidays into shipping timeline planning
-- Consider local shopping seasons vs. Chinese promotional calendars
+Use this page's checklist for 11.11, Black Friday/Cyber Monday, and 12.12.
 
-**Personal scheduling integration**:
-- Align major purchases with personal budget cycles
-- Plan deliveries around travel or availability to receive packages
-- Consider seasonal wardrobe needs when timing fashion purchases
-
-## Staying Updated on Promotions
-
-### Information sources
-
-**Official channels**:
-- CNFANS homepage banners and announcements
-- Account dashboard promotional notifications
-- Email newsletters (if subscribed)
-- Official social media accounts
-
-**Community resources**:
-- User forums and communities
-- Social media groups focused on international shopping
-- Deal-sharing websites and apps
-- Seasonal shopping strategy discussions
-
-### Promotional tracking methods
-
-**Personal organization systems**:
-- Calendar reminders for major sale dates
-- Spreadsheet tracking of seasonal discount patterns
-- Photo documentation of promotional terms
-- Historical comparison of year-over-year offers
-
-**Automated monitoring**:
-- Email alerts for account promotions
-- Browser bookmarks for quick promotional page access
-- Mobile app notifications (where available)
-- Price tracking apps for seasonal comparison
-
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-spreadsheets": {
@@ -1461,703 +865,542 @@ Last updated: August 3, 2025.`
             title: "Best CNFANS Spreadsheets 2025: Updated Links & Categories",
             slug: "cnfans-spreadsheets",
             date: "2025-08-03",
-            description: "Looking for an updated CNFANS spreadsheet? Find the most current product catalogs, pricing sheets, and category breakdowns.",
+            description: "Looking for an updated CNFANS spreadsheet that actually helps? This guide highlights how to find and use CNFANS spreadsheets 2025.",
             tags: ["cnfans", "spreadsheets", "catalog", "organization"],
             draft: false
           },
           content: `# Best CNFANS Spreadsheets 2025: Updated Links & Categories
 
-Looking for an updated CNFANS spreadsheet with current links and organized categories? This guide covers the most valuable product catalogs, pricing sheets, and organizational systems to streamline your shopping experience.
+Looking for an updated CNFANS spreadsheet that actually helps? This guide highlights how to find and use CNFANS spreadsheets 2025—curated overviews with organized categories, current public links, and practical tips to get cheap shipping CNFANS without guesswork.
 
-Access organized products here: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Browse CNFANS organized catalog</a>
+New here? After registration, open your dashboard and check Coupons/Promotions for welcome offers (often a CNFANS $129 coupon).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Why Use Product Spreadsheets?
+## What a CNFANS spreadsheet is (and isn't)
 
-### Benefits of organized shopping lists
+A CNFANS spreadsheet is a community-made resource that organizes public links, categories, and high-level shipping tips so you can research faster. It's not a store, not a guarantee, and not official CNFANS documentation—always verify details yourself.
 
-**Time efficiency**: Pre-organized categories save hours of browsing
-**Price comparison**: Easy side-by-side comparison of similar items
-**Planning support**: Better budget planning and consolidation strategies
-**Reference tracking**: Keep track of previously ordered items and their quality
+Good CNFANS spreadsheets usually offer:
 
-### What makes a good product spreadsheet
+Clear categories (Shoes, Accessories, Coats & Jackets, etc.)
 
-**Essential elements**:
-- Current, working product links
-- Clear category organization
-- Accurate pricing information
-- Size availability and charts
-- Seller reliability ratings
+Current public links and simple notes for comparison
 
-**Quality indicators**:
-- Recent update dates (within 2-3 months)
-- Community feedback and reviews
-- Multiple product options per category
-- Clear formatting and easy navigation
+Occasional reminders about CNFANS discount codes and seasonal deals
 
-## Types of CNFANS Product Catalogs
+Freshness indicators (last updated, removed dead links)
 
-### Category-based spreadsheets
+**Reminder**: Follow your local laws and platform rules. Nothing here is legal advice.
 
-**Apparel catalogs**:
-- Men's clothing: shirts, pants, jackets, streetwear
-- Women's fashion: dresses, tops, bottoms, accessories
-- Footwear: sneakers, boots, formal shoes, seasonal options
-- Specialized categories: activewear, formal wear, seasonal items
+## How to use CNFANS spreadsheets safely (5 steps)
 
-**Organization benefits**:
-- Quick navigation to relevant product types
-- Easy comparison within specific categories
-- Simplified consolidation planning for similar items
-- Better understanding of seller specializations
+**Scan categories first** – Start with the sections that match your needs: Trending Now, Latest Finds, Shoes, T-Shirt & Shorts, Hoodies & Pants, Coats & Jackets, Accessories, Electronic Products, Perfumes, Womans.
 
-### Price-range focused catalogs
+**Check freshness** – Look for "last updated" notes and avoid stale entries.
 
-**Budget tiers typically covered**:
-- **Economy range**: $10-30 items for basic quality needs
-- **Mid-range**: $30-80 items balancing quality and cost
-- **Premium range**: $80+ items for higher quality expectations
+**Compare practically** – Focus on photos, materials/finish notes, and recent community feedback.
 
-**Strategic use**:
-- Match budget constraints to appropriate product tiers
-- Understand value propositions at different price points
-- Plan mixed-tier orders for optimal cost/quality balance
+**Plan total cost** – Product + shipping line + insurance/taxes.
 
-### Seller-focused spreadsheets
+**Start small** – Place a small test order before you scale up.
 
-**Verified seller catalogs**:
-- High-reliability sellers with consistent quality
-- Specialized sellers for specific product categories
-- New seller discoveries with community feedback
-- Seasonal seller performance tracking
+## Typical categories & subcategories you'll see
 
-**Advantages**:
-- Reduced risk of disappointing purchases
-- Faster reorder process for satisfactory items
-- Better customer service experience expectations
-- Community-verified reliability ratings
+**Shoes**: lifestyle, running, basketball, boots, sandals.
 
-## Finding and Evaluating Spreadsheets
+**Apparel**: hoodies, pants, coats & jackets, t-shirts & shorts, seasonal sets.
 
-### Reliable sources for current catalogs
+**Accessories**: bags, wallets, belts, scarves, jewelry-style pieces, sunglasses, underwear & socks, other.
 
-**Community-maintained resources**:
-- User forums with regularly updated shared catalogs
-- Social media groups focused on international shopping
-- Discord communities with collaborative spreadsheet projects
-- Reddit communities with vetted seller and product lists
+**Electronics & lifestyle**: tech accessories, home items.
 
-**Quality verification steps**:
-1. Check last update date (should be within 2-3 months)
-2. Test random product links to verify they're working
-3. Look for community feedback and user reviews
-4. Verify pricing accuracy against current platform rates
+**Perfumes & beauty**: check local restrictions and shipping rules.
 
-### Red flags in product spreadsheets
+**Womans**: focused selections across apparel/footwear/accessories.
 
-**Avoid catalogs with**:
-- Links that redirect to suspicious or non-CNFANS sites
-- Pricing significantly below market rates (may indicate issues)
-- No recent updates or community feedback
-- Overly promotional language without substance
-- Missing key information like sizing or seller details
+(Many spreadsheets add small icons above each card/name to make scanning faster.)
 
-**Safety considerations**:
-- Never download executable files disguised as spreadsheets
-- Be cautious of catalogs requiring personal information to access
-- Avoid catalogs with excessive affiliate link density
-- Verify legitimacy through multiple community sources
+## Finding credible, updated CNFANS spreadsheet links
 
-## Creating Your Personal Shopping Spreadsheet
+Look for update cadence (weekly/monthly) and visible change logs.
 
-### Essential columns for tracking
+Prefer neutral notes over hype; clear labeling beats vague claims.
 
-**Product information**:
-- Item name/description
-- Product link (direct to CNFANS)
-- Category and subcategory
-- Price in original currency
-- Size needed/availability
+Check that "removed/dead" links get pruned—a good sign of maintenance.
 
-**Order management**:
-- Priority level (1-5 scale)
-- Estimated shipping weight
-- Preferred consolidation group
-- Order status and tracking
+Read community comments for recency and real outcomes.
 
-**Quality tracking**:
-- Seller rating/feedback
-- Personal notes from previous orders
-- Community reviews summary
-- Reorder probability
+Avoid resources that publish private data or encourage rule-breaking.
 
-### Organization strategies
+## Savings shortcuts with CNFANS spreadsheets
 
-**Category structure examples**:
+**Consolidation**: If you plan multiple items, one outbound parcel often beats several small ones (depends on line/zone).
 
-- Main Categories:
-  - Footwear: Casual Sneakers, Formal Shoes, Seasonal (boots, sandals)
-  - Apparel: Tops (shirts, sweaters, jackets), Bottoms (pants, shorts, skirts), Outerwear
-  - Accessories: Bags and Backpacks, Jewelry and Watches, Tech Accessories
+**Volume control**: Request lighter packaging where available and group small accessories to lower volumetric weight.
 
-**Priority and timing columns**:
-- Urgency rating for delivery timing
-- Budget allocation and spending tracking
-- Seasonal appropriateness
-- Consolidation grouping assignments
+**Seasonal timing**: Watch 11.11, 12.12, and Black Friday/Cyber Monday for CNFANS seasonal coupons.
 
-### Automation and maintenance
+**Apply your coupon correctly**: Choose the line, then apply an eligible CNFANS discount code at checkout—confirm the total updates before paying.
 
-**Spreadsheet formulas for efficiency**:
-- Auto-calculate total costs including estimated shipping
-- Conditional formatting for priority items or budget limits
-- Automatic categorization based on keywords or price ranges
-- Link validation to identify broken product URLs
+## Quick checklist (save this)
 
-**Regular maintenance schedule**:
-- **Weekly**: Update order status, add new discoveries
-- **Monthly**: Verify link functionality, update pricing
-- **Seasonally**: Reorganize priorities, archive completed orders
-- **Annually**: Complete catalog review and cleanup
+✓ Found a best CNFANS spreadsheet with recent updates
 
-## Using Spreadsheets for Strategic Shopping
+✓ Chosen categories that match your needs
 
-### Consolidation planning
+✓ Verified links and read recent feedback
 
-**Grouping strategies**:
-- Organize by shipping timeline preferences (urgent vs. patient)
-- Group by item fragility for appropriate packaging requests
-- Combine complementary items for outfit coordination
-- Balance heavy and light items for optimal shipping efficiency
+✓ Planned consolidation/packaging to reduce volume
 
-**Budget optimization through planning**:
-- Track running totals across multiple orders
-- Plan consolidation timing to maximize coupon usage
-- Balance immediate needs vs. strategic bulk ordering
-- Monitor spending patterns to identify optimization opportunities
+✓ Checked Coupons/Promotions for a CNFANS $129 coupon
 
-### Seasonal and sale event preparation
+✓ Confirmed discount appears in the total before payment
 
-**Pre-sale organization**:
-- Flag items for major sale events (11.11, Black Friday)
-- Create separate tabs for seasonal shopping priorities
-- Research historical pricing for better sale evaluation
-- Prepare multiple shipping scenarios based on sale timing
+## FAQ
 
-**Event execution tracking**:
-- Monitor price changes during sale events
-- Track coupon application and savings achieved
-- Document successful strategies for future reference
-- Note any issues or improvements for next sale cycle
+**Are all CNFANS spreadsheets official?**
+No—most are community resources. Verify details and use common sense.
 
-## Advanced Spreadsheet Strategies
+**Do "updated links" mean everything is guaranteed?**
+No—availability changes. Treat spreadsheets as a starting point, not a promise.
 
-### Collaborative sharing approaches
+**Can I stack multiple coupons?**
+Usually one per order. Pick the highest-value eligible offer for your route.
 
-**Community contribution guidelines**:
-- Share discoveries while respecting seller relationships
-- Contribute reviews and quality assessments
-- Update broken links and pricing changes
-- Maintain ethical standards around affiliate link sharing
+**Is consolidation always cheaper?**
+Often—but not always. Compare volumetric vs actual weight for your chosen line.
 
-**Privacy considerations**:
-- Remove personal order information before sharing
-- Use generic categories rather than specific personal needs
-- Avoid sharing seller communication or private information
-- Respect community guidelines about promotional content
+## Get started
 
-### Integration with other tools
+Register and check Coupons/Promotions for welcome offers and CNFANS shipping deals:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
 
-**Connecting to shopping workflow**:
-- Import/export functionality with budgeting apps
-- Integration with price tracking services
-- Synchronization with order tracking systems
-- Backup and version control for important catalogs
+Use a CNFANS spreadsheet to shortlist items, then place a small test order.
 
-**Cross-platform accessibility**:
-- Cloud-based spreadsheets for multi-device access
-- Mobile-friendly formatting for on-the-go shopping
-- Offline access capabilities for reference without internet
-- Export options for different file formats and sharing needs
+Reuse the checklist above to keep costs predictable every time.
 
-## Troubleshooting Common Issues
-
-### Broken links and outdated information
-
-**Quick fixes**:
-- Use CNFANS search function to find updated product pages
-- Check seller profiles for item relocations
-- Search by product image if text searches fail
-- Contact community for updated links to popular items
-
-**Prevention strategies**:
-- Maintain multiple source links for important items
-- Regularly verify high-priority product links
-- Keep seller contact information for direct inquiries
-- Document alternative sources for key product categories
-
-### Pricing discrepancies and changes
-
-**Understanding price fluctuations**:
-- Seasonal demand affecting product pricing
-- Currency exchange rate impacts on displayed prices
-- Promotional pricing vs. regular rates
-- Seller-specific pricing strategies and changes
-
-**Adaptation approaches**:
-- Track price histories for major purchase items
-- Set price alerts for significant changes
-- Understand which prices are more/less stable
-- Plan purchases around predictable price patterns
-
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-coupon-troubleshooting": {
           metadata: {
-            title: "CNFANS Coupon Not Working? Troubleshooting Guide 2025",
+            title: "CNFANS Coupon Not Working? Troubleshooting Guide (2025)",
             slug: "cnfans-coupon-troubleshooting",
             date: "2025-08-03",
-            description: "Seeing a CNFANS coupon not working error? Use this comprehensive troubleshooting guide to resolve common coupon issues.",
-            tags: ["cnfans", "coupon", "troubleshooting", "support"],
+            description: "Seeing a CNFANS coupon not working error? Use this step-by-step guide to fix the most common issues.",
+            tags: ["cnfans", "coupons", "troubleshooting", "support"],
             draft: false
           },
-          content: `# CNFANS Coupon Not Working? Troubleshooting Guide 2025
+          content: `# CNFANS Coupon Not Working? Troubleshooting Guide (2025)
 
-Seeing a "CNFANS coupon not working" error? Use this comprehensive troubleshooting guide to resolve common coupon application issues, understand error messages, and successfully apply your discounts.
+Seeing a CNFANS coupon not working error? Use this step-by-step guide to fix the most common issues—whether the CNFANS discount code looks invalid, won't apply to your shipping line, or disappears at checkout.
 
-Need fresh coupons? <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Get CNFANS $129 welcome coupons</a>
+New here? After registering, check your dashboard's Coupons/Promotions for welcome offers (often a CNFANS $129 coupon).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Most Common Coupon Issues
+## How CNFANS coupons work (plain English)
 
-### "Coupon code not valid" error
+Coupons reduce shipping cost (not product price).
 
-**Primary causes**:
-- Coupon has expired (check date restrictions)
-- Code entered incorrectly (case sensitivity, extra spaces)
-- Account doesn't meet eligibility requirements
-- Coupon already used (one-time use restriction)
+Availability, eligibility, and line/region rules can change—always read the terms on the coupon card in your dashboard.
 
-**Quick diagnostic steps**:
-1. Double-check coupon code spelling and case
-2. Verify expiration date hasn't passed
-3. Confirm you're logged into eligible account
-4. Check if coupon was already applied to previous order
+Usually one coupon per order; the system checks account status, order details, and shipping method eligibility at checkout.
 
-**Immediate fixes**:
-- Copy-paste code directly instead of manual typing
-- Remove any leading/trailing spaces from code
-- Try entering code in different browser or incognito mode
-- Log out and log back in to refresh account session
+## Quick fixes (try these first)
 
-### "Minimum order requirements not met"
+**Refresh + relogin**: Log out/in, then reopen Coupons/Promotions.
 
-**Understanding minimum thresholds**:
-- Shipping cost minimums vs. product cost minimums
-- Weight-based requirements for certain shipping coupons
-- Destination-specific restrictions (some regions excluded)
-- Shipping line eligibility (premium vs. economy restrictions)
+**Switch context**: Try the CNFANS mobile app and desktop website; test another browser (Chrome/Firefox/Safari).
 
-**Verification checklist**:
-✓ Order subtotal meets minimum purchase amount
-✓ Selected shipping line eligible for coupon
-✓ Destination country included in coupon coverage
-✓ Cart contents meet any category restrictions
+**Clear clutter**: Use a private/incognito window; temporarily disable ad-blockers.
 
-**Strategic solutions**:
-- Add small items to reach minimum threshold if savings justify cost
-- Switch to eligible shipping line if restrictions apply
-- Remove restricted items and apply coupon to remaining eligible items
-- Combine with other orders to reach threshold through consolidation
+**Re-select line**: Change the shipping line and reapply the coupon.
 
-### "Coupon cannot be combined with current promotion"
+**Confirm timing**: High-traffic events can cause hiccups—wait a few minutes and retry.
 
-**Common conflicts**:
-- Platform-wide sales overriding individual coupons
-- Automatic discounts conflicting with manual coupon codes
-- Payment method promotions blocking other discounts
-- Seasonal sale restrictions on additional coupon use
+## Fix by error message
 
-**Resolution approaches**:
-1. **Calculate which discount is better**: Compare automatic discount vs. coupon savings
-2. **Try different timing**: Apply coupon before or after other promotions
-3. **Remove conflicting items**: Separate orders to use different discount types
-4. **Contact support**: Some combinations may be possible with manual intervention
+### "Coupon code invalid" / "Code not found"
 
-## Step-by-Step Troubleshooting Process
+Remove extra spaces; type the code manually.
 
-### Initial diagnostic checklist
+Check case, dashes, and character look-alikes (O/0, l/1).
 
-**Before contacting support, verify**:
-✓ Coupon code copied exactly as provided (including case and special characters)
-✓ Account email verified and in good standing
-✓ Cart contents eligible for coupon (check category restrictions)
-✓ Shipping destination covered by coupon terms
-✓ Browser cookies enabled and not blocking checkout process
+Make sure the code is current for your region and line.
 
-### Browser and technical issues
+### "Coupon not applicable to this order"
 
-**Clear browser-related problems**:
-1. **Clear cache and cookies**: Old session data may interfere with coupon application
-2. **Disable browser extensions**: Ad blockers or security extensions may block coupon processing
-3. **Try incognito/private mode**: Eliminates extension and cache interference
-4. **Test different browsers**: Chrome, Firefox, Safari compatibility differences
-5. **Check internet connection**: Slow connections may timeout during coupon verification
+Verify the shipping line is eligible for that coupon.
 
-**Mobile vs. desktop issues**:
-- Some coupons may have better compatibility on desktop platforms
-- Mobile apps vs. mobile browser may handle coupons differently
-- Screen size affecting checkout interface and coupon entry fields
+Check for order minimums, weight/size thresholds, and regional limits.
 
-### Account-specific troubleshooting
+Remove excluded items or try a different line.
 
-**Account status verification**:
-- Confirm account in good standing (no payment disputes or violations)
-- Check if multiple accounts exist that might affect eligibility
-- Verify account region settings match coupon geographic restrictions
-- Ensure account age meets any new customer vs. returning customer requirements
+### "Minimum order value not met"
 
-**Login and session problems**:
-- Complete logout and fresh login to reset session
-- Clear stored login credentials and re-enter manually
-- Verify account email in case multiple CNFANS accounts exist
-- Check if account was created through eligible promotional link for welcome bonuses
+Review what counts toward the minimum; add a small item if needed.
 
-## Specific Error Messages and Solutions
+Confirm currency settings and totals before shipping is added (if the terms specify).
 
-### "This coupon is no longer available"
+### "Coupon expired" / "No longer available"
 
-**Possible meanings**:
-- **Expired by date**: Coupon past its valid usage period
-- **Usage limit reached**: Platform-wide usage cap exceeded
-- **Promotional period ended**: Limited-time offer concluded
-- **Account limit exceeded**: Personal usage limit reached
+Look for another CNFANS discount code in your dashboard or wait for the next promo window.
 
-**Alternative actions**:
-- Check account for other available coupons
-- Look for current promotional alternatives
-- Contact support to confirm expiration vs. technical issue
-- Join community forums for alternative coupon sharing
+### "Account not eligible"
 
-### "Coupon not applicable to selected items"
+Complete any email/phone/address verification.
 
-**Category and product restrictions**:
-- Certain brands or product types excluded from promotions
-- Shipping-only coupons vs. product discount coupons
-- Regional availability restrictions on specific items
-- Seller-specific limitations (some sellers opt out of platform promotions)
+Ensure you're logged into the right account and that it meets the coupon's conditions.
 
-**Diagnostic approach**:
-1. Remove items one by one to identify restricted products
-2. Check coupon terms for specific category inclusions/exclusions
-3. Verify whether coupon applies to products vs. shipping vs. both
-4. Contact support with specific item numbers for clarification
+## Device, browser & network checklist
 
-### "Payment processing error during coupon application"
+Update your browser/app to the latest version.
 
-**Technical resolution steps**:
-- Refresh page and re-apply coupon before payment
-- Try different payment method in case of payment processor conflicts
-- Clear payment form and re-enter information
-- Contact customer service chat during checkout for real-time assistance
+Clear cache/cookies (or use a private window).
 
-**Documentation for support**:
-- Screenshot error message exactly as displayed
-- Note specific coupon code and order contents
-- Record time/date of issue for support ticket tracking
-- Provide browser and device information if requested
+Disable extensions that may block scripts.
 
-## Advanced Troubleshooting Strategies
+Try another network (mobile data vs Wi-Fi).
 
-### Timing and coordination issues
+Restart the device if things still misbehave.
 
-**Order timing problems**:
-- **Coupon expiration during checkout**: Complete checkout process quickly once coupon applied
-- **Sale event conflicts**: Major sales may temporarily disable certain coupon types
-- **System maintenance**: Platform updates may temporarily affect coupon processing
-- **High traffic periods**: Slower processing during peak shopping times
+## Account & payment sanity checks
 
-**Strategic timing solutions**:
-- Apply coupons during off-peak hours for better system responsiveness
-- Complete orders well before coupon expiration dates
-- Monitor platform announcements for maintenance schedules
-- Prepare backup coupon options for time-sensitive purchases
+Make sure your profile and shipping address are complete and formatted correctly.
 
-### Consolidation and multiple order scenarios
+Add a valid payment method supported in your region.
 
-**Complex order structures**:
-- Coupons may not apply to consolidated shipments from multiple orders
-- Some coupons restricted to single-item vs. multi-item orders
-- Consolidation service fees may conflict with shipping coupons
-- Pre-orders vs. in-stock items may have different coupon eligibility
+If totals display in another currency, recheck the coupon's region/line rules.
 
-**Management strategies**:
-- Apply coupons to individual orders before requesting consolidation
-- Understand whether consolidation fees negate coupon savings
-- Plan consolidation timing around coupon expiration dates
-- Keep detailed records of which orders had successful coupon applications
+## When to contact support (and what to send)
 
-### International and regional complications
+**Contact support if**:
 
-**Geographic restrictions**:
-- Shipping destination affects coupon availability
-- Currency conversion issues affecting minimum order calculations
-- Regional payment method compatibility with coupon systems
-- Time zone differences affecting coupon expiration timing
+A coupon shown in your dashboard won't apply after multiple attempts.
 
-**Cross-border solutions**:
-- Verify coupon terms specifically mention your country/region
-- Contact support to confirm geographic eligibility
-- Consider package forwarding services if location is restricted
-- Understand how currency conversion affects minimum order requirements
+You completed verification and still see "not eligible."
 
-## When to Contact Customer Support
+The discount appears and then disappears at payment.
 
-### Preparing for support contact
+**Send with your message**:
 
-**Essential information to provide**:
-- Exact coupon code and source where you obtained it
-- Complete error message text (screenshot preferred)
-- Order contents and total amounts
-- Account email and approximate registration date
-- Browser and device information
+Screenshot of the coupon card and checkout page.
 
-**Effective communication strategies**:
-- Be specific about steps already attempted
-- Provide timeline of when issue first occurred
-- Ask for specific timeframe for resolution
-- Request confirmation of coupon terms and restrictions
+Your region, chosen shipping line, and approximate weight/size.
 
-### Alternative resolution methods
+Browser/app version and the time of attempts.
 
-**Community resources**:
-- User forums for similar issue experiences and solutions
-- Social media groups for real-time problem-solving assistance
-- Discord or chat communities for immediate troubleshooting help
-- Reddit communities focused on CNFANS and international shopping
+## Prevention: make coupons "just work"
 
-**Self-service options**:
-- Platform FAQ and help sections for common coupon issues
-- Account dashboard for coupon status and expiration tracking
-- Order history review for successfully applied coupon examples
-- Email correspondence review for coupon terms and conditions
+**Apply early**: Use eligible coupons before they hit quantity or time limits.
 
-## Prevention and Best Practices
+**Pick the right line**: Read the coupon's eligible shipping lines/regions.
 
-### Coupon management strategies
+**Keep it tidy**: One coupon per order; confirm the discount is visible before paying.
 
-**Organization systems**:
-- Screenshot coupon terms when first obtained
-- Create calendar reminders for expiration dates
-- Maintain spreadsheet of available coupons and their restrictions
-- Test coupons on small orders before major purchases
+**Plan around peaks**: During 11.11/12.12/Black Friday, be ready with items, addresses, and payment methods.
 
-**Usage optimization**:
-- Apply highest-value coupons to largest eligible orders
-- Understand stacking rules to maximize multiple discount opportunities  
-- Plan order timing around coupon expiration dates
-- Keep backup coupons available for time-sensitive purchases
+## FAQ
 
-### Building reliable coupon workflows
+**Where do I find current CNFANS coupons?**
+In your dashboard under Coupons/Promotions. Watch for banners and email/app notifications around seasonal events.
 
-**Checkout process optimization**:
-1. Complete all shopping and review cart contents
-2. Apply coupon before proceeding to payment
-3. Verify discount reflected in total before payment submission
-4. Screenshot successful coupon application for records
-5. Complete checkout promptly to avoid session timeouts
+**Can I stack multiple coupons?**
+Typically no. Choose the highest-value eligible coupon for your route.
 
-**Long-term strategy development**:
-- Learn from successful coupon applications for future reference
-- Document which coupon types work best for your typical order patterns
-- Build relationships with customer service for faster issue resolution
-- Share successful strategies with community while respecting platform policies
+**Why did the discount vanish at payment?**
+Re-select the shipping line, reapply the coupon, and ensure terms still match your cart/region. If it persists, contact support with screenshots.
 
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Does the $129 coupon apply to all users?**
+Availability can vary. Register, then check your dashboard to see what's currently offered to your account.
+
+## Get started
+
+Register and check your dashboard for a CNFANS register coupon or welcome offer:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupon</a>
+
+Test the process with a small shipment, then reuse this checklist for bigger orders.
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-affiliate-guide": {
           metadata: {
-            title: "CNFANS Affiliate Link Guide: How It Works & How to Share Responsibly",
+            title: "CNFANS Affiliate Link Guide: How It Works & How to Share Responsibly (2025)",
             slug: "cnfans-affiliate-guide",
             date: "2025-08-03",
-            description: "Learn how to use and share CNFANS affiliate links responsibly with best practices for content creation.",
+            description: "Learn how to use and share a CNFANS affiliate link the right way—clearly, ethically, and with real value for your audience.",
             tags: ["affiliate", "cnfans", "marketing", "referral"],
             draft: false
           },
           content: `# CNFANS Affiliate Link Guide: How It Works & How to Share Responsibly (2025)
 
-Learn how to effectively use and share CNFANS affiliate links. This guide covers best practices for content creation, high-converting copy, and responsible promotion strategies that help your audience while generating commissions.
+Learn how to use and share a CNFANS affiliate link the right way—clearly, ethically, and with real value for your audience. This guide covers what affiliate links are, how to disclose them, and practical ways to help people save (e.g., a CNFANS register coupon or a CNFANS $129 coupon) while you build trust.
 
-Get started with CNFANS: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register for affiliate program</a>
+Start here:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS registration (check for welcome coupons)</a>
 
-## Understanding CNFANS Affiliate Program
+## What a CNFANS affiliate link is (plain English)
 
-### How it works
-When someone registers through your affiliate link and makes purchases, you earn commission on their shipping fees. The program rewards you for bringing new customers to the platform.
+An affiliate link is a special URL that may credit you when someone signs up or shops after clicking your recommendation—according to the program's current terms. CNFANS defines the rules (attribution window, eligibility, what counts as a referral). Always check the latest program terms in your account.
 
-### Commission structure
-- **Registration bonus**: Earn when someone signs up through your link
-- **Shipping commissions**: Percentage of shipping fees from referred users
-- **Tier bonuses**: Higher rates for top-performing affiliates
+**Good to know** (without guessing specifics):
 
-### Cookie duration
-Referral cookies typically last 30-90 days, meaning you get credit for purchases made within that window after someone clicks your link.
+Attribution, eligibility, and rewards are set by CNFANS and can change.
 
-## Content Creation Best Practices
+Not all clicks or orders qualify.
 
-### Educational approach
-**Focus on value first**: Create genuinely helpful content about international shopping, sizing guides, or shipping optimization before mentioning affiliate links.
+Be transparent: tell readers it's an affiliate link.
 
-**Share real experiences**: Document your actual orders, shipping times, and quality assessments.
+## Disclosure & transparency (non-negotiable)
 
-**Problem-solving content**: Address common questions like sizing, shipping costs, or product quality expectations.
+Be clear that you may earn a commission—before or right next to the link.
 
-### High-converting content types
+**Short examples you can copy**:
 
-**Comprehensive guides**:
-- "Complete beginner's guide to international shopping"
-- "How to optimize shipping costs on CNFANS"
-- "Sizing guide for international orders"
+"This is an affiliate link. We may earn a commission at no extra cost to you."
 
-**Experience sharing**:
-- Order reviews with photos and honest assessments
-- Shipping timeline documentation
-- Quality comparisons at different price points
+"Includes an affiliate link—thanks for supporting the site!"
 
-**Seasonal content**:
-- "Best deals during 11.11 sales"
-- "Shipping optimization for holiday orders"
-- "Summer vs. winter shipping considerations"
+**Link hygiene**: add rel="nofollow sponsored noopener" and target="_blank" to affiliate anchors.
 
-## Responsible Promotion Strategies
+## Value-first playbook (what actually converts)
 
-### Disclosure requirements
-**Always include clear disclosures**: Use language like "This contains affiliate links. I may earn commission at no extra cost to you."
+People click when you solve problems:
 
-**Placement matters**: Include disclosure before or immediately with the link, not buried at the bottom of content.
+**Show how to save**: explain where to find a CNFANS discount code in the dashboard, how to apply a coupon at checkout, and when seasonal promos usually appear.
 
-**Link attributes**: Use rel="nofollow sponsored noopener" and target="_blank" for affiliate links.
+**Make steps simple**: "Register → open Coupons/Promotions → choose eligible line → apply coupon at checkout."
 
-### Building trust
-**Honest reviews**: Share both positive and negative experiences to maintain credibility.
+**Be honest**: include pros/cons and realistic timelines.
 
-**Realistic expectations**: Don't oversell product quality or shipping times.
+**Stay current**: update posts if program pages or steps change.
 
-**Value-first approach**: Prioritize helping your audience over earning commissions.
+## Where & how to share (without spamming)
 
-### Platform-specific guidelines
+### Blog/Docs
 
-**Social media**: Use platform disclosure features (#ad, #affiliate, #sponsored) in addition to written disclosure.
+Guides like "How to use a CNFANS shipping coupon", "Cheap shipping CNFANS: tips & timing".
 
-**Blogs/websites**: Include affiliate policy page and consistent disclosure practices.
+Add the affiliate link once near the top and once at the end, with disclosure.
 
-**Video content**: Include verbal and written disclosure in video content.
+### Short video/reels
 
-**Forums/communities**: Follow community rules about promotional content and always disclose relationships.
+30–60s "3 quick ways to save on CNFANS shipping" with a pinned comment/description link + disclosure.
 
-## Effective Copy and Messaging
+### Social posts/communities
 
-### Focus on benefits, not features
-**Instead of**: "CNFANS has many shipping options"
-**Try**: "Choose shipping speed that fits your timeline and budget"
+Answer questions first, link second. Lead with specifics (where to find coupons, how to apply).
 
-**Instead of**: "Use my affiliate link"
-**Try**: "Start with welcome coupons through this registration link"
+### Email/newsletter
 
-### Address common concerns
-**Quality expectations**: "Products offer good value for the price point, not luxury retail quality"
+"Deal windows this month," plus a clear affiliate note near the link.
 
-**Shipping times**: "Budget 2-4 weeks for economy shipping, with express options available"
+**Frequency rule**: keep a value:link ratio (e.g., 3 helpful posts for every 1 promo post).
 
-**Customer service**: "English support available, though response times vary"
+## Copy templates (paste & adapt)
 
-### Create urgency appropriately
-**Good urgency**: "Limited-time welcome bonus for new registrations"
-**Bad urgency**: "Link expires soon!" (when it doesn't)
+### Caption (value-first)
 
-**Good scarcity**: "Popular items may sell out during major sales"
-**Bad scarcity**: "Only 3 left!" (when you don't know actual inventory)
+"New to CNFANS? Register, open Coupons/Promotions, and apply the best eligible code at checkout. Here's the link (affiliate):
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupon (check availability)</a>"
 
-## Content Distribution Strategies
+### CTA (end of guide)
 
-### Multi-platform approach
-**Blog content**: In-depth guides and reviews with natural affiliate link integration
-**Social media**: Quick tips and experiences with appropriate disclosure
-**Video content**: Detailed reviews and tutorials with clear affiliate mentions
-**Email newsletters**: Curated recommendations with clear disclosure
+"Ready to try CNFANS? Use the dashboard Coupons/Promotions and pick an eligible discount for your route. (affiliate)
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register & check coupons</a>"
 
-### Community participation
-**Add value first**: Contribute helpful information to communities before sharing any affiliate content
-**Follow community rules**: Respect platform guidelines about promotional content
-**Engage authentically**: Answer questions and participate in discussions beyond just promotion
+### Disclosure (short)
 
-### SEO considerations
-**Target helpful keywords**: Focus on informational keywords like "how to" and "guide to"
-**Create comprehensive content**: In-depth guides tend to rank better than thin affiliate content
-**Update content regularly**: Keep information current and accurate
+"This page contains an affiliate link. We may earn a commission at no extra cost to you."
 
-## Analytics and Optimization
+## Quick do's & don'ts
 
-### Track performance metrics
-**Click-through rates**: Which content drives most link clicks
-**Conversion rates**: Which audiences actually register and purchase
-**Content performance**: Which topics generate most engagement
-**Seasonal patterns**: When your audience is most active and converting
+### Do
 
-### A/B testing approaches
-**Call-to-action variations**: Test different link text and placement
-**Content formats**: Compare guide vs. review vs. experience sharing performance
-**Disclosure language**: Test different ways of presenting affiliate relationships
-**Timing**: Experiment with posting schedules and seasonal timing
+Disclose clearly on every page/post with a link.
 
-### Long-term optimization
-**Content refresh**: Update guides with current information and working links
-**Audience feedback**: Pay attention to comments and questions for content ideas
-**Platform changes**: Adapt to changes in affiliate program terms or commission structure
+Keep instructions up to date (screens, menu names may change).
 
-## Common Mistakes to Avoid
+Focus on outcomes: cheap shipping CNFANS, how to use CNFANS coupons, CNFANS register coupon.
 
-### Over-promotion
-**Problem**: Every post or piece of content includes affiliate links
-**Solution**: Follow 80/20 rule - 80% helpful content, 20% promotional
+### Don't
 
-### Hidden disclosures
-**Problem**: Burying affiliate disclosure at bottom of content or in unclear language
-**Solution**: Clear, upfront disclosure near affiliate links
+Promise specific commissions, tiers, or tracking windows.
 
-### Unrealistic claims
-**Problem**: Exaggerating product quality, shipping speed, or savings potential
-**Solution**: Set realistic expectations based on actual experience
+Claim coupon availability for everyone at all times.
 
-### Spam behavior
-**Problem**: Posting affiliate links without context or value
-**Solution**: Always provide helpful context and genuine recommendations
+Copy third-party text or use trademarked branding in a misleading way.
 
-### Ignoring FTC guidelines
-**Problem**: Not following legal requirements for affiliate disclosure
-**Solution**: Stay current with FTC guidelines and implement proper disclosure practices
+## Simple checklist (save this)
 
-## Building Long-term Success
+✓ Disclosure near each affiliate link
 
-### Audience-first approach
-Create content that genuinely helps your audience make better shopping decisions. Commissions should be secondary to providing value.
+✓ rel="nofollow sponsored noopener" + target="_blank"
 
-### Consistent quality
-Maintain high content standards whether posts include affiliate links or not. Your reputation matters more than short-term commission gains.
+✓ Two placements max per page (top & bottom), value in between
 
-### Community building
-Engage authentically with your audience. Answer questions, share experiences, and build trust over time.
+✓ Steps tested (register → Coupons/Promotions → apply at checkout)
 
-## Getting Started Checklist
+✓ Date on the article (for freshness) and periodic review reminder
 
-✓ Register for CNFANS affiliate program
-✓ Create disclosure templates for different platforms
-✓ Plan content calendar mixing educational and promotional posts
-✓ Set up tracking for clicks and conversions
-✓ Familiarize yourself with platform-specific compliance rules
+## FAQ
 
-**Disclosure**: This guide contains affiliate links. We may earn commission at no extra cost to you.
+**Can I say there's a guaranteed $129 coupon?**
+No. Say users should check their dashboard for current offers; availability can vary.
+
+**Can I list commission rates or tiers?**
+Avoid specifics. Direct readers to official program terms; keep your content focused on value and how to use CNFANS responsibly.
+
+**What if terms change?**
+Update the post, add "Last updated" at the bottom, and keep disclosures intact.
+
+## Final note & link
+
+Share knowledge first, link second. That's how you build trust—and conversions follow.
+
+Check for current CNFANS offers here (affiliate):
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register & check coupons</a>
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
+Last updated: August 3, 2025.`
+        },
+        "cnfans-shipping-tips": {
+          metadata: {
+            title: "CNFANS Shipping Tips Every Buyer Should Know: Complete 2025 Guide",
+            slug: "cnfans-shipping-tips",
+            date: "2025-08-03",
+            description: "Master CNFANS shipping with proven, practical tactics.",
+            tags: ["cnfans", "shipping", "tips", "guide"],
+            draft: false
+          },
+          content: `# CNFANS Shipping Tips Every Buyer Should Know: Complete 2025 Guide
+
+Master CNFANS shipping with proven, practical tactics. This guide shows how to find and use a CNFANS shipping coupon, compare lines, pack smart, and time your shipment—so you consistently get cheap shipping CNFANS without guesswork.
+
+New here? After registration, open your dashboard and check for current offers (often a CNFANS $129 coupon).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
+
+## 1) CNFANS Shipping Fundamentals
+
+### What drives cost
+
+**Weight & size**: Carriers charge by actual or volumetric weight (whichever is higher). Reducing package volume usually lowers the total.
+
+**Destination**: Rates, ETAs, and line availability vary by region.
+
+**Shipping line**: Economy tends to be cheapest; priority economy balances speed and price; express is fastest and usually costs more.
+
+**Seasonality**: Peak periods (major shopping events/holidays) can affect both price and capacity.
+
+### Other considerations
+
+**Platform & service fees**: Handling, optional photo checks, special packing.
+
+**Storage**: Exceeding free storage windows can add daily fees.
+
+**Insurance**: Optional, useful for higher-value parcels.
+
+## 2) Finding CNFANS Coupons & Shipping Deals
+
+**Welcome offers**: After sign-up, open Coupons/Promotions in your dashboard for any CNFANS discount code available to new users.
+
+**Seasonal promos**: Watch 11.11, 12.12, and year-end sales—CNFANS shipping deals often improve during these windows.
+
+**How to use CNFANS coupons**: Choose your shipping line, apply an eligible code at checkout, and confirm the discount appears before paying.
+
+**Tip**: Add a reminder for coupon expiry so you don't miss it.
+
+## 3) Money-Saving Playbook (Works Consistently)
+
+### Consolidate smartly
+
+One outbound parcel often beats several small ones because you pay linehaul/handling once. If you're buying multiple items, plan to ship together when feasible.
+
+### Reduce volume
+
+Request lighter packaging where available, avoid unnecessary filler, and group small accessories. Lower L × W × H can reduce the charged (volumetric) weight.
+
+### Quality check before shipping
+
+Approve photo/video QC (when offered) before consolidation to cut re-ship risk and extra costs.
+
+### Time your shipment
+
+If your schedule is flexible, avoid peak dates. Ship right before or after big events when capacity and pricing are more favorable.
+
+## 4) Choosing the Right Shipping Line
+
+**Economy**: Lowest cost if you can wait longer.
+
+**Priority economy**: A balanced option when you want quicker delivery without express pricing.
+
+**Express**: Best for urgent, time-sensitive parcels.
+
+Compare ETA, tracking level, and price for your destination before paying.
+
+## 5) Regional Notes (What to Expect)
+
+**Popular routes**: More frequent departures and competitive pricing.
+
+**Remote destinations**: Plan extra time, compare lines carefully, and consider consolidation to keep costs predictable.
+
+## 6) Customs & Import (Compliance First)
+
+**Know your local rules**: Duties/taxes, documentation, and thresholds are set by your country.
+
+**Declare accurately**: Follow legal requirements for descriptions and values.
+
+**Consider professional help**: For complex shipments, a licensed customs broker can advise on documentation and process.
+
+## 7) Tracking, Delivery & Support
+
+**Use both trackers**: Check updates in your partner dashboard and on the carrier's site.
+
+**Enable notifications**: Get alerts for key milestones.
+
+**Delivery prep**: Confirm address accuracy and ensure someone can receive the parcel.
+
+**If issues arise**: Gather order IDs and screenshots, then contact official customer support channels.
+
+## 8) Quick Checklist (Save This)
+
+✓ Items arrived and QC checked (photos/size/finish)
+
+✓ Cheapest suitable line chosen (economy/priority economy/express)
+
+✓ CNFANS shipping coupon applied and visible in the total
+
+✓ Lighter packaging requested (where available)
+
+✓ Storage window confirmed (to avoid extra fees)
+
+✓ Customs rules reviewed for your country
+
+## 9) FAQ
+
+**Where can I find a current CNFANS discount code?**
+Register, then open Coupons/Promotions in your dashboard. Watch seasonal banners and email updates.
+
+**Can I stack multiple coupons?**
+Usually one per order. Pick the highest-value eligible option for your line.
+
+**Is consolidation always cheaper?**
+Often—but not always. Check volumetric weight and any thresholds for your route.
+
+**Which line is "best"?**
+It depends on your region and timeline. Compare ETA, tracking, and price for your specific address.
+
+## Get Started
+
+Register and check your dashboard for current offers (including the CNFANS register coupon):
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS $129 coupon</a>
+
+Start with a small shipment to learn timing and packaging preferences.
+
+Reuse the checklist to keep costs predictable every time.
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-129-coupon-guide": {
@@ -2262,93 +1505,38 @@ Last updated: August 3, 2025.`
     );
   }
 
-  const formatMarkdown = (content: string) => {
-    // Simple markdown formatting for demonstration
-    return content
-      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-white mb-6">$1</h1>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-semibold text-white mb-4 mt-8">$1</h2>')
-      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-medium text-white mb-3 mt-6">$1</h3>')
-      .replace(/^\*\*(.*?)\*\*/gim, '<strong class="text-white font-semibold">$1</strong>')
-      .replace(/^- (.*$)/gim, '<li class="text-gray-300 mb-2">$1</li>')
-      .replace(/^✓ (.*$)/gim, '<li class="text-green-400 mb-2">✓ $1</li>')
-      .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
-      .replace(/^(?!<[h|l|s])(.*$)/gim, '<p class="text-gray-300 mb-4">$1</p>');
-  };
-
   return (
-    <div className="min-h-screen bg-black">
-      <Helmet>
-        <title>{docContent.metadata.title} | ONLYFINDS Documentation</title>
-        <meta name="description" content={docContent.metadata.description} />
-        <meta property="og:title" content={`${docContent.metadata.title} | ONLYFINDS`} />
-        <meta property="og:description" content={docContent.metadata.description} />
-        <meta property="og:type" content="article" />
-      </Helmet>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Navigation */}
-          <div className="mb-8">
-            <Link href="/docs">
-              <Button variant="outline" className="mb-4 border-[#00BDFF] text-[#00BDFF] hover:bg-[#00BDFF] hover:text-black">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Documentation
-              </Button>
-            </Link>
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-4 text-[#00BDFF]">
+            {docContent.metadata.title}
+          </h1>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {docContent.metadata.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 bg-[#00BDFF]/20 text-[#00BDFF] rounded-full text-sm"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
-
-          {/* Article Header */}
-          <Card className="bg-gray-900 border-gray-800 mb-8">
-            <CardContent className="p-6">
-              <h1 className="text-3xl font-bold text-white mb-4">{docContent.metadata.title}</h1>
-              
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
-                <div className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(docContent.metadata.date).toLocaleDateString()}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Clock className="h-4 w-4" />
-                  <span>{Math.ceil(docContent.content.length / 1000)} min read</span>
-                </div>
-              </div>
-
-              <p className="text-gray-300 mb-6">{docContent.metadata.description}</p>
-
-              <div className="flex items-center flex-wrap gap-2">
-                <Tags className="h-4 w-4 text-gray-400" />
-                {docContent.metadata.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-[#00BDFF]/20 text-[#00BDFF] px-2 py-1 rounded-md text-xs"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Article Content */}
-          <Card className="bg-gray-900 border-gray-800">
-            <CardContent className="p-6">
-              <div 
-                className="prose prose-invert max-w-none"
-                dangerouslySetInnerHTML={{ __html: formatMarkdown(docContent.content) }}
-              />
-            </CardContent>
-          </Card>
-
-          {/* Back to top */}
-          <div className="mt-8 text-center">
-            <Link href="/docs">
-              <Button variant="outline" className="border-[#00BDFF] text-[#00BDFF] hover:bg-[#00BDFF] hover:text-black">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Documentation
-              </Button>
-            </Link>
-          </div>
+          <p className="text-gray-300 mb-2">{docContent.metadata.description}</p>
+          <p className="text-gray-500 text-sm">
+            Last updated: {new Date(docContent.metadata.date).toLocaleDateString()}
+          </p>
         </div>
+        
+        <div 
+          className="prose prose-invert prose-blue max-w-none"
+          dangerouslySetInnerHTML={{ 
+            __html: marked(docContent.content, { 
+              breaks: true,
+              gfm: true 
+            }) 
+          }}
+        />
       </div>
     </div>
   );
