@@ -26,7 +26,7 @@ export default function PromoSection() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a 
-                href="https://discord.com/invite/tTAKrgMcuC" 
+                href="https://discord.gg/4jzdSZGD" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center p-3 md:p-6 bg-black/70 border border-primary/30 rounded-lg hover:border-primary/50 hover:shadow-lg transition-all text-center group glow-card"

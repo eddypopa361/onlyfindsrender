@@ -132,6 +132,7 @@ The project includes numerous utility scripts in the `/scripts` directory for:
 - ✓ Added Documentation link to footer under "How To Order" section
 - ✓ Updated favicon and HTML title to use ONLYFINDS branding
 - ✓ Implemented stable daily product selection with sampleDistinct function for carousel (8) and best sellers (12)
+- ✓ Updated all Discord community links to new server: https://discord.gg/4jzdSZGD
 
 **January 20, 2025**: Complete Brand Name Rebranding and New Feature Implementation
 - ✓ Executed comprehensive textual rebranding from ONLYFINDS to ONLYFINDS and CNFANS to CNFANS

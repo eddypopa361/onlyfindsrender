@@ -56,7 +56,7 @@ export default function MainNav() {
             </Link>
           ))}
           <a 
-            href="https://discord.com/invite/tTAKrgMcuC" 
+            href="https://discord.gg/4jzdSZGD" 
             target="_blank"
             rel="noopener noreferrer"
             className="ml-4 px-5 py-2 bg-primary text-white font-heading font-medium rounded-full glow-button transition-all hover:bg-primary/80"
@@ -96,7 +96,7 @@ export default function MainNav() {
               </Link>
             ))}
             <a 
-              href="https://discord.com/invite/tTAKrgMcuC" 
+              href="https://discord.gg/4jzdSZGD" 
               target="_blank"
               rel="noopener noreferrer"
               className="my-2 px-5 py-2 bg-primary text-white font-heading font-medium rounded-full inline-block text-center glow-button transition-all hover:bg-primary/80"
