@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet";
-import { FileText, BookOpen, Users, ArrowRight, Clock, Tags, DollarSign, Truck } from "lucide-react";
+import { FileText, BookOpen, Users, ArrowRight, Clock, Tags, DollarSign, Truck, Calendar, Star, Percent, Download } from "lucide-react";
 import ScrollAnimation from "@/components/ui/scroll-animation";
 
 interface DocItem {
@@ -69,6 +69,42 @@ export default function DocsPage() {
       icon: Users,
       readTime: "8 min read",
       tags: ["affiliate", "cnfans", "marketing", "referral", "content"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025",
+      description: "Step-by-step guide to claiming your CNFANS $129 shipping coupon. Learn about eligibility, expiration, and how to maximize savings with the welcome bonus.",
+      slug: "cnfans-129-coupon-guide",
+      icon: DollarSign,
+      readTime: "6 min read",
+      tags: ["cnfans-coupon", "129-coupon", "welcome-bonus", "shipping-discount"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals",
+      description: "Complete calendar of CNFANS seasonal shipping coupons and promo codes. Track Black Friday, Singles Day, and holiday discounts throughout 2025.",
+      slug: "cnfans-seasonal-coupons-2025",
+      icon: Calendar,
+      readTime: "9 min read",
+      tags: ["seasonal-coupons", "black-friday", "1111-coupon", "1212-coupon"],
+      date: "2025-02-03"
+    },
+    {
+      title: "Best CNFANS Spreadsheets 2025: Updated Links & Categories",
+      description: "Access the latest CNFANS spreadsheets with verified links, categories, and coupon codes. Download templates for shoes, clothing, accessories, and trending finds.",
+      slug: "best-cnfans-spreadsheets-2025",
+      icon: Download,
+      readTime: "7 min read",
+      tags: ["cnfans-spreadsheet", "verified-links", "categories", "templates"],
+      date: "2025-02-03"
+    },
+    {
+      title: "CNFANS Coupon Not Working? Troubleshooting Guide 2025",
+      description: "Fix common CNFANS coupon problems. Learn why promo codes fail, eligibility requirements, minimum spend rules, and alternative discount strategies.",
+      slug: "cnfans-coupon-troubleshooting",
+      icon: Star,
+      readTime: "5 min read",
+      tags: ["coupon-troubleshooting", "promo-code-issues", "eligibility", "discount-fixes"],
       date: "2025-02-03"
     }
   ];
