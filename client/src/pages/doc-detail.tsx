@@ -35,7 +35,7 @@ export default function DocDetailPage() {
   const loadDocument = async (slug: string) => {
     try {
       
-      // Load documentation content
+      // Load documentation content - All 11 articles included
       const docMap: { [key: string]: DocContent } = {
         "getting-started": {
           metadata: {
@@ -1284,6 +1284,370 @@ Register and check your dashboard for a CNFANS register coupon or welcome offer:
 Test the process with a small shipment, then reuse this checklist for bigger orders.
 
 **Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
+Last updated: August 3, 2025.`
+        },
+        "cheap-cnfans-shipping-2025": {
+          metadata: {
+            title: "Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes",
+            slug: "cheap-cnfans-shipping-2025",
+            date: "2025-08-03",
+            description: "Complete guide to cutting CNFANS shipping costs with coupons, smart packaging, and order consolidation.",
+            tags: ["shipping", "cnfans", "coupons", "savings"],
+            draft: false
+          },
+          content: `# Finding Cheap Shipping on CNFANS: 2025 Tips + Promo Codes
+
+Looking for cheaper CNFANS shipping this year? This guide covers practical ways to reduce shipping costs including welcome coupons, smart consolidation, and timing strategies.
+
+First, secure your CNFANS coupons: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Get $129 coupons</a>
+
+## CNFANS Shipping Discount Basics
+
+**Welcome coupons**: New users often receive shipping credits (commonly $129 value) after registration. Check your dashboard under Coupons/Promotions.
+
+**Line-specific offers**: Different shipping lines (economy, priority economy, express) may have targeted promotions.
+
+**Seasonal sales**: Major shopping events (11.11, 12.12, Black Friday) typically include shipping discounts.
+
+## Smart Consolidation Strategies
+
+### Bundle multiple items
+Instead of shipping items individually, consolidate 3-5 pieces into one parcel. This spreads the base shipping fee across more items.
+
+### Weight optimization
+- Request lighter packaging materials
+- Remove unnecessary boxes/tags
+- Consider vacuum sealing for soft goods
+
+### Timing your orders
+Place all intended purchases within a few days, then ship together. Most warehouses hold items for 30-90 days free.
+
+## CNFANS Coupon Application Guide
+
+1. **Register and verify**: Complete account setup at CNFANS
+2. **Navigate to coupons**: Find "Coupons" or "Promotions" in your dashboard
+3. **Check eligibility**: Each coupon shows minimum spend and valid shipping lines
+4. **Apply at checkout**: Select your items, choose shipping line, apply coupon code
+5. **Verify discount**: Confirm the reduction appears before payment
+
+## Line Selection for Maximum Savings
+
+**Economy lines**: Slowest but cheapest. Good for non-urgent items.
+**Priority economy**: Balance of speed and cost. Popular choice.
+**Express**: Fastest but priciest. Use coupons here for best value impact.
+
+## Packaging Tips to Reduce Costs
+
+**Request photos**: Before shipping, ask for package photos to ensure efficient packing
+**Specify preferences**: "Please use lightest packaging" or "Remove all boxes"
+**Avoid oversized**: Large items may jump to higher weight tiers unnecessarily
+
+## Seasonal Timing Strategy
+
+**Avoid peak periods**: Chinese New Year, Golden Week can increase costs
+**Plan around sales**: 11.11 and 12.12 often have the best shipping promos
+**Stock up timing**: If buying regularly, time large orders with discount periods
+
+## Additional Cost-Cutting Methods
+
+**Payment methods**: Some payment options offer cashback or points
+**Loyalty benefits**: Regular customers may access special shipping rates
+**Group orders**: Coordinate with friends for larger consolidated shipments
+
+## Troubleshooting Common Issues
+
+**Coupon not working**: Verify minimum spend, check line compatibility, ensure account verification
+**Higher than expected**: Confirm volumetric weight calculations, check for seasonal surcharges
+**Long processing**: Peak seasons extend warehouse processing times
+
+## Real Examples
+
+**Single item**: $45 product + $25 shipping = $70 total
+**Smart consolidation**: $45 + $38 + $52 items + $35 shipping = $170 total (saved $15+ on shipping)
+
+## Quick Checklist
+
+✓ Register for CNFANS welcome coupon
+✓ Plan multiple items for consolidation
+✓ Choose appropriate shipping line for timeline
+✓ Apply available coupons at checkout
+✓ Request efficient packaging
+
+**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+Last updated: August 3, 2025.`
+        },
+        "cnfans-shipping-tips": {
+          metadata: {
+            title: "CNFANS Shipping Tips Every Buyer Should Know",
+            slug: "cnfans-shipping-tips",
+            date: "2025-08-03",
+            description: "Master CNFANS shipping with proven strategies, discount codes, and optimization techniques.",
+            tags: ["shipping", "cnfans", "tips", "optimization"],
+            draft: false
+          },
+          content: `# CNFANS Shipping Tips Every Buyer Should Know: Complete 2025 Guide
+
+Master CNFANS shipping with proven strategies that keep costs low while ensuring reliable delivery. This comprehensive guide includes discount codes, consolidation tactics, and optimization techniques.
+
+Start with CNFANS coupons: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Claim $129 shipping coupons</a>
+
+## Essential CNFANS Shipping Knowledge
+
+### Understanding shipping lines
+**Economy**: 15-30 days, lowest cost, basic tracking
+**Priority Economy**: 10-20 days, balanced cost/speed, better tracking  
+**Express**: 5-12 days, premium cost, full tracking and insurance
+
+### Weight calculation matters
+CNFANS uses volumetric weight (length × width × height ÷ 5000) vs actual weight. Whichever is higher determines your rate.
+
+## Proven Cost-Reduction Strategies
+
+### 1. Strategic consolidation
+**Best practice**: Order 3-5 items within a week, then ship together
+**Why it works**: Spreads base shipping cost across multiple items
+**Timing**: Most warehouses hold items 30-90 days free
+
+### 2. Package optimization requests
+- "Please use lightest packaging materials"
+- "Remove all retail boxes and extra packaging"
+- "Vacuum seal soft items if possible"
+- "Combine similar items in same bag"
+
+### 3. Smart line selection
+**For budget orders**: Use economy line with consolidation
+**For mixed urgency**: Ship urgent items express, others economy
+**For high-value**: Priority economy offers good tracking + reasonable speed
+
+## CNFANS Coupon Maximization
+
+### Welcome bonus strategy
+New users typically receive $129 in shipping credits. Apply these to:
+- First large consolidated order
+- Express shipments (maximum value impact)
+- High-value items needing insurance
+
+### Seasonal promotions
+**11.11 (Singles Day)**: Usually biggest shipping discounts
+**12.12**: Secondary major sale with shipping offers
+**Black Friday/Cyber Monday**: Western-focused promos
+**Chinese New Year**: Pre-holiday clearance deals
+
+## Advanced Optimization Techniques
+
+### Spreadsheet tracking method
+Create simple tracker with:
+- Item name and weight
+- Target ship date
+- Coupon eligibility
+- Running total for consolidation planning
+
+### Communication with warehouse
+**Photo inspection**: Request photos before consolidation
+**Special instructions**: Clear packaging requests in notes
+**Priority items**: Mark urgent items for faster processing
+
+## Common Mistakes to Avoid
+
+**Over-packaging requests**: Being too specific can slow processing
+**Mixing restricted items**: Some items can't ship together
+**Ignoring volumetric weight**: Large but light items cost more than expected
+**Late consolidation**: Missing warehouse deadlines incurs storage fees
+
+## Seasonal Shipping Calendar
+
+**January-February**: Chinese New Year delays but often good deals
+**March-May**: Stable periods, good for large orders
+**June-August**: Summer shipping promotions
+**September-November**: Peak season, plan early
+**December**: Holiday delays, limited service options
+
+## Troubleshooting Guide
+
+**High shipping quote**: Check volumetric calculation, consider removing large boxes
+**Coupon rejection**: Verify minimum spend, check line compatibility
+**Long processing**: Peak season delays, consider express for urgent items
+**Package held**: Verify address details, check for restricted items
+
+## Pro Tips from Experienced Buyers
+
+1. **Ship shoes without boxes** to save significant volumetric weight
+2. **Request consolidation photos** before finalizing shipment
+3. **Use express line for first order** to gauge service quality
+4. **Keep spreadsheet of successful shipping costs** for future reference
+5. **Time large orders with seasonal promotions** for maximum savings
+
+## Cost Examples (2025 rates)
+
+**Single item example**:
+- 1kg item to US: $22-35 depending on line
+
+**Smart consolidation example**:
+- 3kg consolidated (3 items): $45-65 total
+- Same items shipped separately: $66-105 total
+- **Savings**: $21-40
+
+## Final Recommendations
+
+✓ Always register for welcome coupons first
+✓ Plan consolidation for orders over 2 items  
+✓ Use spreadsheet to track weights and costs
+✓ Request packaging optimization every time
+✓ Apply seasonal timing when possible
+
+**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+Last updated: August 3, 2025.`
+        },
+        "cnfans-affiliate-guide": {
+          metadata: {
+            title: "CNFANS Affiliate Link Guide: How It Works & How to Share",
+            slug: "cnfans-affiliate-guide", 
+            date: "2025-08-03",
+            description: "Learn how to effectively use and share CNFANS affiliate links with best practices for content creation.",
+            tags: ["affiliate", "cnfans", "marketing", "referral"],
+            draft: false
+          },
+          content: `# CNFANS Affiliate Link Guide: How It Works & How to Share Responsibly (2025)
+
+Learn how to effectively use and share CNFANS affiliate links. This guide covers best practices for content creation, high-converting copy, and responsible promotion strategies that help your audience while generating commissions.
+
+Get started with CNFANS: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register for affiliate program</a>
+
+## Understanding CNFANS Affiliate Program
+
+### How it works
+When someone registers through your affiliate link and makes purchases, you earn commission on their shipping fees. The program rewards you for bringing new customers to the platform.
+
+### Commission structure
+- **Registration bonus**: Earn when someone signs up through your link
+- **Shipping commissions**: Percentage of shipping fees from referred users
+- **Tier bonuses**: Higher rates for top-performing affiliates
+
+### Cookie duration
+Referral cookies typically last 30-90 days, meaning you get credit for purchases made within that window after someone clicks your link.
+
+## Content Creation Best Practices
+
+### Educational approach
+**Focus on value first**: Create genuinely helpful content about international shopping, sizing guides, or shipping optimization before mentioning affiliate links.
+
+**Share real experiences**: Document your actual orders, shipping times, and quality assessments.
+
+**Answer common questions**: Address sizing, shipping costs, customs, and quality concerns.
+
+### High-converting content types
+
+**Haul videos/posts**: Show items received, discuss quality and fit
+**Comparison guides**: Different shipping lines, cost breakdowns, timing
+**Sizing guides**: Measurements, fit advice, brand-specific notes
+**Seasonal shopping**: Holiday deals, sale timing, coupon strategies
+
+## Responsible Disclosure Practices
+
+### Required disclosures
+Always include clear affiliate disclosure:
+- "This post contains affiliate links"
+- "I may earn commission at no extra cost to you"
+- "Sponsored content" or "Ad" when applicable
+
+### Placement guidelines
+**Before content**: Disclose at the beginning of videos/posts
+**Near links**: Add disclosure text near affiliate links
+**Video descriptions**: Include written disclosure in all video descriptions
+
+## High-Converting Copy Strategies
+
+### Focus on benefits, not features
+**Instead of**: "CNFANS has many shipping options"
+**Try**: "Choose shipping speed that fits your budget and timeline"
+
+### Address pain points directly
+**Sizing concerns**: "Worried about fit? Here's my sizing strategy..."
+**Shipping costs**: "Cut shipping costs with these consolidation tips..."
+**Quality questions**: "Here's what to expect for quality at this price point..."
+
+### Use social proof
+- Share your actual orders and experiences
+- Include community feedback when relevant
+- Show before/after photos of items received
+
+## Platform-Specific Strategies
+
+### Instagram/TikTok
+**Story highlights**: Create "Shopping Tips" or "Size Guides" highlights
+**Reel content**: Quick tips, hauls, before/after comparisons
+**Link in bio**: Use link tree services to organize multiple affiliate links
+
+### YouTube
+**Detailed reviews**: Longer-form content explaining entire shopping process
+**Series approach**: "My CNFANS Journey" multi-part series
+**Tutorial style**: "How to Shop Internationally" educational content
+
+### Blog/Website
+**Resource pages**: Comprehensive guides with embedded affiliate links
+**Product roundups**: "Best finds this month" style posts
+**FAQ pages**: Answer common questions with helpful affiliate links
+
+## Compliance and Ethics
+
+### FTC guidelines
+- Clear, prominent disclosures
+- Honest opinions and experiences only
+- Disclose material connections
+- Don't hide affiliate relationships
+
+### Platform policies
+**Instagram**: Use #ad or #sponsored hashtags appropriately
+**YouTube**: Enable "Includes paid promotion" setting
+**TikTok**: Use disclosure hashtags and creator fund settings
+
+### Best practices
+- Only promote products/services you've actually used
+- Be honest about both positives and negatives
+- Respect your audience's trust
+- Follow all platform-specific affiliate marketing rules
+
+## Tracking and Optimization
+
+### Monitor performance
+- Click-through rates on different content types
+- Conversion rates by traffic source
+- Seasonal performance patterns
+- Top-performing content themes
+
+### A/B testing
+**Call-to-action copy**: Test different phrases and placements
+**Disclosure methods**: Find balance between compliance and conversion
+**Content formats**: Compare performance of different post types
+
+## Common Mistakes to Avoid
+
+**Over-promotion**: Don't make every post about affiliate links
+**Hidden disclosures**: Always be transparent about affiliate relationships
+**Irrelevant promotion**: Only share links relevant to your content/audience
+**Spam behavior**: Avoid excessive posting or comment spam
+**False claims**: Never exaggerate benefits or guarantee results
+
+## Building Long-term Success
+
+### Audience-first approach
+Create content that genuinely helps your audience make better shopping decisions. Commissions should be secondary to providing value.
+
+### Consistent quality
+Maintain high content standards whether posts include affiliate links or not. Your reputation matters more than short-term commission gains.
+
+### Community building
+Engage authentically with your audience. Answer questions, share experiences, and build trust over time.
+
+## Getting Started Checklist
+
+✓ Register for CNFANS affiliate program
+✓ Create disclosure templates for different platforms
+✓ Plan content calendar mixing educational and promotional posts
+✓ Set up tracking for clicks and conversions
+✓ Familiarize yourself with platform-specific compliance rules
+
+**Disclosure**: This guide contains affiliate links. We may earn commission at no extra cost to you.
 Last updated: August 3, 2025.`
         }
       };

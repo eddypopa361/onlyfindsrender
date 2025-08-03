@@ -109,10 +109,6 @@ export default function DocsPage() {
     }
   ];
 
-  // Debug: Verificăm câte articole avem
-  console.log('Total docs:', docs.length);
-  console.log('Last 4 docs:', docs.slice(-4).map(d => d.title));
-
   return (
     <>
       <Helmet>
