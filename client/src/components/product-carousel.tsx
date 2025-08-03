@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/lib/types";
 import { Loader2 } from "lucide-react";
+import { LazyImage } from "@/components/ui/lazy-image";
 import { useCarouselProducts } from "@/hooks/use-product-data";
 
 // Încărcare lazy pentru react-slick (economisim încărcarea inițială)
@@ -126,15 +127,11 @@ function FeaturedProductCard({ product }: { product: Product }) {
             ${product.price}
           </span>
         </div>
-        <picture>
-          <source srcSet={`${product.image}.webp`} type="image/webp" />
-          <img 
-            src={product.image} 
-            alt={product.title}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
-          />
-        </picture>
+        <LazyImage
+          src={product.image}
+          alt={product.title}
+          className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
       </div>
       
@@ -152,14 +149,11 @@ function FeaturedProductCard({ product }: { product: Product }) {
           >
             Buy Now
           </a>
-          <a 
-            href={product.viewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full text-center px-3 py-1.5 border border-primary text-white font-heading text-xs font-medium rounded hover:bg-primary/30 transition-all"
-          >
-            ONLYFINDS
-          </a>
+          <Link href="/products">
+            <div className="w-full text-center px-3 py-1.5 border border-primary text-white font-heading text-xs font-medium rounded hover:bg-primary/30 transition-all cursor-pointer">
+              ONLYFINDS
+            </div>
+          </Link>
         </div>
       </div>
     </div>

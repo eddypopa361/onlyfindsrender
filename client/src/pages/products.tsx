@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ui/product-card";
+import { LazySection } from "@/components/ui/lazy-section";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductCategory, Product, MainCategory, AccessoriesSubcategory } from "@/lib/types";
@@ -249,13 +250,17 @@ export default function Products() {
             {!isLoading && !isError && (
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5 md:gap-6">
                 {products.map((product: Product, index: number) => (
-                  <div
+                  <LazySection
                     key={`product-${product.id}`}
                     className="fade-in"
-                    style={{animationDelay: `${index * 0.05}s`}}
+                    threshold={0.1}
+                    rootMargin="200px"
+                    fallback={<div className="h-80 bg-gray-900/20 animate-pulse rounded-2xl" />}
                   >
-                    <ProductCard product={product} />
-                  </div>
+                    <div style={{animationDelay: `${index * 0.05}s`}}>
+                      <ProductCard product={product} />
+                    </div>
+                  </LazySection>
                 ))}
               </div>
             )}
