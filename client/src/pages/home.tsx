@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet";
 import { Loader2 } from "lucide-react";
 import ScrollAnimation from "@/components/ui/scroll-animation";
-import { LazySection } from "@/components/ui/lazy-section";
 
 // Încărcăm componentele lazy pentru a îmbunătăți performanța inițială
 const HeroSection = lazy(() => import("@/components/hero-section"));
@@ -123,26 +122,24 @@ export default function Home() {
         </div>
         
         {/* Best Sellers Section */}
-        <LazySection threshold={0.2} rootMargin="400px">
-          <div className="about-section-wrapper">
-            <section id="bestsellers" className="section-connector relative">
-              {/* Overlay pentru tranziție netedă la început */}
-              <div className="section-transition-overlay section-transition-overlay-top"></div>
-              
-              {/* Glow effects sunt deja în componenta BestSellersSection (poziție sus) */}
-              <div className="relative z-10">
-                <Suspense fallback={<SectionLoader />}>
-                  <ScrollAnimation direction="up" delay={0.2}>
-                    <BestSellersSection />
-                  </ScrollAnimation>
-                </Suspense>
-              </div>
-              
-              {/* Overlay pentru tranziție netedă la sfârșit */}
-              <div className="section-transition-overlay section-transition-overlay-bottom"></div>
-            </section>
-          </div>
-        </LazySection>
+        <div className="about-section-wrapper">
+          <section id="bestsellers" className="section-connector relative">
+            {/* Overlay pentru tranziție netedă la început */}
+            <div className="section-transition-overlay section-transition-overlay-top"></div>
+            
+            {/* Glow effects sunt deja în componenta BestSellersSection (poziție sus) */}
+            <div className="relative z-10">
+              <Suspense fallback={<SectionLoader />}>
+                <ScrollAnimation direction="up" delay={0.2}>
+                  <BestSellersSection />
+                </ScrollAnimation>
+              </Suspense>
+            </div>
+            
+            {/* Overlay pentru tranziție netedă la sfârșit */}
+            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
+          </section>
+        </div>
         
         {/* Browse All Products Section */}
         <div className="about-section-wrapper">
@@ -179,46 +176,40 @@ export default function Home() {
         </div>
         
         {/* Reviews Section */}
-        <LazySection threshold={0.2} rootMargin="400px">
-          <div className="reviews-section-wrapper">
-            <section className="section-connector relative">
-              {/* Overlay pentru tranziție netedă la început */}
-              <div className="section-transition-overlay section-transition-overlay-top"></div>
-              
-              <Suspense fallback={<SectionLoader />}>
-                <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
-                  <HomeReviewsSection />
-                </ScrollAnimation>
-              </Suspense>
-            </section>
-          </div>
-        </LazySection>
+        <div className="reviews-section-wrapper">
+          <section className="section-connector relative">
+            {/* Overlay pentru tranziție netedă la început */}
+            <div className="section-transition-overlay section-transition-overlay-top"></div>
+            
+            <Suspense fallback={<SectionLoader />}>
+              <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+                <HomeReviewsSection />
+              </ScrollAnimation>
+            </Suspense>
+          </section>
+        </div>
         
         {/* Documentation Preview Section */}
-        <LazySection threshold={0.2} rootMargin="400px">
-          <div className="docs-section-wrapper">
-            <section className="section-connector relative">
-              <Suspense fallback={<SectionLoader />}>
-                <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
-                  <DocsPreviewSection />
-                </ScrollAnimation>
-              </Suspense>
-            </section>
-          </div>
-        </LazySection>
+        <div className="docs-section-wrapper">
+          <section className="section-connector relative">
+            <Suspense fallback={<SectionLoader />}>
+              <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+                <DocsPreviewSection />
+              </ScrollAnimation>
+            </Suspense>
+          </section>
+        </div>
         
         {/* Promo Section */}
-        <LazySection threshold={0.2} rootMargin="400px">
-          <div className="promo-section-wrapper">
-            <section className="section-connector relative">
-              <Suspense fallback={<SectionLoader />}>
-                <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
-                  <PromoSection />
-                </ScrollAnimation>
-              </Suspense>
-            </section>
-          </div>
-        </LazySection>
+        <div className="promo-section-wrapper">
+          <section className="section-connector relative">
+            <Suspense fallback={<SectionLoader />}>
+              <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+                <PromoSection />
+              </ScrollAnimation>
+            </Suspense>
+          </section>
+        </div>
       </main>
     </>
   );
