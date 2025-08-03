@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowLeft, Clock, Tags, Calendar } from "lucide-react";
-import ScrollAnimation from "@/components/ui/scroll-animation";
 
 interface DocMetadata {
   title: string;
@@ -35,7 +34,6 @@ export default function DocDetailPage() {
 
   const loadDocument = async (slug: string) => {
     try {
-      setLoading(true);
       
       // Simulate loading markdown content - in a real app, this would fetch from an API
       const docMap: { [key: string]: DocContent } = {
@@ -1901,12 +1899,13 @@ The combination of technical knowledge, community support, and systematic troubl
       const doc = docMap[slug];
       if (doc) {
         setDocContent(doc);
+        setLoading(false);
       } else {
         setError("Document not found");
+        setLoading(false);
       }
     } catch (err) {
       setError("Error loading document");
-    } finally {
       setLoading(false);
     }
   };
@@ -1918,12 +1917,13 @@ The combination of technical knowledge, community support, and systematic troubl
       .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-heading font-bold text-white mb-4 mt-8">$1</h2>')
       .replace(/^### (.*$)/gm, '<h3 class="text-xl font-semibold text-white mb-3 mt-6">$1</h3>')
       .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-semibold text-white mb-2 mt-4">$1</h4>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline font-medium">$1</a>')
       .replace(/^\- (.*$)/gm, '<li class="text-gray-300 mb-1">$1</li>')
       .replace(/^\d+\. (.*$)/gm, '<li class="text-gray-300 mb-1">$1</li>')
       .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="text-gray-300 italic">$1</em>')
       .replace(/^([^<].*)$/gm, '<p class="text-gray-300 mb-4 leading-relaxed">$1</p>')
-      .replace(/(<li.*<\/li>)/s, '<ul class="list-disc list-inside mb-4 space-y-1">$1</ul>');
+      .replace(/(<li.*?<\/li>)/g, '<ul class="list-disc list-inside mb-4 space-y-1">$1</ul>');
   };
 
   if (loading) {
@@ -1931,7 +1931,7 @@ The combination of technical knowledge, community support, and systematic troubl
       <main className="pt-24 pb-16 bg-black text-white min-h-screen">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center py-16">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-4"></div>
+            <div className="inline-block h-8 w-8 border-b-2 border-primary mb-4"></div>
             <p className="text-gray-400">Loading documentation...</p>
           </div>
         </div>
@@ -1987,79 +1987,73 @@ The combination of technical knowledge, community support, and systematic troubl
 
       <main className="pt-24 pb-16 bg-black text-white min-h-screen">
         <div className="container mx-auto px-4 max-w-4xl">
-          <ScrollAnimation>
-            <div className="mb-8">
-              <Link href="/docs">
-                <Button variant="ghost" className="text-gray-400 hover:text-white mb-6">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Documentation
-                </Button>
-              </Link>
+          <div className="mb-8">
+            <Link href="/docs">
+              <Button variant="ghost" className="text-gray-400 hover:text-white mb-6">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Documentation
+              </Button>
+            </Link>
 
-              <div className="mb-6">
-                <h1 className="text-4xl font-heading font-bold text-white mb-4 glow-text">
-                  {docContent.metadata.title}
-                </h1>
-                
-                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
-                  <div className="flex items-center">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    {new Date(docContent.metadata.date).toLocaleDateString()}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="mr-2 h-4 w-4" />
-                    {Math.ceil(docContent.content.length / 1000)} min read
-                  </div>
+            <div className="mb-6">
+              <h1 className="text-4xl font-heading font-bold text-white mb-4 glow-text">
+                {docContent.metadata.title}
+              </h1>
+              
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+                <div className="flex items-center">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  {new Date(docContent.metadata.date).toLocaleDateString()}
                 </div>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {docContent.metadata.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
-                    >
-                      <Tags className="mr-1 h-3 w-3" />
-                      {tag}
-                    </span>
-                  ))}
+                <div className="flex items-center">
+                  <Clock className="mr-2 h-4 w-4" />
+                  {Math.ceil(docContent.content.length / 1000)} min read
                 </div>
-
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  {docContent.metadata.description}
-                </p>
               </div>
-            </div>
-          </ScrollAnimation>
 
-          <ScrollAnimation delay={0.2}>
-            <Card className="bg-gray-900/50 border-gray-800 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div 
-                  className="prose prose-invert prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: formatMarkdown(docContent.content) }}
-                />
-              </CardContent>
-            </Card>
-          </ScrollAnimation>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {docContent.metadata.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+                  >
+                    <Tags className="mr-1 h-3 w-3" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-          <ScrollAnimation delay={0.4}>
-            <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
-              <h3 className="text-xl font-semibold text-white mb-4">Ready to Get Started?</h3>
-              <p className="text-gray-300 mb-6">
-                Join thousands of satisfied customers who save money on shipping with CNFANS.
+              <p className="text-lg text-gray-300 leading-relaxed">
+                {docContent.metadata.description}
               </p>
-              <a
-                href="https://cnfans.com/register/?ref=571435"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-              >
-                <Button className="bg-primary hover:bg-primary/90 text-black font-semibold px-8 py-3">
-                  Get $129 Coupons
-                </Button>
-              </a>
             </div>
-          </ScrollAnimation>
+          </div>
+
+          <Card className="bg-gray-900/50 border-gray-800 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <div 
+                className="prose prose-invert prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: formatMarkdown(docContent.content) }}
+              />
+            </CardContent>
+          </Card>
+
+          <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
+            <h3 className="text-xl font-semibold text-white mb-4">Ready to Get Started?</h3>
+            <p className="text-gray-300 mb-6">
+              Join thousands of satisfied customers who save money on shipping with CNFANS.
+            </p>
+            <a
+              href="https://cnfans.com/register/?ref=571435"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button className="bg-primary hover:bg-primary/90 text-black font-semibold px-8 py-3">
+                Get $129 Coupons
+              </Button>
+            </a>
+          </div>
         </div>
       </main>
     </>
