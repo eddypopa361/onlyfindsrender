@@ -85,7 +85,6 @@ export default function Home() {
                         alt="CNFANS shipping discount" 
                         className="w-full h-full object-cover opacity-100"
                         style={{ filter: 'blur(1px)' }}
-                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/40 z-20"></div>
                     </div>

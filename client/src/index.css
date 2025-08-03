@@ -6,34 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Performance optimizations for lazy loading and smooth scrolling */
-* {
-  will-change: auto;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* GPU acceleration for better performance */
-.gpu-accelerated {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000;
-}
-
-/* Optimize image rendering */
-img {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-}
-
-/* Intersection observer optimization */
-.lazy-loading {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 300px;
-}
-
 @layer base {
   :root {
     --background: 0 0% 0%;
