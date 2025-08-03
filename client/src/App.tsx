@@ -14,6 +14,7 @@ import DocsPage from "@/pages/docs";
 import DocDetailPage from "@/pages/doc-detail";
 import MainNav from "@/components/navigation/main-nav";
 import Footer from "@/components/footer";
+import CookieNotice from "@/components/cookie-notice";
 
 function Router() {
   return (
@@ -42,6 +43,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router />
       <Toaster />
+      <CookieNotice />
     </QueryClientProvider>
   );
 }
