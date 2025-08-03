@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Product } from "@/lib/types";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
-import { LazyImage } from "@/components/ui/lazy-image";
 
 interface ProductCardProps {
   product: Product;
@@ -44,11 +43,12 @@ export function ProductCard({ product }: ProductCardProps) {
               <HelpCircle className="w-12 h-12 text-primary" />
             </div>
           ) : (
-            <LazyImage
+            <img
               src={product.image}
               alt={product.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              fallbackClassName="rounded-t-2xl"
+              onError={() => setImageError(true)}
+              loading="lazy"
             />
           )}
         </div>

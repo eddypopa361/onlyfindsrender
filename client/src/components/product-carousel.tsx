@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/lib/types";
 import { Loader2 } from "lucide-react";
-import { LazyImage } from "@/components/ui/lazy-image";
 import { useCarouselProducts } from "@/hooks/use-product-data";
 
 // Încărcare lazy pentru react-slick (economisim încărcarea inițială)
@@ -127,10 +126,11 @@ function FeaturedProductCard({ product }: { product: Product }) {
             ${product.price}
           </span>
         </div>
-        <LazyImage
+        <img
           src={product.image}
           alt={product.title}
           className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
       </div>
