@@ -196,9 +196,6 @@ export default function Home() {
                 <DocsPreviewSection />
               </ScrollAnimation>
             </Suspense>
-            
-            {/* Overlay pentru tranziție netedă la sfârșit */}
-            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
           </section>
         </div>
         

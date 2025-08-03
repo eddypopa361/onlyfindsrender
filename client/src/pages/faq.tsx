@@ -109,14 +109,69 @@ export default function FAQ() {
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-heading">Privacy Policy</CardTitle>
+            <CardDescription className="text-sm text-gray-600">Last updated: August 3, 2025</CardDescription>
           </CardHeader>
-          <CardContent>
-            <p className="mb-4">
-              ONLYFINDS is committed to protecting your privacy and personal information. We do not store payment data as all transactions are processed through our trusted partner CNFANS. We collect minimal data such as cookies and basic analytics to improve our service and user experience.
-            </p>
-            <p className="text-sm text-gray-600">
-              <a href="/privacy" className="text-primary hover:underline">Read full policy</a>
-            </p>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 className="font-semibold mb-2">Who we are</h4>
+              <p className="text-gray-700 text-sm">
+                ONLYFINDS ("we", "us", "our") operates a product discovery website. This policy explains what we collect, how we use it, and your choices.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-2">What we collect</h4>
+              <ul className="text-gray-700 text-sm space-y-1 list-disc pl-5">
+                <li>Usage data: pages viewed, clicks, approximate location (derived from IP), device/browser info, and referral source.</li>
+                <li>Account/contact info (optional): if you sign up for updates or contact us, we collect your email and any info you submit.</li>
+                <li>Cookies & similar: used for core functionality (e.g., session, preferences) and analytics/performance.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Payments & partners</h4>
+              <p className="text-gray-700 text-sm">
+                We do not process or store payment information on ONLYFINDS. Some buttons and links (e.g., "Get $129 coupons", "JOIN CNFANS NOW") send you to partners such as CNFANS. When you follow those links, the partner may collect data under their own policy. Please review their privacy policy before purchasing.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">How we use data</h4>
+              <ul className="text-gray-700 text-sm space-y-1 list-disc pl-5">
+                <li>Provide, secure, and improve the site and its features</li>
+                <li>Measure performance and fix issues</li>
+                <li>Communicate with you when you ask us to (e.g., email updates)</li>
+              </ul>
+              <p className="text-gray-700 text-sm mt-2">We do not sell your personal data.</p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Your rights</h4>
+              <p className="text-gray-700 text-sm">
+                Depending on your location, you may have rights to access, correct, delete, restrict or object to processing, and data portability. You can also withdraw consent where processing is based on consent. To make a request, contact <a href="mailto:3lucaswreps@gmail.com" className="text-primary hover:underline">3lucaswreps@gmail.com</a>.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Children</h4>
+              <p className="text-gray-700 text-sm">
+                ONLYFINDS is not intended for children under 13 (or the age required by local law). We do not knowingly collect data from children.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Contact</h4>
+              <p className="text-gray-700 text-sm">
+                For questions about this privacy policy, contact us at <a href="mailto:3lucaswreps@gmail.com" className="text-primary hover:underline">3lucaswreps@gmail.com</a>
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Changes</h4>
+              <p className="text-gray-700 text-sm">
+                We may update this policy from time to time. Material changes will be noted on this page with a new "Last updated" date.
+              </p>
+            </div>
           </CardContent>
         </Card>
       </main>
