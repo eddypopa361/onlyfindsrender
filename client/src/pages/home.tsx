@@ -146,22 +146,22 @@ export default function Home() {
             {/* Overlay pentru tranziție netedă la început */}
             <div className="section-transition-overlay section-transition-overlay-top"></div>
             
-            {/* Glow effects - poziționare jos pentru alternare - extinse */}
-            <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
-            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
-            <div className="container mx-auto px-4 text-center relative z-10 ml-[103.5px] mr-[103.5px] pl-[64px] pr-[64px] pt-[39px] pb-[39px] mt-[66px] mb-[66px]">
+            {/* Glow effects - responsive positioning */}
+            <div className="absolute -bottom-20 md:-bottom-32 -left-20 md:-left-32 w-64 md:w-96 h-64 md:h-96 rounded-full bg-primary/25 filter blur-3xl"></div>
+            <div className="absolute -bottom-20 md:-bottom-32 -right-20 md:-right-32 w-64 md:w-96 h-64 md:h-96 rounded-full bg-primary/30 filter blur-3xl"></div>
+            <div className="absolute -bottom-12 md:-bottom-16 left-1/2 transform -translate-x-1/2 w-48 md:w-80 h-48 md:h-80 rounded-full bg-primary/20 filter blur-3xl"></div>
+            <div className="container mx-auto px-4 md:px-8 lg:px-16 text-center relative z-10 py-8 md:py-12 lg:py-16 my-8 md:my-12 lg:my-16">
               <ScrollAnimation direction="up" delay={0.1} variant="fade">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 inline-block relative text-white">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-6 inline-block relative text-white">
                   <span className="relative z-10">Browse Our Collections</span>
-                  <div className="absolute bottom-0 left-0 w-full h-3 bg-primary/20 -z-10"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-2 md:h-3 bg-primary/20 -z-10"></div>
                 </h2>
-                <p className="text-gray-300 max-w-xl mx-auto mb-8">
+                <p className="text-gray-300 max-w-xl mx-auto mb-6 md:mb-8 text-sm sm:text-base px-4 sm:px-0">
                   Discover our vast selection of premium quality products for every style
                 </p>
                 <ScrollAnimation direction="up" delay={0.3} duration={0.6}>
                   <Link href="/products">
-                    <Button className="bg-primary text-white hover:bg-primary/80 rounded-full px-8 py-6 text-lg font-heading font-bold shadow-lg glow-button transition-all duration-300">
+                    <Button className="bg-primary text-white hover:bg-primary/80 rounded-full px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-heading font-bold shadow-lg glow-button transition-all duration-300">
                       EXPLORE ALL PRODUCTS
                     </Button>
                   </Link>
@@ -185,9 +185,6 @@ export default function Home() {
                 <HomeReviewsSection />
               </ScrollAnimation>
             </Suspense>
-            
-            {/* Overlay pentru tranziție netedă la sfârșit */}
-            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
           </section>
         </div>
         
@@ -216,9 +213,6 @@ export default function Home() {
                 <PromoSection />
               </ScrollAnimation>
             </Suspense>
-            
-            {/* Overlay pentru tranziție netedă la sfârșit */}
-            <div className="section-transition-overlay section-transition-overlay-bottom"></div>
           </section>
         </div>
       </main>
