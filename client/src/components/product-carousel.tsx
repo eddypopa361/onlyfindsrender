@@ -25,13 +25,14 @@ export default function ProductCarousel() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1000, // Viteză mai mare pentru tranziții
-    slidesToShow: 4, // Reducem numărul pentru a îmbunătăți performanța
+    speed: 500, // Viteză optimizată pentru performanță
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000, // Mai mult timp între slide-uri
+    autoplaySpeed: 3000, // Timp mai lung pentru a reduce CPU load
     pauseOnHover: true,
-    lazyLoad: "ondemand" as const, // Tipizare corectă pentru lazyLoad
+    lazyLoad: "ondemand" as const,
+    waitForAnimate: false, // Reduce blocking-ul pentru animații
     responsive: [
       {
         breakpoint: 1280,
@@ -132,7 +133,11 @@ function FeaturedProductCard({ product }: { product: Product }) {
             src={product.image} 
             alt={product.title}
             loading="lazy"
+            decoding="async"
+            width="300"
+            height="300"
             className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
+            style={{ contentVisibility: 'auto' }}
           />
         </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
@@ -153,7 +158,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
             Buy Now
           </a>
           <a 
-            href={product.viewUrl}
+            href={product.buyUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full text-center px-3 py-1.5 border border-primary text-white font-heading text-xs font-medium rounded hover:bg-primary/30 transition-all"

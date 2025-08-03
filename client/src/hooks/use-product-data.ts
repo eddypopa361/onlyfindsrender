@@ -84,6 +84,7 @@ export function useFeaturedProducts() {
 
   return useQuery({
     queryKey: ["/api/products/featured"],
+    staleTime: 10 * 60 * 1000, // 10 minute cache pentru featured products
     queryFn: async () => {
       if (isStatic) {
         // Folosim serviciul static
@@ -108,6 +109,7 @@ export function useCarouselProducts() {
 
   return useQuery({
     queryKey: ["/api/products/carousel"],
+    staleTime: 10 * 60 * 1000, // 10 minute cache pentru carousel products
     queryFn: async () => {
       if (isStatic) {
         // Folosim serviciul static

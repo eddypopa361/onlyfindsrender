@@ -1,27 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { MoveRight, ArrowDownCircle } from "lucide-react";
-import { lazy, Suspense, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from "wouter";
 import { motion } from 'framer-motion';
 import { CNFANS_REGISTER } from "@/lib/constants";
 
-// Lazy load Spline pentru o încărcare inițială mai rapidă
-const Spline = lazy(() => import('@splinetool/react-spline'));
+// Import optimized Spline component
+import OptimizedSpline from '@/components/ui/optimized-spline';
 
 export default function HeroSection() {
-  const [isSplineLoaded, setIsSplineLoaded] = useState(false);
-  const [showSpline, setShowSpline] = useState(false);
-
-  // Încărcăm Spline doar după ce pagina s-a încărcat complet
-  useEffect(() => {
-    // Amânăm încărcarea Spline pentru a prioritiza restul componentelor
-    const timer = setTimeout(() => {
-      setShowSpline(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section className="relative overflow-hidden bg-black text-white py-20 md:py-28 lg:py-32 w-full min-h-[80vh] rounded-b-3xl">
       <div className="absolute inset-0 bg-black"></div>
@@ -30,37 +17,33 @@ export default function HeroSection() {
       <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
       <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-primary/30 filter blur-3xl"></div>
       
-      {/* Spline 3D Background - încărcat lazy și condițional */}
-      {showSpline && (
-        <div className="absolute inset-0 z-0 scale-125 origin-center overflow-hidden">
-          <Suspense fallback={<div className="w-full h-full bg-black"></div>}>
-            <Spline
-              scene="https://prod.spline.design/4xFLTzyM1pFClIqD/scene.splinecode" 
-              className="scale-120"
-              onLoad={() => setIsSplineLoaded(true)}
-            />
-          </Suspense>
-        </div>
-      )}
+      {/* Optimized Spline 3D Background */}
+      <div className="absolute inset-0 z-0 scale-125 origin-center overflow-hidden">
+        <OptimizedSpline
+          scene="https://prod.spline.design/4xFLTzyM1pFClIqD/scene.splinecode" 
+          className="scale-120"
+          priority="high"
+        />
+      </div>
       
       <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-black to-transparent z-10"></div>
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent z-10"></div>
       
-      {/* Animated Particles - reduse ca număr pentru performanță mai bună */}
+      {/* Particles optimizate - mai puține pentru performanță */}
       <div className="absolute inset-0 overflow-hidden z-5">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(3)].map((_, i) => (
           <div
             key={i}
-            className="absolute bg-primary rounded-full opacity-20 pulse-slow"
+            className="absolute bg-primary rounded-full opacity-10 animate-pulse"
             style={{
-              width: `${Math.random() * 100 + 20}px`,
-              height: `${Math.random() * 100 + 20}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 3 + 5}s`,
+              width: `${40 + i * 20}px`,
+              height: `${40 + i * 20}px`,
+              top: `${20 + i * 30}%`,
+              left: `${20 + i * 30}%`,
+              animationDelay: `${i * 2}s`,
+              animationDuration: '6s',
             }}
-          ></div>
+          />
         ))}
       </div>
       
