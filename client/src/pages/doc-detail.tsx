@@ -1405,24 +1405,110 @@ Last updated: August 3, 2025.`
         },
         "cnfans-129-coupon-guide": {
           metadata: {
-            title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025",
+            title: "CNFANS $129 Coupon: How to Redeem Your Welcome Bonus (2025)",
             slug: "cnfans-129-coupon-guide",
             date: "2025-08-03",
-            description: "Step-by-step guide to claiming and using your CNFANS $129 shipping coupon welcome bonus effectively.",
+            description: "Want cheap shipping CNFANS on your first orders? This guide explains how to find and redeem a CNFANS $129 coupon.",
             tags: ["cnfans", "coupon", "welcome-bonus", "savings"],
             draft: false
           },
-          content: `# CNFANS $129 Coupon: How to Redeem Your Welcome Bonus 2025
+          content: `# CNFANS $129 Coupon: How to Redeem Your Welcome Bonus (2025)
 
-Want cheap shipping CNFANS on your first orders? The CNFANS $129 coupon welcome bonus can significantly reduce your initial shipping costs. This guide shows you exactly how to claim, apply, and maximize this valuable new customer benefit.
+Want cheap shipping CNFANS on your first orders? This guide explains how to find and redeem a CNFANS $129 coupon (when available), plus practical tips to get the most value from your welcome offer.
 
-Claim your bonus now: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Get CNFANS $129 coupons</a>
+Start here: After registering, open your dashboard and check Coupons/Promotions for current offers.
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Understanding the CNFANS $129 Welcome Bonus
+## What the CNFANS $129 coupon is (plain English)
 
-The CNFANS register coupon typically includes multiple shipping discount coupons totaling $129 value, percentage-based discounts for different order sizes, first-order shipping credits, and consolidation service discounts.
+The CNFANS $129 coupon is a new-user shipping discount that may appear in your account after registration, subject to CNFANS's current terms. Availability, eligibility, and how the discount applies can change—always verify in your dashboard before you ship.
 
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+### Key points to remember
+
+It reduces shipping cost (not product price).
+
+Eligibility and application rules depend on CNFANS's current promo.
+
+Some lines or routes may have restrictions; check details next to the offer.
+
+## Step-by-step: How to redeem
+
+### Register an account
+Create your account and confirm any email/SMS verification if prompted.
+→ <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
+
+### Open Coupons/Promotions
+After login, go to Coupons (or Promotions) in your dashboard. Look for a $129 welcome coupon or other CNFANS discount code. If an activation button is shown, click it.
+
+### Check the terms
+Review eligibility: expiry date, applicable shipping lines, any minimums, and your region.
+
+### Prepare your shipment
+Add items to your warehouse/cart, choose a shipping line (economy / priority economy / express), and confirm the coupon applies at checkout before paying.
+
+## How to maximize the value
+
+### Consolidate when it makes sense
+One outbound parcel often costs less than several small ones because you pay handling/linehaul once. (Results vary by line/zone.)
+
+### Reduce volumetric weight
+Request lighter packaging where available, avoid excess filler, and group small accessories together so L×W×H stays compact.
+
+### Time it well
+If your schedule is flexible, avoid peak rushes. Seasonal events can bring good promos but also higher demand—plan accordingly.
+
+### QC before shipping
+Approve photo/video checks (when offered) to avoid re-ship costs.
+
+## Troubleshooting (quick fixes)
+
+**Coupon not showing?**
+Log out/in, refresh the page, and recheck Coupons/Promotions. If it still doesn't appear, contact support via official channels.
+
+**Discount not applying at checkout?**
+Re-select the shipping line, ensure the coupon is eligible for that route, and confirm the total updates before you pay.
+
+**Expired or not eligible?**
+Look for alternate CNFANS shipping deals or seasonal offers in the dashboard and email notifications.
+
+## FAQ
+
+**Is there always a CNFANS $129 coupon?**
+Not guaranteed. Availability varies—check your dashboard after registration.
+
+**Can I stack multiple coupons?**
+Usually one per order. Choose the highest-value eligible coupon for your route.
+
+**Does the coupon work on every line?**
+Not necessarily. Read the terms next to the offer for line/region restrictions.
+
+**What does the coupon cover?**
+Shipping charges on CNFANS (not the product price paid to sellers).
+
+## Quick checklist (save this)
+
+✓ Account registered and verified
+
+✓ Coupons/Promotions checked for a CNFANS $129 coupon
+
+✓ Terms read (expiry, eligible lines, region)
+
+✓ Items consolidated (if useful) and packaging request set
+
+✓ Coupon applied and visible in the total before payment
+
+✓ Tracking notifications enabled
+
+## Get started
+
+Register and check your dashboard for welcome offers:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
+
+Start with a small shipment to learn timing and packaging preferences.
+
+Reuse the checklist to keep costs predictable on every order.
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "cnfans-seasonal-coupons-2025": {
@@ -1430,22 +1516,145 @@ Last updated: August 3, 2025.`
             title: "CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals",
             slug: "cnfans-seasonal-coupons-2025",
             date: "2025-08-03",
-            description: "Stay ahead of CNFANS seasonal coupons and major shopping events with this complete 2025 calendar and strategy guide.",
+            description: "Stay ahead of CNFANS seasonal coupons with a simple plan for 2025.",
             tags: ["cnfans", "seasonal", "coupons", "sales"],
             draft: false
           },
           content: `# CNFANS Seasonal Coupons 2025: Black Friday, 11.11, 12.12 Deals
 
-Stay ahead of CNFANS seasonal coupons and major shopping holidays. This comprehensive guide covers all major sales events, typical discount patterns, and strategic timing to maximize your savings throughout 2025.
+Stay ahead of CNFANS seasonal coupons with a simple plan for 2025. This guide shows when savings typically appear (11.11, 12.12, Black Friday/Cyber Monday) and how to prepare so you actually capture cheap shipping CNFANS deals when they go live.
 
-Get started with base coupons: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Claim CNFANS $129 welcome coupons</a>
+New here? After registration, open your dashboard and check Coupons/Promotions for current offers (often a welcome bonus).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Major Shopping Events Calendar 2025
+## How CNFANS seasonal promos usually work
 
-### 11.11 Singles Day (November 11) - Biggest sale event of the year
-Typical CNFANS 11.11 offers include up to 50% off shipping on premium lines, stacked coupons, extended consolidation periods, and special pricing on express shipping lines.
+**Aligned with global events**: Expect promo activity around 11.11, 12.12, and Black Friday/Cyber Monday, plus regional holidays.
 
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+**Shipping-first discounts**: CNFANS focuses on shipping cost reductions, not product pricing.
+
+**Limited windows & capacity**: Popular lines and coupons can be time-boxed and limited—be ready before the event.
+
+**Details vary**: Eligibility, lines, regions, and terms can change. Always check the promo card in your dashboard.
+
+## 2025 planning snapshot (what to watch)
+
+**Q1 (Jan–Mar)**: Post-holiday cleanup, Chinese New Year impacts (processing may slow).
+
+**Q2 (Apr–Jun)**: Spring promos; watch the 6.18 mid-year festival for trial runs.
+
+**Q3 (Jul–Sep)**: Back-to-school timing; prep lists and addresses for Q4.
+
+**Q4 (Oct–Dec)**: 11.11 Singles' Day, Black Friday/Cyber Monday, 12.12—the busy season for CNFANS shipping deals.
+
+## Event playbooks (safe & effective)
+
+### 11.11 Singles' Day (November 11)
+
+**Why it matters**: Traditionally the strongest wave of e-commerce promos.
+
+**Your prep checklist**:
+
+Register and verify your account early → <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
+
+Bookmark items and estimate weights/sizes.
+
+Confirm addresses, payment methods, and notifications.
+
+Check Coupons/Promotions the morning of 11.11 and apply eligible offers before paying.
+
+**After the event**: Consolidate thoughtfully, choose a line that fits budget vs. ETA, and track closely during high volume.
+
+### Black Friday / Cyber Monday
+
+**What to expect**: Western-market focus; watch weekend-long waves of offers.
+
+**Tips**:
+
+Review lines/prices a day before.
+
+Try app + desktop; refresh if traffic is high.
+
+Confirm the discount appears at checkout (before you pay).
+
+### 12.12 (Double Twelve)
+
+**Why it matters**: Final big push before year-end.
+
+**Tips**:
+
+Consolidate remaining items.
+
+Check insurance/tracking options that fit holiday timelines.
+
+Plan for holiday carrier congestion; enable delivery notifications.
+
+## Practical ways to capture the discount
+
+**Be early**: Coupons and preferred lines can go fast.
+
+**Consolidate when it helps**: One outbound parcel often beats multiple small ones (depends on line/zone).
+
+**Reduce volume**: Request lighter packaging (where available), avoid excess filler, and group small accessories—this can lower volumetric weight.
+
+**QC before shipping**: Approve photo/video checks (when offered) to avoid costly re-ships.
+
+**Set reminders**: For event dates and coupon expiry.
+
+## Compliance-first customs note
+
+**Know your local rules**: Duties/taxes, documentation, and thresholds are set by your country.
+
+**Declare accurately**: Follow legal requirements for item descriptions and values.
+
+**Ask a pro if needed**: For complex cases, consult a licensed customs broker.
+
+## Troubleshooting (peak-season realities)
+
+**Checkout won't apply the code**: Re-select the shipping line, refresh, and confirm eligibility in the coupon's terms.
+
+**Site/app busy**: Try both mobile app and desktop; keep a secondary browser handy.
+
+**Delayed updates**: High demand can slow tracking/processing—monitor and contact support with order IDs if needed.
+
+## Quick calendar you can copy
+
+**Now**: Register, verify, set notifications.
+
+**Q2 (around 6.18)**: Do a small test shipment to learn lines/timing.
+
+**Q4**:
+
+**11.11**: Primary savings window—act early.
+
+**Black Friday/Cyber Monday**: Weekend waves—double-check eligibility before paying.
+
+**12.12**: Year-end consolidation and insurance/tracking choices.
+
+## FAQ
+
+**Are seasonal coupons guaranteed?**
+No—availability varies by region, line, and timing. Always check your dashboard.
+
+**Can I stack multiple coupons?**
+Usually one per order. Choose the highest-value eligible offer for your route.
+
+**Which line is "best"?**
+It depends on destination and timeline. Compare economy, priority economy, and express for your address.
+
+**Is consolidation always cheaper?**
+Often—but not always. Check volumetric weight and line thresholds.
+
+## Get started
+
+Register and check your dashboard for current CNFANS seasonal coupons and welcome offers:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register & check coupons</a>
+
+Do a small test shipment before major events.
+
+Use this page's checklist for 11.11, Black Friday/Cyber Monday, and 12.12.
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         },
         "best-cnfans-spreadsheets-2025": {
@@ -1453,26 +1662,134 @@ Last updated: August 3, 2025.`
             title: "Best CNFANS Spreadsheets 2025: Updated Links & Categories",
             slug: "best-cnfans-spreadsheets-2025",
             date: "2025-08-03",
-            description: "Looking for an updated CNFANS spreadsheet? Find the most current product catalogs, pricing sheets, and category breakdowns.",
+            description: "Looking for an updated CNFANS spreadsheet that actually helps? This guide highlights how to find and use CNFANS spreadsheets 2025.",
             tags: ["cnfans", "spreadsheets", "catalog", "organization"],
             draft: false
           },
           content: `# Best CNFANS Spreadsheets 2025: Updated Links & Categories
 
-Looking for an updated CNFANS spreadsheet with current links and organized categories? This guide covers the most valuable product catalogs, pricing sheets, and organizational systems to streamline your shopping experience.
+Looking for an updated CNFANS spreadsheet that actually helps? This guide highlights how to find and use CNFANS spreadsheets 2025—curated overviews with organized categories, current public links, and practical tips to get cheap shipping CNFANS without guesswork.
 
-Access organized products here: <a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Browse CNFANS organized catalog</a>
+New here? After registration, open your dashboard and check Coupons/Promotions for welcome offers (often a CNFANS $129 coupon).
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">Register on CNFANS</a>
 
-## Why Use Product Spreadsheets?
+## What a CNFANS spreadsheet is (and isn't)
 
-Pre-organized categories save hours of browsing, enable easy price comparison, support better planning, and help track previously ordered items and their quality.
+A CNFANS spreadsheet is a community-made resource that organizes public links, categories, and high-level shipping tips so you can research faster. It's not a store, not a guarantee, and not official CNFANS documentation—always verify details yourself.
 
-**Disclosure**: Contains affiliate links. We may earn commission at no extra cost to you.
+Good CNFANS spreadsheets usually offer:
+
+Clear categories (Shoes, Accessories, Coats & Jackets, etc.)
+
+Current public links and simple notes for comparison
+
+Occasional reminders about CNFANS discount codes and seasonal deals
+
+Freshness indicators (last updated, removed dead links)
+
+**Reminder**: Follow your local laws and platform rules. Nothing here is legal advice.
+
+## How to use CNFANS spreadsheets safely (5 steps)
+
+**Scan categories first** – Start with the sections that match your needs: Trending Now, Latest Finds, Shoes, T-Shirt & Shorts, Hoodies & Pants, Coats & Jackets, Accessories, Electronic Products, Perfumes, Womans.
+
+**Check freshness** – Look for "last updated" notes and avoid stale entries.
+
+**Compare practically** – Focus on photos, materials/finish notes, and recent community feedback.
+
+**Plan total cost** – Product + shipping line + insurance/taxes.
+
+**Start small** – Place a small test order before you scale up.
+
+## Typical categories & subcategories you'll see
+
+**Shoes**: lifestyle, running, basketball, boots, sandals.
+
+**Apparel**: hoodies, pants, coats & jackets, t-shirts & shorts, seasonal sets.
+
+**Accessories**: bags, wallets, belts, scarves, jewelry-style pieces, sunglasses, underwear & socks, other.
+
+**Electronics & lifestyle**: tech accessories, home items.
+
+**Perfumes & beauty**: check local restrictions and shipping rules.
+
+**Womans**: focused selections across apparel/footwear/accessories.
+
+(Many spreadsheets add small icons above each card/name to make scanning faster.)
+
+## Finding credible, updated CNFANS spreadsheet links
+
+Look for update cadence (weekly/monthly) and visible change logs.
+
+Prefer neutral notes over hype; clear labeling beats vague claims.
+
+Check that "removed/dead" links get pruned—a good sign of maintenance.
+
+Read community comments for recency and real outcomes.
+
+Avoid resources that publish private data or encourage rule-breaking.
+
+## Savings shortcuts with CNFANS spreadsheets
+
+**Consolidation**: If you plan multiple items, one outbound parcel often beats several small ones (depends on line/zone).
+
+**Volume control**: Request lighter packaging where available and group small accessories to lower volumetric weight.
+
+**Seasonal timing**: Watch 11.11, 12.12, and Black Friday/Cyber Monday for CNFANS seasonal coupons.
+
+**Apply your coupon correctly**: Choose the line, then apply an eligible CNFANS discount code at checkout—confirm the total updates before paying.
+
+## Quick checklist (save this)
+
+✓ Found a best CNFANS spreadsheet with recent updates
+
+✓ Chosen categories that match your needs
+
+✓ Verified links and read recent feedback
+
+✓ Planned consolidation/packaging to reduce volume
+
+✓ Checked Coupons/Promotions for a CNFANS $129 coupon
+
+✓ Confirmed discount appears in the total before payment
+
+## FAQ
+
+**Are all CNFANS spreadsheets official?**
+No—most are community resources. Verify details and use common sense.
+
+**Do "updated links" mean everything is guaranteed?**
+No—availability changes. Treat spreadsheets as a starting point, not a promise.
+
+**Can I stack multiple coupons?**
+Usually one per order. Pick the highest-value eligible offer for your route.
+
+**Is consolidation always cheaper?**
+Often—but not always. Compare volumetric vs actual weight for your chosen line.
+
+## Get started
+
+Register and check Coupons/Promotions for welcome offers and CNFANS shipping deals:
+<a href="https://cnfans.com/register/?ref=571435" target="_blank" rel="nofollow sponsored noopener">CNFANS register coupon</a>
+
+Use a CNFANS spreadsheet to shortlist items, then place a small test order.
+
+Reuse the checklist above to keep costs predictable every time.
+
+**Disclosure**: This article contains an affiliate link. We may earn a commission at no extra cost to you.
 Last updated: August 3, 2025.`
         }
       };
 
-      const content = docMap[slug];
+      // Add URL aliases for missing routes
+      const urlAliases: { [key: string]: string } = {
+        "optimizing-your-profile": "optimization-strategies",
+        "cheap-cnfans-shipping-2025": "cheap-shipping-cnfans"
+      };
+
+      // Check if we need to use an alias
+      const actualSlug = urlAliases[slug] || slug;
+      const content = docMap[actualSlug];
       console.log("Available keys:", Object.keys(docMap));
       console.log("Looking for slug:", slug);
       console.log("Found content:", !!content);
