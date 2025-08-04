@@ -25,6 +25,8 @@ export default function DocDetail() {
   useEffect(() => {
     if (params?.slug) {
       loadDocument(params.slug);
+      // Scroll to top when navigating to a new article
+      window.scrollTo(0, 0);
     }
   }, [params?.slug]);
 
