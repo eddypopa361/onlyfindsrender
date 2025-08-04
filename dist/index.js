@@ -40,14 +40,18 @@ var products = pgTable("products", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   price: text("price").notNull(),
+  // legacy field, kept for compatibility
+  priceUSD: text("price_usd"),
+  // New numeric price field
   image: text("image").notNull(),
   buyUrl: text("buy_url").notNull(),
-  viewUrl: text("view_url").notNull(),
+  viewUrl: text("view_url"),
+  // Made optional
   category: text("category").notNull(),
+  brand: text("brand"),
+  // Made optional  
   subCategory: text("sub_category"),
   // Subcategoria pentru filtrare suplimentară
-  brand: text("brand"),
-  // Brand-ul produsului pentru filtrare și căutare
   featured: boolean("featured").default(false),
   carousel: boolean("carousel").default(false)
   // Indicator pentru produsele din carusel
@@ -55,31 +59,30 @@ var products = pgTable("products", {
 var insertProductSchema = createInsertSchema(products).pick({
   title: true,
   price: true,
+  priceUSD: true,
   image: true,
   buyUrl: true,
   viewUrl: true,
   category: true,
-  subCategory: true,
   brand: true,
+  subCategory: true,
   featured: true,
   carousel: true
 });
 
 // server/db.ts
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-serverless";
-import ws from "ws";
-neonConfig.webSocketConstructor = ws;
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 if (!process.env.DATABASE_URL) {
   throw new Error(
     "DATABASE_URL must be set. Did you forget to provision a database?"
   );
 }
-var pool = new Pool({ connectionString: process.env.DATABASE_URL });
-var db = drizzle({ client: pool, schema: schema_exports });
+var sql = neon(process.env.DATABASE_URL);
+var db = drizzle(sql, { schema: schema_exports });
 
 // server/storage.ts
-import { eq, desc, asc, sql, ne } from "drizzle-orm";
+import { eq, desc, asc, sql as sql2, ne } from "drizzle-orm";
 var DatabaseStorage = class {
   async getUser(id) {
     const [user] = await db.select().from(users).where(eq(users.id, id));
@@ -96,7 +99,7 @@ var DatabaseStorage = class {
   async getProducts(page = 1, limit = 12, category, subCategory, brand, sort = "featured") {
     const offset = (page - 1) * limit;
     let queryBuilder = db.select().from(products);
-    let countQueryBuilder = db.select({ count: sql`count(*)` }).from(products);
+    let countQueryBuilder = db.select({ count: sql2`count(*)` }).from(products);
     const conditions = [];
     if (category && category !== "All") {
       conditions.push(eq(products.category, category));
@@ -105,7 +108,7 @@ var DatabaseStorage = class {
       }
     }
     if (brand && brand !== "All") {
-      conditions.push(sql`UPPER(${products.brand}) = UPPER(${brand})`);
+      conditions.push(sql2`UPPER(${products.brand}) = UPPER(${brand})`);
     }
     if (conditions.length > 0) {
       for (const condition of conditions) {
@@ -136,18 +139,36 @@ var DatabaseStorage = class {
     return product;
   }
   async getFeaturedProducts() {
-    return await db.select().from(products).where(eq(products.featured, true)).orderBy(desc(products.id)).limit(8);
+    const allProducts = await db.select().from(products);
+    const validProducts = allProducts.filter(
+      (p) => p.image && p.image.trim() !== "" && p.buyUrl && p.buyUrl.trim() !== ""
+    );
+    return this.sampleDistinct(validProducts, 12);
   }
   async getCarouselProducts() {
-    const carouselIds = [312, 333, 871, 271, 622, 711, 888, 621, 1012, 299];
-    const carouselProducts = [];
-    for (const id of carouselIds) {
-      const [product] = await db.select().from(products).where(eq(products.id, id));
-      if (product) {
-        carouselProducts.push(product);
-      }
+    const allProducts = await db.select().from(products);
+    const validProducts = allProducts.filter(
+      (p) => p.image && p.image.trim() !== "" && p.buyUrl && p.buyUrl.trim() !== ""
+    );
+    return this.sampleDistinct(validProducts, 8);
+  }
+  /**
+   * Sample N distinct items from an array using a date-based seed for stability
+   */
+  sampleDistinct(items, count) {
+    if (items.length <= count) return [...items];
+    const dateString = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+    const shuffled = [...items];
+    let seedValue = 0;
+    for (let i = 0; i < dateString.length; i++) {
+      seedValue += dateString.charCodeAt(i);
     }
-    return carouselProducts;
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      seedValue = (seedValue * 9301 + 49297) % 233280;
+      const j = Math.floor(seedValue / 233280 * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, count);
   }
   async createProduct(product) {
     const [newProduct] = await db.insert(products).values(product).returning();
@@ -163,9 +184,9 @@ var DatabaseStorage = class {
   async searchProducts(query, page = 1, limit = 12, brand, sort = "featured") {
     const offset = (page - 1) * limit;
     const searchPattern = `%${query}%`;
-    let searchCondition = sql`${products.title} ILIKE ${searchPattern} OR ${products.category} ILIKE ${searchPattern}`;
+    let searchCondition = sql2`${products.title} ILIKE ${searchPattern} OR ${products.category} ILIKE ${searchPattern}`;
     if (brand && brand !== "All") {
-      searchCondition = sql`(${searchCondition}) AND UPPER(${products.brand}) = UPPER(${brand})`;
+      searchCondition = sql2`(${searchCondition}) AND UPPER(${products.brand}) = UPPER(${brand})`;
     }
     let queryBuilder = db.select().from(products).where(searchCondition);
     if (sort === "priceAsc") {
@@ -179,7 +200,7 @@ var DatabaseStorage = class {
       );
     }
     const productsList = await queryBuilder.limit(limit).offset(offset);
-    const result = await db.select({ count: sql`count(*)` }).from(products).where(searchCondition);
+    const result = await db.select({ count: sql2`count(*)` }).from(products).where(searchCondition);
     const total = result.length > 0 ? Number(result[0].count) : 0;
     return {
       products: productsList,
@@ -189,7 +210,7 @@ var DatabaseStorage = class {
   // Helper method to fix image paths for all products
   async fixProductImagePaths() {
     let updatedCount = 0;
-    const productsToUpdate = await db.select().from(products).where(sql`${products.image} IS NOT NULL AND ${products.image} != '' AND 
+    const productsToUpdate = await db.select().from(products).where(sql2`${products.image} IS NOT NULL AND ${products.image} != '' AND 
              ${products.image} NOT LIKE '/uploads/%' AND 
              ${products.image} NOT LIKE 'http%'`);
     for (const product of productsToUpdate) {
@@ -219,7 +240,7 @@ var DatabaseStorage = class {
     };
     if (recommendedProducts.length < limit) {
       const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(eq(products.category, productCategory)).where(sql`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId));
+      let query = db.select().from(products).where(eq(products.category, productCategory)).where(sql2`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId));
       if (recommendedProducts.length > 0) {
         query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
       }
@@ -230,7 +251,7 @@ var DatabaseStorage = class {
       const currentLimit = limit - recommendedProducts.length;
       let query = db.select().from(products).where(eq(products.category, productCategory)).where(ne(products.id, excludeId));
       if (productBrand) {
-        query = query.where(sql`UPPER(${products.brand}) != UPPER(${productBrand})`);
+        query = query.where(sql2`UPPER(${products.brand}) != UPPER(${productBrand})`);
       }
       if (recommendedProducts.length > 0) {
         query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
@@ -240,7 +261,7 @@ var DatabaseStorage = class {
     }
     if (recommendedProducts.length < limit && productBrand) {
       const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(sql`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId)).where(ne(products.category, productCategory));
+      let query = db.select().from(products).where(sql2`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId)).where(ne(products.category, productCategory));
       if (recommendedProducts.length > 0) {
         query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
       }
@@ -287,14 +308,14 @@ function generateProductPageHtml(product) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${product.title} - TJREPS DEMO</title>
+  <title>${product.title} - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">TJREPS <span>DEMO</span></a>
+      <a href="/" class="logo">ONLYFINDS <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
@@ -353,7 +374,7 @@ function generateProductPageHtml(product) {
   
   <footer class="footer">
     <div class="container">
-      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -460,14 +481,14 @@ function generateCategoryPageHtml(category, products2) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${category} Products - TJREPS DEMO</title>
+  <title>${category} Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-container">
-      <a href="/" class="logo">TJREPS <span>DEMO</span></a>
+      <a href="/" class="logo">ONLYFINDS <span>DEMO</span></a>
       <nav>
         <a href="/" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
         <a href="/products" style="color: white; text-decoration: none;">Products</a>
@@ -485,7 +506,7 @@ function generateCategoryPageHtml(category, products2) {
   
   <footer class="footer">
     <div class="container">
-      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
 </body>
@@ -538,7 +559,7 @@ function generateBrandPageHtml(brand, products2) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>${brand} Products - TJREPS DEMO</title>
+  <title>${brand} Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -563,7 +584,7 @@ function generateBrandPageHtml(brand, products2) {
   
   <footer class="footer">
     <div class="container">
-      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
 </body>
@@ -678,49 +699,24 @@ async function registerRoutes(app2) {
           if (imagePath && !imagePath.startsWith("/uploads/") && !imagePath.startsWith("http")) {
             imagePath = `/uploads/${imagePath}`;
           }
-          const detectBrand = (title) => {
-            const brands = [
-              "Nike",
-              "Adidas",
-              "Jordan",
-              "Yeezy",
-              "Puma",
-              "Reebok",
-              "New Balance",
-              "Converse",
-              "Vans",
-              "Under Armour",
-              "Balenciaga",
-              "Gucci",
-              "Louis Vuitton",
-              "Dior",
-              "Off-White",
-              "Supreme",
-              "Prada",
-              "Versace",
-              "Valentino",
-              "North Face"
-            ];
-            for (const brand of brands) {
-              if (title.toUpperCase().includes(brand.toUpperCase())) {
-                return brand;
-              }
-            }
-            return "Other";
-          };
           const productTitle = record.title || "";
-          const productBrand = record.brand || detectBrand(productTitle);
+          const priceUSD = record.priceUSD || record.priceUsd || record.price_usd || null;
           const subCategoryValue = record.subcategory || record.Subcategory || record.subCategory || null;
           const product = {
             title: productTitle,
-            price: record.price || "0",
+            price: priceUSD || "0",
+            // Use priceUSD as fallback for legacy price
+            priceUSD,
             image: imagePath,
             buyUrl: record.buyUrl || record.buy_url || "",
-            viewUrl: record.viewUrl || record.view_url || "",
+            viewUrl: null,
+            // Not required in new format
             category: record.category || "Other",
-            brand: productBrand,
+            brand: null,
+            // Not used in new format
             subCategory: subCategoryValue,
-            featured: record.featured === "true" || record.featured === "1"
+            featured: record.featured === "true" || record.featured === "1" || false,
+            carousel: false
           };
           try {
             const validatedProduct = insertProductSchema.parse(product);
@@ -729,7 +725,13 @@ async function registerRoutes(app2) {
             console.error("Validation error for record:", record, validationError);
           }
         }
-        fs.unlinkSync(req.file.path);
+        try {
+          if (fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+          }
+        } catch (unlinkError) {
+          console.warn("Warning: Could not delete temporary file:", unlinkError);
+        }
         if (records.length > 0) {
           await storage.createManyProducts(records);
           return res.status(200).json({
@@ -743,7 +745,13 @@ async function registerRoutes(app2) {
       } catch (error) {
         console.error("CSV import error:", error);
         if (req.file) {
-          fs.unlinkSync(req.file.path);
+          try {
+            if (fs.existsSync(req.file.path)) {
+              fs.unlinkSync(req.file.path);
+            }
+          } catch (unlinkError) {
+            console.warn("Warning: Could not delete temporary file:", unlinkError);
+          }
         }
         return res.status(500).json({
           message: "Eroare la procesarea fi\u0219ierului CSV",
@@ -1124,7 +1132,7 @@ body {
 `;
         fs.writeFileSync(path.join(cssDir, "styles.css"), cssContent);
         const dataLoaderJs = `
-// Static data loader for TJREPS DEMO
+// Static data loader for ONLYFINDS
 window.TJREPS = {
   dataUrl: '/data',
   
@@ -1201,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>TJREPS DEMO - Designer Products Showcase</title>
+  <title>ONLYFINDS - Designer Products Showcase</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/data-loader.js" defer></script>
@@ -1220,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <main class="container">
     <section style="margin-bottom: 3rem;">
       <h1 style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center; color: white;">
-        Welcome to <span style="color: rgb(138, 43, 226);">TJREPS DEMO</span>
+        Welcome to <span style="color: rgb(138, 43, 226);">ONLYFINDS</span>
       </h1>
       <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #ccc;">
         Discover our curated collection of premium designer products at exceptional prices. 
@@ -1240,7 +1248,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   <footer class="footer">
     <div class="container">
-      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -1316,7 +1324,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>All Products - TJREPS DEMO</title>
+  <title>All Products - ONLYFINDS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/data-loader.js" defer></script>
@@ -1354,7 +1362,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   <footer class="footer">
     <div class="container">
-      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} TJREPS DEMO - Static Export</p>
+      <p>\xA9 ${(/* @__PURE__ */ new Date()).getFullYear()} ONLYFINDS - Static Export</p>
     </div>
   </footer>
   
@@ -1485,9 +1493,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fs.writeFileSync(path.join(productsDir, "index.html"), productsIndexHtml);
         console.log("Creating documentation files...");
         const readmeContent = `
-# TJREPS DEMO - Static Export for Netlify
+# ONLYFINDS - Static Export for Netlify
 
-This is a complete static export of the TJREPS DEMO website, ready to be deployed to Netlify or other static hosting services.
+This is a complete static export of the ONLYFINDS website, ready to be deployed to Netlify or other static hosting services.
 
 ## Features
 
@@ -1517,7 +1525,7 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
 `;
         fs.writeFileSync(path.join(exportDir, "README.md"), readmeContent);
         const exportInfo = {
-          name: "TJREPS DEMO Static Export",
+          name: "ONLYFINDS Static Export",
           version: "1.0.0",
           exportDate: (/* @__PURE__ */ new Date()).toISOString(),
           totalProducts: allProducts.length,
@@ -1590,15 +1598,15 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
   apiRouter.post("/export-to-static-json", asyncHandler(async (req, res) => {
     try {
       const fs3 = __require("fs");
-      const path4 = __require("path");
+      const path5 = __require("path");
       console.log("Exportul produselor \xEEn format JSON static...");
       const allProducts = await db.select().from(products);
       console.log(`S-au g\u0103sit ${allProducts.length} produse pentru export`);
-      const outputDir = path4.join(__dirname, "../client/public/data");
+      const outputDir = path5.join(__dirname, "../client/public/data");
       if (!fs3.existsSync(outputDir)) {
         fs3.mkdirSync(outputDir, { recursive: true });
       }
-      const outputPath = path4.join(outputDir, "products.json");
+      const outputPath = path5.join(outputDir, "products.json");
       fs3.writeFileSync(outputPath, JSON.stringify(allProducts, null, 2));
       console.log(`Export finalizat cu succes \xEEn ${outputPath}`);
       res.json({
@@ -1725,12 +1733,14 @@ function serveStatic(app2) {
 }
 
 // server/index.ts
+import path4 from "path";
 var app = express3();
 app.use(express3.json());
 app.use(express3.urlencoded({ extended: false }));
+app.use(express3.static(path4.resolve(import.meta.dirname, "..", "public")));
 app.use((req, res, next) => {
   const start = Date.now();
-  const path4 = req.path;
+  const path5 = req.path;
   let capturedJsonResponse = void 0;
   const originalResJson = res.json;
   res.json = function(bodyJson, ...args) {
@@ -1739,8 +1749,8 @@ app.use((req, res, next) => {
   };
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path4.startsWith("/api")) {
-      let logLine = `${req.method} ${path4} ${res.statusCode} in ${duration}ms`;
+    if (path5.startsWith("/api")) {
+      let logLine = `${req.method} ${path5} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
@@ -1753,24 +1763,29 @@ app.use((req, res, next) => {
   next();
 });
 (async () => {
-  const server = await registerRoutes(app);
-  app.use((err, _req, res, _next) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
-    throw err;
-  });
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
+  try {
+    const server = await registerRoutes(app);
+    app.use((err, _req, res, _next) => {
+      const status = err.status || err.statusCode || 500;
+      const message = err.message || "Internal Server Error";
+      console.error("Server error:", err);
+      res.status(status).json({ message });
+    });
+    if (app.get("env") === "development") {
+      await setupVite(app, server);
+    } else {
+      serveStatic(app);
+    }
+    const port = 5e3;
+    server.listen({
+      port,
+      host: "0.0.0.0",
+      reusePort: true
+    }, () => {
+      log(`serving on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
   }
-  const port = 5e3;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
-    log(`serving on port ${port}`);
-  });
 })();
