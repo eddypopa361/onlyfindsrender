@@ -18,12 +18,12 @@ export const staticDataService = {
       return productCache;
     }
 
-    // Încercăm mai multe path-uri pentru JSON
+    // Încercăm path-uri absolute pentru Netlify
     const possiblePaths = [
-      './data/products.json',    // Path principal pentru Netlify
-      '/data/products.json',     // Path absolut
-      'data/products.json',      // Path relativ fără punct
-      '../data/products.json'    // Path de backup
+      '/data/products.json',     // Path absolut principal
+      './data/products.json',    // Path relativ
+      'data/products.json',      // Path simplu
+      `${window.location.origin}/data/products.json`  // Path complet cu domeniu
     ];
 
     for (const path of possiblePaths) {

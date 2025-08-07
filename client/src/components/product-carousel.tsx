@@ -22,6 +22,46 @@ export default function ProductCarousel() {
   // Get carousel products from the API
   const carouselProducts = data || [];
 
+  // Loading state vizibil
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+              Featured Products
+            </h2>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <span className="ml-2 text-white">Loading featured products...</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state vizibil
+  if (isError || carouselProducts.length === 0) {
+    return (
+      <section className="py-16 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+              Featured Products
+            </h2>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <div className="text-center text-white">
+              <p className="text-red-400 mb-4">⚠️ Unable to load featured products</p>
+              <p className="text-gray-400">Please check console for details</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const settings = {
     dots: true,
     infinite: true,

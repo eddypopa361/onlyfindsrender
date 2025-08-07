@@ -36,6 +36,46 @@ export default function BestSellersSection() {
   // Folosim hook-ul nostru personalizat care suportă atât API cât și JSON static
   const { data: products, isLoading, isError } = useFeaturedProducts();
 
+  // Loading state vizibil
+  if (isLoading) {
+    return (
+      <section className="py-12 bg-black relative -mb-8">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-2 text-white">
+              Best Sellers
+            </h2>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <span className="ml-2 text-white">Loading best sellers...</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state vizibil
+  if (isError || !products || products.length === 0) {
+    return (
+      <section className="py-12 bg-black relative -mb-8">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-2 text-white">
+              Best Sellers
+            </h2>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <div className="text-center text-white">
+              <p className="text-red-400 mb-4">⚠️ Unable to load best sellers</p>
+              <p className="text-gray-400">Please check console for details</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-12 bg-black relative -mb-8">
       <div className="absolute inset-0 bg-black"></div>
