@@ -1738,6 +1738,7 @@ var app = express3();
 app.use(express3.json());
 app.use(express3.urlencoded({ extended: false }));
 app.use(express3.static(path4.resolve(import.meta.dirname, "..", "public")));
+app.use("/uploads", express3.static(path4.resolve(import.meta.dirname, "..", "uploads")));
 app.use((req, res, next) => {
   const start = Date.now();
   const path5 = req.path;
