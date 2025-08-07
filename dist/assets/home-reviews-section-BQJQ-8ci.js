@@ -1,4 +1,4 @@
-import{j as e,S as s,d as i,e as n,f as o}from"./index-VsRfHi07.js";const c=[{id:"1",name:"Alex Chen",role:"Fashion Enthusiast",rating:5,content:"ONLYFINDS makes shopping easy. The recommendations are on point and look like the real thing. Less scrolling, more finds.",date:"2024-12-15",avatar:`data:image/svg+xml,${encodeURIComponent(`
+import{j as e,S as s,d as i,e as n,f as o}from"./index-BkKZQjmy.js";const c=[{id:"1",name:"Alex Chen",role:"Fashion Enthusiast",rating:5,content:"ONLYFINDS makes shopping easy. The recommendations are on point and look like the real thing. Less scrolling, more finds.",date:"2024-12-15",avatar:`data:image/svg+xml,${encodeURIComponent(`
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="24" cy="24" r="24" fill="#1a1a1a"/>
         <circle cx="24" cy="18" r="8" fill="#00BDFF"/>
