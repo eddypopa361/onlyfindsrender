@@ -243,9 +243,27 @@ export const staticDataService = {
 
 // Funcție helper pentru a verifica dacă putem folosi serviciul de date statice
 export function useStaticData(): boolean {
-  // FORȚEZ ÎNTOTDEAUNA modul static - nu mai folosesc API deloc
-  console.log('useStaticData: FORCED STATIC MODE - always returning true');
-  return true;
+  // Pe Replit folosesc API, pe Netlify folosesc JSON static
+  if (typeof window !== 'undefined') {
+    const isReplit = window.location.hostname.includes('replit');
+    const isLocalhost = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
+    
+    // Pe development (Replit/localhost) folosesc API
+    // Pe production (Netlify/altele) folosesc JSON static
+    const shouldUseStatic = !isReplit && !isLocalhost;
+    
+    console.log('useStaticData detection:', { 
+      hostname: window.location.hostname,
+      isReplit,
+      isLocalhost,
+      shouldUseStatic
+    });
+    
+    return shouldUseStatic;
+  }
+  
+  // Pe server, folosesc environment variables
+  return import.meta.env.PROD;
 }
 
 // Export default pentru a facilita importul
