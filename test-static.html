@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Static Data Loading</title>
+</head>
+<body>
+    <h1>Testing Static Data Loading</h1>
+    <div id="results"></div>
+    
+    <script>
+        // Simulez environment variables pentru production
+        window.import = {
+            meta: {
+                env: {
+                    PROD: true,
+                    VITE_USE_STATIC_DATA: undefined
+                }
+            }
+        };
+        
+        async function testDataLoad() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing data load...</p>';
+            
+            try {
+                console.log('Attempting to load ./data/products.json');
+                const response = await fetch('./data/products.json');
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    results.innerHTML += `<p style="color:red">❌ Failed to load: ${response.status} ${response.statusText}</p>`;
+                    return;
+                }
+                
+                const data = await response.json();
+                console.log('Data loaded:', data.length, 'products');
+                results.innerHTML += `<p style="color:green">✅ Successfully loaded ${data.length} products</p>`;
+                results.innerHTML += `<p>First product: ${data[0]?.title || 'None'}</p>`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                results.innerHTML += `<p style="color:red">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Testez imediat când se încarcă pagina
+        testDataLoad();
+    </script>
+</body>
+</html>

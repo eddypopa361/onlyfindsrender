@@ -18,27 +18,40 @@ export const staticDataService = {
       return productCache;
     }
 
-    try {
-      // Încercăm să încărcăm fișierul JSON din folderul /data
-      const response = await fetch('./data/products.json');
-      
-      if (!response.ok) {
-        throw new Error(`Failed to load products.json: ${response.status}`);
+    // Încercăm mai multe path-uri pentru JSON
+    const possiblePaths = [
+      './data/products.json',    // Path principal pentru Netlify
+      '/data/products.json',     // Path absolut
+      'data/products.json',      // Path relativ fără punct
+      '../data/products.json'    // Path de backup
+    ];
+
+    for (const path of possiblePaths) {
+      try {
+        console.log(`Attempting to load products.json from: ${path}`);
+        const response = await fetch(path);
+        
+        if (response.ok) {
+          const loadedProducts = await response.json() as Product[];
+          if (Array.isArray(loadedProducts) && loadedProducts.length > 0) {
+            productCache = loadedProducts;
+            isLoaded = true;
+            console.log(`✅ Successfully loaded ${productCache.length} products from ${path}`);
+            return productCache;
+          }
+        }
+        
+        console.log(`❌ Failed to load from ${path}: ${response.status}`);
+      } catch (error) {
+        console.log(`❌ Error loading from ${path}:`, error instanceof Error ? error.message : String(error));
       }
-      
-      const loadedProducts = await response.json() as Product[];
-      productCache = loadedProducts;
-      isLoaded = true;
-      console.log(`Loaded ${productCache.length} products from static JSON`);
-      return productCache;
-    } catch (error) {
-      console.error('Error loading static product data:', error);
-      // În caz de eroare, returnăm un array gol, dar marcăm datele ca fiind încărcate
-      // pentru a evita încercări repetate de încărcare care eșuează
-      isLoaded = true;
-      productCache = [];
-      return [];
     }
+
+    // Dacă ajungem aici, nu am putut încărca din niciun path
+    console.error('❌ Failed to load products from any source');
+    isLoaded = true;
+    productCache = [];
+    return [];
   },
 
   /**
@@ -230,9 +243,24 @@ export const staticDataService = {
 
 // Funcție helper pentru a verifica dacă putem folosi serviciul de date statice
 export function useStaticData(): boolean {
-  // În producție sau în modul static, vom folosi datele statice
-  // În mod de dezvoltare, vom folosi API-ul
-  return import.meta.env.PROD || import.meta.env.VITE_USE_STATIC_DATA === 'true';
+  // Detectez dacă suntem într-un environment static prin multiple metode
+  const envProd = import.meta.env.PROD;
+  const useStatic = import.meta.env.VITE_USE_STATIC_DATA === 'true';
+  
+  // Detectez dacă nu avem backend disponibil (indicativ pentru static hosting)
+  const noBackend = typeof window !== 'undefined' && !window.location.href.includes('localhost') && !window.location.href.includes('replit');
+  
+  const shouldUseStatic = envProd || useStatic || noBackend;
+  
+  console.log('useStaticData detection:', { 
+    envProd,
+    useStatic, 
+    noBackend,
+    hostname: typeof window !== 'undefined' ? window.location.hostname : 'server',
+    result: shouldUseStatic 
+  });
+  
+  return shouldUseStatic;
 }
 
 // Export default pentru a facilita importul

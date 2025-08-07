@@ -1,20 +1,0 @@
-Hey! I’ve noticed a few issues on the site:
-1. Filtering behavior: Right now, I have two filter options: one by category and one by brand. The problem is that if I select a brand (e.g. Nike) and then go to categories and select something like "Shoes", the filter combines both — it shows Nike Shoes, as if both filters are applied at the same time.
-What I want is for category filtering and brand filtering to be separate. That means:
-* if I select a brand, I want to see all products from that brand, regardless of category;
-* if I select a category, I want to see all products in that category, regardless of brand.
-Selecting one should reset the other or at least not combine both filters.
-1. UI issue with buttons: The buttons in the filtering container have a strange glow or light square effect around them. It looks off — like there’s a glowing box sitting on top of the button — and I’d like that removed. The buttons should look clean and not have that effect.
-2. Scroll issue (horizontal scroll): I also noticed that the site lets me scroll horizontally to the right. I don’t want this to be possible. When scrolling down, it should be restricted to just vertical scrolling, not allowing me to move horizontally at all.
-3. Cookie pop-up and GDPR notice: I want to remove the cookie pop-up and the GDPR notice that appears on the site.
-4. Footer text update: Under the text "© 2025 TJREPS DEMO. All rights reserved.", please add the following text:
-"TJREPS DEMO does not sell any physical products and neither does agents provided. This is purely links to Taobao and Weidian to better educate buyers so they do not get scammed. TJREPS DEMO does not support and endorse the sale of counterfeit goods and hopes this information is only used to aid buyers to not get scammed."
-1. Footer clean-up: Please remove the following sections from the footer:
-* New arrivals
-* Shipping info
-* Returns
-* Cookie policy
-* Affiliate disclosure
-1. Footer text replacement: Please replace the current text "The ultimate destination for premium replicas at affordable prices." with the following:
-*"TJREPS DEMO is not affiliated with Weidian.com, Taobao.com, 1688.com, tmall.com or any other shopping site (‘platforms’). This website is not an official offer of those platforms. All cnfans.com links are affiliate links. This includes the price tag buttons, -tagged links, and the links embedded in images. We do not get a commission for the sale of the item, only for their function as a freight forwarder. We are not an online store and do not sell any products and are in no way associated with the CNfans website or brand. Our website is designed solely to help you find products available on CNfans. Please be aware that this website contains affiliate links. This means that if you make a purchase through these links, we may earn a small commission. This commission helps us maintain and improve our website at no extra cost to you. We appreciate your support!"
-Let me know if you need more details on any of these!
