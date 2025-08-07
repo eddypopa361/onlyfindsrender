@@ -77,7 +77,7 @@ export function useProductById(id?: number) {
 }
 
 /**
- * Hook pentru a obține produsele featured
+ * Hook pentru a obține produsele featured - FIXE pentru homepage
  */
 export function useFeaturedProducts() {
   const isStatic = useStaticData();
@@ -87,10 +87,12 @@ export function useFeaturedProducts() {
     staleTime: 10 * 60 * 1000, // 10 minute cache pentru featured products
     queryFn: async () => {
       if (isStatic) {
-        // Folosim serviciul static
-        return staticDataService.getFeaturedProducts();
+        // Pe Netlify folosesc produse fixe pentru homepage
+        const { HOMEPAGE_FEATURED_PRODUCTS } = await import("@/data/homepage-products");
+        console.log('Using fixed homepage featured products:', HOMEPAGE_FEATURED_PRODUCTS.length);
+        return HOMEPAGE_FEATURED_PRODUCTS;
       } else {
-        // Folosim API-ul
+        // Pe Replit folosesc API-ul
         const response = await fetch("/api/products/featured");
         if (!response.ok) {
           throw new Error(`Error fetching featured products: ${response.statusText}`);
@@ -102,7 +104,7 @@ export function useFeaturedProducts() {
 }
 
 /**
- * Hook pentru a obține produsele carousel
+ * Hook pentru a obține produsele carousel - FIXE pentru homepage
  */
 export function useCarouselProducts() {
   const isStatic = useStaticData();
@@ -112,10 +114,12 @@ export function useCarouselProducts() {
     staleTime: 10 * 60 * 1000, // 10 minute cache pentru carousel products
     queryFn: async () => {
       if (isStatic) {
-        // Folosim serviciul static
-        return staticDataService.getCarouselProducts();
+        // Pe Netlify folosesc produse fixe pentru homepage
+        const { HOMEPAGE_CAROUSEL_PRODUCTS } = await import("@/data/homepage-products");
+        console.log('Using fixed homepage carousel products:', HOMEPAGE_CAROUSEL_PRODUCTS.length);
+        return HOMEPAGE_CAROUSEL_PRODUCTS;
       } else {
-        // Folosim API-ul
+        // Pe Replit folosesc API-ul
         const response = await fetch("/api/products/carousel");
         if (!response.ok) {
           throw new Error(`Error fetching carousel products: ${response.statusText}`);
