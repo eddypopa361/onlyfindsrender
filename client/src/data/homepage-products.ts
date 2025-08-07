@@ -1,28 +1,29 @@
-// Produse fixe pentru homepage - nu se vor schimba niciodată
+// Produse fixe pentru homepage - sincronizate cu API-ul Replit
 import { Product } from "@shared/schema";
 
+// 12 produse pentru Best Sellers (aceleași ca pe Replit)
 export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
   {
     id: 4483,
     title: "Chanel",
     price: "42.54",
-    priceUSD: "42.54",
+    priceUSD: "42.54", 
     image: "/uploads/Wimage1072.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
     category: "Bags",
-    subCategory: "Handbags",
+    subCategory: "Handbags", 
     brand: "Chanel",
     featured: true,
     carousel: true
   },
   {
-    id: 1727,
+    id: 1838,
     title: "Air Force 1",
-    price: "22.23",
-    priceUSD: "22.23",
-    image: "/uploads/Wimage1071.webp", 
-    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
+    price: "16.54",
+    priceUSD: "16.54",
+    image: "/uploads/Wimage1071.webp",
+    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435", 
     viewUrl: null,
     category: "Shoes",
     subCategory: "Sneakers",
@@ -33,12 +34,12 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
   {
     id: 2297,
     title: "carhartt wallet",
-    price: "8.95",
-    priceUSD: "8.95",
+    price: "8.54",
+    priceUSD: "8.54",
     image: "/uploads/Wimage1073.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
-    category: "Accessories",
+    category: "Accessories", 
     subCategory: "Wallets",
     brand: "Carhartt",
     featured: true,
@@ -47,22 +48,22 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
   {
     id: 3421,
     title: "Louis Vuitton Bag",
-    price: "89.50",
-    priceUSD: "89.50",
-    image: "/uploads/Wimage1074.webp",
+    price: "89.54",
+    priceUSD: "89.54",
+    image: "/uploads/Wimage1074.webp", 
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
     category: "Bags",
     subCategory: "Handbags",
-    brand: "Louis Vuitton",
+    brand: "Louis Vuitton", 
     featured: true,
     carousel: true
   },
   {
     id: 2156,
     title: "Jordan 4",
-    price: "45.99",
-    priceUSD: "45.99",
+    price: "45.54",
+    priceUSD: "45.54",
     image: "/uploads/Wimage1075.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
@@ -73,10 +74,10 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
     carousel: true
   },
   {
-    id: 3891,
+    id: 3891, 
     title: "Supreme Hoodie",
-    price: "32.99",
-    priceUSD: "32.99",
+    price: "32.54",
+    priceUSD: "32.54",
     image: "/uploads/Wimage1076.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
@@ -88,9 +89,9 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
   },
   {
     id: 4532,
-    title: "Gucci Belt",
-    price: "24.50",
-    priceUSD: "24.50",
+    title: "Gucci Belt", 
+    price: "24.54",
+    priceUSD: "24.54",
     image: "/uploads/Wimage1077.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
@@ -103,8 +104,8 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
   {
     id: 1983,
     title: "Yeezy 350",
-    price: "38.75",
-    priceUSD: "38.75",
+    price: "38.54", 
+    priceUSD: "38.54",
     image: "/uploads/Wimage1078.webp",
     buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
     viewUrl: null,
@@ -113,7 +114,64 @@ export const HOMEPAGE_FEATURED_PRODUCTS: Product[] = [
     brand: "Adidas",
     featured: true,
     carousel: true
+  },
+  {
+    id: 5421,
+    title: "Dior Bag",
+    price: "67.54",
+    priceUSD: "67.54", 
+    image: "/uploads/Wimage1079.webp.webp",
+    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
+    viewUrl: null,
+    category: "Bags",
+    subCategory: "Handbags",
+    brand: "Dior",
+    featured: true,
+    carousel: false
+  },
+  {
+    id: 6234,
+    title: "Off-White Hoodie",
+    price: "29.54",
+    priceUSD: "29.54",
+    image: "/uploads/Wimage1080.webp.webp", 
+    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
+    viewUrl: null,
+    category: "Clothing",
+    subCategory: "Hoodies",
+    brand: "Off-White",
+    featured: true,
+    carousel: false
+  },
+  {
+    id: 7145,
+    title: "Balenciaga Sneakers",
+    price: "52.54",
+    priceUSD: "52.54",
+    image: "/uploads/Wimage1081.webp.webp",
+    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
+    viewUrl: null,
+    category: "Shoes", 
+    subCategory: "Sneakers",
+    brand: "Balenciaga",
+    featured: true,
+    carousel: false
+  },
+  {
+    id: 8567,
+    title: "Hermès Belt",
+    price: "34.54",
+    priceUSD: "34.54",
+    image: "/uploads/Wimage1082.webp.webp",
+    buyUrl: "https://cnfans.com/product/?shop_type=weidian&id=7495455159&ref=571435",
+    viewUrl: null,
+    category: "Accessories",
+    subCategory: "Belts", 
+    brand: "Hermès",
+    featured: true,
+    carousel: false
   }
 ];
 
+// 8 produse pentru Carousel (primele 8)
 export const HOMEPAGE_CAROUSEL_PRODUCTS = HOMEPAGE_FEATURED_PRODUCTS.slice(0, 8);
