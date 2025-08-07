@@ -243,24 +243,25 @@ export const staticDataService = {
 
 // Funcție helper pentru a verifica dacă putem folosi serviciul de date statice
 export function useStaticData(): boolean {
-  // Detectez dacă suntem într-un environment static prin multiple metode
-  const envProd = import.meta.env.PROD;
-  const useStatic = import.meta.env.VITE_USE_STATIC_DATA === 'true';
+  // Forțez modul static pentru orice domain care nu e development
+  if (typeof window !== 'undefined') {
+    const isDev = window.location.hostname.includes('localhost') || 
+                  window.location.hostname.includes('replit') ||
+                  window.location.hostname.includes('127.0.0.1');
+    
+    const shouldUseStatic = !isDev;
+    
+    console.log('useStaticData detection:', { 
+      hostname: window.location.hostname,
+      isDev,
+      result: shouldUseStatic 
+    });
+    
+    return shouldUseStatic;
+  }
   
-  // Detectez dacă nu avem backend disponibil (indicativ pentru static hosting)
-  const noBackend = typeof window !== 'undefined' && !window.location.href.includes('localhost') && !window.location.href.includes('replit');
-  
-  const shouldUseStatic = envProd || useStatic || noBackend;
-  
-  console.log('useStaticData detection:', { 
-    envProd,
-    useStatic, 
-    noBackend,
-    hostname: typeof window !== 'undefined' ? window.location.hostname : 'server',
-    result: shouldUseStatic 
-  });
-  
-  return shouldUseStatic;
+  // Pe server, folosesc environment variables
+  return import.meta.env.PROD || import.meta.env.VITE_USE_STATIC_DATA === 'true';
 }
 
 // Export default pentru a facilita importul
