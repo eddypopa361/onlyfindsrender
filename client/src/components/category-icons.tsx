@@ -7,7 +7,7 @@ export const imageByCategory: Record<string, string> = {
   "Hoodies and Pants": "/uploads/Hoodies and Pants.webp",
   "Coats and Jackets": "/uploads/Coats and Jackets.webp",
   "Accessories": "/uploads/Bags.webp", // Use Bags as generic accessories image
-  "Electronic Products": "/uploads/Electronic Products.webp",
+  "Electronic products": "/uploads/Electronic Products.webp",
   "Perfumes": "/uploads/Perfumes.webp",
   "Women": "/uploads/Women.webp"
 };
@@ -15,7 +15,7 @@ export const imageByCategory: Record<string, string> = {
 export const imageBySubcategory: Record<string, string> = {
   "Peaked Cap": "/uploads/Peaked Hat.webp",
   "Knitted Hat": "/uploads/Knitted Hat.webp",
-  "Belt": "/uploads/Belt.webp",
+  "Belts": "/uploads/Belt.webp",
   "Scarf": "/uploads/Scarf.webp",
   "Bags": "/uploads/Bags.webp",
   "Wallet": "/uploads/Wallet.webp",
