@@ -8,8 +8,19 @@ export default function HowToOrder() {
         <title>How To Order | ONLYFINDS</title>
         <meta 
           name="description" 
-          content="Learn how to place an order on CNFANS, the trusted platform for high-quality replicas. Step-by-step tutorial and guide." 
+          content="Complete step-by-step guide to ordering on CNFANS with ONLYFINDS. Get $129 in coupons on your first order plus exclusive shipping savings on designer products." 
         />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content="How To Order | ONLYFINDS" />
+        <meta property="og:description" content="Complete step-by-step guide to ordering on CNFANS with ONLYFINDS. Get $129 in coupons on your first order plus exclusive shipping savings on designer products." />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How To Order | ONLYFINDS" />
+        <meta name="twitter:description" content="Complete step-by-step guide to ordering on CNFANS with ONLYFINDS. Get $129 in coupons on your first order plus exclusive shipping savings on designer products." />
       </Helmet>
       <div className="bg-black min-h-screen">
         <div className="container mx-auto px-4 py-16">

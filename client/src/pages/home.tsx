@@ -31,8 +31,22 @@ export default function Home() {
         <title>ONLYFINDS - Designer Products Showcase</title>
         <meta 
           name="description" 
-          content="Explore premium replicas at affordable prices. Find the latest designer shoes, clothing, and accessories." 
+          content="Discover premium designer finds with CNFANS shipping savings. Get $129 in coupons on your first order - designer shoes, clothing, and accessories at unbeatable prices." 
         />
+        
+        {/* Open Graph tags for social media */}
+        <meta property="og:title" content="ONLYFINDS - Designer Products Showcase" />
+        <meta property="og:description" content="Discover premium designer finds with CNFANS shipping savings. Get $129 in coupons on your first order - designer shoes, clothing, and accessories at unbeatable prices." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://onlyfinds.netlify.app" />
+        <meta property="og:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ONLYFINDS - Designer Products Showcase" />
+        <meta name="twitter:description" content="Discover premium designer finds with CNFANS shipping savings. Get $129 in coupons on your first order - designer shoes, clothing, and accessories at unbeatable prices." />
+        <meta name="twitter:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
         {/* Preconectare la domain-uri externe pentru încărcare mai rapidă */}
         <link rel="preconnect" href="https://prod.spline.design" />
         <link rel="preconnect" href="http://cnfans.com" />

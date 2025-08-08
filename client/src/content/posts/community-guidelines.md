@@ -2,7 +2,7 @@
 title: "Community Guidelines and Best Practices"
 slug: "community-guidelines"
 date: "2025-01-16"
-description: "Essential guidelines for being a responsible member of the ONLYFINDS community and replica shopping ecosystem."
+description: "Essential guidelines for being a responsible member of the ONLYFINDS community and CNFANS shopping ecosystem."
 tags: ["community", "guidelines", "ethics", "responsibility"]
 draft: false
 ---
@@ -24,24 +24,24 @@ Creating a positive, respectful environment for all ONLYFINDS users requires adh
 - **Platform Rules**: Follow ONLYFINDS and partner platform guidelines
 
 ### Responsibility
-- **Legal Compliance**: Understand and comply with local laws regarding replica products
+- **Legal Compliance**: Understand and comply with local laws regarding product imports
 - **Informed Purchasing**: Research products and sellers before making purchases
 - **Ethical Practices**: Support sellers who demonstrate quality and reliability
 
 ## Responsible Shopping Practices
 
-### Understanding Replica Products
+### Understanding Product Quality
 **Legal Considerations:**
-- Research local laws regarding replica product imports
+- Research local laws regarding product imports
 - Understand the difference between inspired designs and counterfeits
 - Be aware of customs regulations in your country
-- Never attempt to resell replicas as authentic items
+- Never attempt to resell products with misrepresented authenticity
 
 **Quality Expectations:**
-- Understand that replicas vary in quality and accuracy
+- Understand that products vary in quality and construction
 - Set realistic expectations based on price points
 - Research batch information and recent reviews
-- Consider replicas as inspired alternatives, not exact copies
+- Consider products as inspired alternatives with their own merits
 
 ### Seller Interaction Best Practices
 
@@ -130,7 +130,7 @@ As a CNFANS partner platform, we maintain specific guidelines:
 ## Ethical Considerations
 
 ### Personal Responsibility
-- Make informed decisions about replica purchases
+- Make informed decisions about product purchases
 - Understand the implications of your purchasing choices
 - Respect intellectual property while making personal choices
 - Consider the impact of your actions on the community

@@ -14,7 +14,7 @@ export default function FAQ() {
     },
     {
       question: "Are these authentic products?",
-      answer: "No, the products showcased are replicas of designer items. We are transparent about this and focus on providing high-quality alternatives at affordable prices."
+      answer: "The products showcased are designer-inspired alternatives. We focus on providing high-quality finds at affordable prices with transparent information about each item."
     },
     {
       question: "What payment methods are accepted?",
@@ -38,7 +38,18 @@ export default function FAQ() {
     <>
       <Helmet>
         <title>FAQ - ONLYFINDS</title>
-        <meta name="description" content="Frequently asked questions about RepGalaxy and our products. Find answers to common questions about ordering, shipping, and returns." />
+        <meta name="description" content="Frequently asked questions about ONLYFINDS and CNFANS shopping. Get $129 coupons, learn about shipping savings, and find answers to ordering questions." />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content="FAQ - ONLYFINDS" />
+        <meta property="og:description" content="Frequently asked questions about ONLYFINDS and CNFANS shopping. Get $129 coupons, learn about shipping savings, and find answers to ordering questions." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="FAQ - ONLYFINDS" />
+        <meta name="twitter:description" content="Frequently asked questions about ONLYFINDS and CNFANS shopping. Get $129 coupons, learn about shipping savings, and find answers to ordering questions." />
       </Helmet>
       
       <main className="container mx-auto px-4 py-12 max-w-4xl">

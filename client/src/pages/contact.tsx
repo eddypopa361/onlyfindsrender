@@ -61,7 +61,18 @@ export default function Contact() {
     <>
       <Helmet>
         <title>Contact Us - ONLYFINDS</title>
-        <meta name="description" content="Contact RepGalaxy for questions about products, shipping, or partnership opportunities." />
+        <meta name="description" content="Contact ONLYFINDS for questions about CNFANS shopping, $129 coupon benefits, shipping savings, or partnership opportunities." />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content="Contact Us - ONLYFINDS" />
+        <meta property="og:description" content="Contact ONLYFINDS for questions about CNFANS shopping, $129 coupon benefits, shipping savings, or partnership opportunities." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Contact Us - ONLYFINDS" />
+        <meta name="twitter:description" content="Contact ONLYFINDS for questions about CNFANS shopping, $129 coupon benefits, shipping savings, or partnership opportunities." />
       </Helmet>
       
       <main className="container mx-auto px-4 py-12">

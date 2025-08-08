@@ -103,7 +103,7 @@ export default function Products() {
     <>
       <Helmet>
         <title>All Products - ONLYFINDS</title>
-        <meta name="description" content="Browse our complete collection of premium quality products." />
+        <meta name="description" content="Browse our complete collection of designer finds with CNFANS shipping savings. Get $129 in coupons - shoes, clothing, accessories, and electronics at unbeatable prices." />
       </Helmet>
       
       <main className="pt-24 pb-16 bg-black text-white">

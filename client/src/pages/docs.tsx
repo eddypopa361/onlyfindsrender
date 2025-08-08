@@ -113,7 +113,18 @@ export default function DocsPage() {
     <>
       <Helmet>
         <title>Documentation - ONLYFINDS</title>
-        <meta name="description" content="Complete guides and documentation for ONLYFINDS platform. Learn how to shop smart and get the most out of our services." />
+        <meta name="description" content="Complete ONLYFINDS documentation and CNFANS shopping guides. Learn how to maximize your $129 coupon benefits and shipping savings on designer finds." />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content="Documentation - ONLYFINDS" />
+        <meta property="og:description" content="Complete ONLYFINDS documentation and CNFANS shopping guides. Learn how to maximize your $129 coupon benefits and shipping savings on designer finds." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://onlyfinds.netlify.app/onlyfinds.png" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Documentation - ONLYFINDS" />
+        <meta name="twitter:description" content="Complete ONLYFINDS documentation and CNFANS shopping guides. Learn how to maximize your $129 coupon benefits and shipping savings on designer finds." />
       </Helmet>
       
       <main className="pt-24 pb-16 bg-black text-white min-h-screen">
