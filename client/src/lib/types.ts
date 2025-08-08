@@ -8,14 +8,14 @@ export type MainCategory =
   | "Hoodies and Pants"
   | "Coats and Jackets"
   | "Accessories"
-  | "Electronic Products"
+  | "Electronic products"
   | "Perfumes"
   | "Women";
 
 export type AccessoriesSubcategory =
   | "Peaked Cap"
   | "Knitted Hat"
-  | "Belt"
+  | "Belts"
   | "Scarf"
   | "Bags"
   | "Wallet"
