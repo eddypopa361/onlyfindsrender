@@ -172,7 +172,7 @@ export default function Products() {
                     "Hoodies and Pants", 
                     "Coats and Jackets", 
                     "Accessories", 
-                    "Electronic Products", 
+                    "Electronic products", 
                     "Perfumes", 
                     "Women"
                   ].map((cat) => (
@@ -194,7 +194,7 @@ export default function Products() {
                         "All",
                         "Peaked Cap",
                         "Knitted Hat", 
-                        "Belt",
+                        "Belts",
                         "Scarf",
                         "Bags",
                         "Wallet",
