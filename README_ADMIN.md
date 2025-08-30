@@ -4,13 +4,23 @@
 
 To enable the admin panel, you need to configure Supabase authentication:
 
-### Required Environment Variables
+### Required Environment Variables (Client)
 
-Add these secrets to your Replit project:
+Add these to your Replit project secrets:
+
+```
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+### Required Environment Variables (Server - for data migration)
+
+If you need to run the migration script, also add:
 
 ```
 SUPABASE_URL=your-supabase-project-url
-SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE=your-supabase-service-role-key
+DATABASE_URL=your-old-database-url
 ```
 
 ### Getting Supabase Credentials
@@ -18,67 +28,30 @@ SUPABASE_ANON_KEY=your-supabase-anon-key
 1. Go to [supabase.com](https://supabase.com) and sign in
 2. Create a new project or select an existing one
 3. Go to Settings → API
-4. Copy the "URL" and "anon/public" key
-5. Add them as Replit Secrets
+4. Copy the "URL", "anon/public" key, and "service_role" key
+5. Add them as Replit Secrets with the correct prefixes
 
 ## Database Setup
 
-### 1. Create Tables and Policies
+### 1. Create Tables and Schema
 
-Run the following SQL in your Supabase SQL Editor:
+Run the SQL from `supabase_schema.sql` in your Supabase SQL Editor. This creates the products and admins tables with proper indexes and triggers.
 
-```sql
--- Create admins table for admin access control
-CREATE TABLE IF NOT EXISTS public.admins (
-    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    email TEXT,
-    name TEXT
-);
+### 2. Apply Row Level Security Policies
 
--- Enable Row Level Security
-ALTER TABLE public.admins ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+Run the SQL from `supabase_policies.sql` in your Supabase SQL Editor. This sets up security policies to ensure only admins can manage products.
 
--- Policies for admins table
-CREATE POLICY "Admins can view all admin records" ON public.admins
-    FOR SELECT USING (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
+### 3. Migrate Data from Old Database
 
-CREATE POLICY "Admins can insert new admin records" ON public.admins
-    FOR INSERT WITH CHECK (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
+Run the migration script to transfer all existing products:
 
-CREATE POLICY "Admins can delete admin records" ON public.admins
-    FOR DELETE USING (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
-
--- Policies for products table
-CREATE POLICY "Enable read access for all users" ON public.products
-    FOR SELECT USING (true);
-
-CREATE POLICY "Enable insert for authenticated admins only" ON public.products
-    FOR INSERT WITH CHECK (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
-
-CREATE POLICY "Enable update for authenticated admins only" ON public.products
-    FOR UPDATE USING (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    ) WITH CHECK (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
-
-CREATE POLICY "Enable delete for authenticated admins only" ON public.products
-    FOR DELETE USING (
-        EXISTS (SELECT 1 FROM public.admins WHERE id = auth.uid())
-    );
+```bash
+npm run migrate:supabase
 ```
 
-### 2. Create Your First Admin
+Note: This requires both old and new database credentials to be configured.
+
+### 4. Create Your First Admin
 
 1. Create a user account in Supabase Auth (or sign up through the admin login)
 2. Get your user ID from Supabase Auth → Users
@@ -166,16 +139,18 @@ title,priceUSD,image,buyUrl,category,subCategory,brand,featured,carousel
 
 Before deploying, verify:
 
+- [ ] Environment variables configured (shows clear error if missing)
 - [ ] Non-logged users see login screen at `/admin`
-- [ ] Logged non-admins see 403 error with logout option
-- [ ] Admins can view, search, and paginate products
-- [ ] Product editing saves correctly to database
+- [ ] Logged non-admins see 403 error with logout option  
+- [ ] Admins can view, search, and paginate products from Supabase
+- [ ] Product editing saves correctly to Supabase
 - [ ] New product creation works end-to-end
-- [ ] CSV import processes successfully
+- [ ] CSV import processes successfully into Supabase
 - [ ] ZIP image upload extracts and saves images
 - [ ] All help text appears in English
-- [ ] Public site behavior remains unchanged
-- [ ] Image uploads optimize to WebP format
+- [ ] Public site uses service role to read from Supabase
+- [ ] Old database no longer accessed anywhere in code
+- [ ] Migration script completed successfully
 
 ## Known Limitations
 

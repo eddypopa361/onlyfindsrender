@@ -12,6 +12,8 @@ import path from 'path';
 import AdmZip from 'adm-zip';
 import { db } from "./db";
 import { desc, asc, eq, like, and, or } from "drizzle-orm";
+import { supabaseStorage } from "./storage-supabase";
+import { supabaseConfig } from "./supabase";
 
 
 // Ensure uploads directory exists
@@ -335,7 +337,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const brand = req.query.brand as string;
     const sort = req.query.sort as string || "featured";
     
-    const result = await storage.getProducts(page, limit, category, subCategory, brand, sort);
+    let result;
+    
+    // Use Supabase if configured, otherwise fallback to old storage
+    if (supabaseConfig.isConfigured && supabaseStorage) {
+      result = await supabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
+    } else {
+      result = await storage.getProducts(page, limit, category, subCategory, brand, sort);
+    }
     
     res.json({
       products: result.products,
@@ -350,13 +359,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Get featured products
   apiRouter.get("/products/featured", asyncHandler(async (req: Request, res: Response) => {
-    const featuredProducts = await storage.getFeaturedProducts();
+    let featuredProducts;
+    
+    if (supabaseConfig.isConfigured && supabaseStorage) {
+      featuredProducts = await supabaseStorage.getFeaturedProducts();
+    } else {
+      featuredProducts = await storage.getFeaturedProducts();
+    }
+    
     res.json(featuredProducts);
   }));
   
   // Get carousel products
   apiRouter.get("/products/carousel", asyncHandler(async (req: Request, res: Response) => {
-    const carouselProducts = await storage.getCarouselProducts();
+    let carouselProducts;
+    
+    if (supabaseConfig.isConfigured && supabaseStorage) {
+      carouselProducts = await supabaseStorage.getCarouselProducts();
+    } else {
+      carouselProducts = await storage.getCarouselProducts();
+    }
+    
     res.json(carouselProducts);
   }));
   
@@ -372,7 +395,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "Search query is required" });
     }
     
-    const results = await storage.searchProducts(query, page, limit, brand, sort);
+    let results;
+    
+    if (supabaseConfig.isConfigured && supabaseStorage) {
+      results = await supabaseStorage.searchProducts(query, page, limit, brand, sort);
+    } else {
+      results = await storage.searchProducts(query, page, limit, brand, sort);
+    }
     
     res.json({
       products: results.products,
