@@ -48,25 +48,29 @@ interface ProductFormData {
 }
 
 const CATEGORIES = [
-  'Electronic products',
-  'Clothing and Jewelry',
-  'Bags',
+  'Trending Now',
+  'Latest Finds',
+  'Shoes', 
+  'T-shirt and Shorts',
+  'Hoodies and Pants',
   'Coats and Jackets',
-  'Shoes',
-  'Belts'
+  'Accessories',
+  'Electronic products',
+  'Perfumes',
+  'Women'
 ]
 
 const SUB_CATEGORIES = [
+  'Peaked Cap',
+  'Knitted Hat',
   'Belts',
-  'Backpacks',
-  'Handbags',
-  'Shoulder Bags',
-  'Sneakers',
-  'Boots',
-  'Sandals',
-  'Watches',
-  'Headphones',
-  'Speakers'
+  'Scarf',
+  'Bags',
+  'Wallet', 
+  'Jewelry',
+  'Sunglasses',
+  'Underwear and Socks',
+  'Other'
 ]
 
 export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveSuccess }: ProductEditDrawerProps) {
