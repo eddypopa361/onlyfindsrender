@@ -141,8 +141,8 @@ export function ProductsTab() {
                   <TableHead className="text-gray-300">Title</TableHead>
                   <TableHead className="text-gray-300">Price</TableHead>
                   <TableHead className="text-gray-300">Category</TableHead>
-                  <TableHead className="text-gray-300">Brand</TableHead>
-                  <TableHead className="text-gray-300">Status</TableHead>
+                  <TableHead className="text-gray-300">Buy URL</TableHead>
+                  <TableHead className="text-gray-300">Product Image</TableHead>
                   <TableHead className="text-gray-300">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -174,30 +174,44 @@ export function ProductsTab() {
                           <div className="text-xs text-gray-500">{product.subCategory}</div>
                         )}
                       </TableCell>
+                      <TableCell className="text-gray-300 max-w-xs truncate">
+                        {product.buyUrl ? (
+                          <a 
+                            href={product.buyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#00BDFF] hover:text-[#00BDFF]/80 underline"
+                          >
+                            {product.buyUrl}
+                          </a>
+                        ) : 'N/A'}
+                      </TableCell>
                       <TableCell className="text-gray-300">
-                        {product.brand || 'N/A'}
+                        {product.image ? (
+                          <div className="flex items-center space-x-2">
+                            <img 
+                              src={product.image} 
+                              alt={product.title}
+                              className="w-8 h-8 object-cover rounded border border-gray-600"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none'
+                              }}
+                            />
+                            <span className="text-xs text-gray-400 truncate max-w-[100px]">
+                              {product.image.split('/').pop()}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-gray-500">No image</span>
+                        )}
                       </TableCell>
                       <TableCell>
-                        <div className="flex gap-1">
-                          {product.featured && (
-                            <Badge variant="secondary" className="bg-yellow-900/30 text-yellow-400">
-                              Featured
-                            </Badge>
-                          )}
-                          {product.carousel && (
-                            <Badge variant="secondary" className="bg-blue-900/30 text-blue-400">
-                              Carousel
-                            </Badge>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(product)}
-                            className="border-gray-700 text-gray-300 hover:bg-gray-800"
+                            className="border-[#00BDFF]/30 text-gray-300 hover:bg-[#00BDFF]/10 hover:border-[#00BDFF]/50"
                           >
                             <Edit2 className="h-3 w-3" />
                           </Button>
@@ -205,10 +219,22 @@ export function ProductsTab() {
                             size="sm"
                             variant="outline"
                             onClick={() => window.open(product.buyUrl, '_blank')}
-                            className="border-gray-700 text-gray-300 hover:bg-gray-800"
+                            className="border-[#00BDFF]/30 text-[#00BDFF] hover:bg-[#00BDFF]/10 hover:border-[#00BDFF]/50"
                           >
                             <ExternalLink className="h-3 w-3" />
                           </Button>
+                          <div className="flex gap-1 mt-1">
+                            {product.featured && (
+                              <Badge variant="secondary" className="bg-yellow-900/30 text-yellow-400 text-xs px-1">
+                                F
+                              </Badge>
+                            )}
+                            {product.carousel && (
+                              <Badge variant="secondary" className="bg-[#00BDFF]/20 text-[#00BDFF] text-xs px-1">
+                                C
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       </TableCell>
                     </TableRow>

@@ -316,9 +316,9 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-gray-700">
+              <SelectContent className="bg-gray-900 border-[#00BDFF]/30">
                 {CATEGORIES.map((category) => (
-                  <SelectItem key={category} value={category} className="text-white">
+                  <SelectItem key={category} value={category} className="text-white hover:bg-[#00BDFF]/20 focus:bg-[#00BDFF]/20">
                     {category}
                   </SelectItem>
                 ))}
@@ -336,9 +336,9 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
                 <SelectValue placeholder="Select sub category (optional)" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-gray-700">
+              <SelectContent className="bg-gray-900 border-[#00BDFF]/30">
                 {SUB_CATEGORIES.map((subCategory) => (
-                  <SelectItem key={subCategory} value={subCategory} className="text-white">
+                  <SelectItem key={subCategory} value={subCategory} className="text-white hover:bg-[#00BDFF]/20 focus:bg-[#00BDFF]/20">
                     {subCategory}
                   </SelectItem>
                 ))}
@@ -372,7 +372,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               <Input
                 value={formData.image}
                 onChange={(e) => handleInputChange('image', e.target.value)}
-                className="text-white bg-gray-900 border-gray-700"
+                className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
                 placeholder="image-filename.webp"
               />
               <div className="text-center text-gray-400 text-sm">or</div>
@@ -380,7 +380,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
                 type="file"
                 accept="image/*"
                 onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                className="text-white bg-gray-900 border-gray-700"
+                className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
               />
               {imageFile && (
                 <p className="text-sm text-blue-400">Selected: {imageFile.name}</p>
@@ -398,7 +398,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
                 id="featured"
                 checked={formData.featured}
                 onCheckedChange={(checked) => handleInputChange('featured', !!checked)}
-                className="border-gray-700"
+                className="border-[#00BDFF]/30 data-[state=checked]:bg-[#00BDFF] data-[state=checked]:border-[#00BDFF]"
               />
               <Label htmlFor="featured" className="text-gray-300">Featured Product</Label>
             </div>
@@ -407,7 +407,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
                 id="carousel"
                 checked={formData.carousel}
                 onCheckedChange={(checked) => handleInputChange('carousel', !!checked)}
-                className="border-gray-700"
+                className="border-[#00BDFF]/30 data-[state=checked]:bg-[#00BDFF] data-[state=checked]:border-[#00BDFF]"
               />
               <Label htmlFor="carousel" className="text-gray-300">Show in Carousel</Label>
             </div>
