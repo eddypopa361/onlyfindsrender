@@ -25,12 +25,21 @@ export function AdminPanel() {
       </Helmet>
       <div className="min-h-screen bg-black">
         {/* Header */}
-        <div className="border-b border-gray-800 bg-black/50">
+        <div className="border-b border-gray-800 bg-gradient-to-r from-black via-gray-900 to-black">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <Settings className="h-6 w-6 text-blue-500" />
-                <h1 className="text-2xl font-bold text-white">ONLYFINDS Admin Panel</h1>
+                <img 
+                  src="/images/onlyfinds.png" 
+                  alt="ONLYFINDS Logo" 
+                  className="h-8 w-8 object-contain"
+                />
+                <div className="flex items-center space-x-2">
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-[#00BDFF] via-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                    ONLYFINDS
+                  </h1>
+                  <span className="text-lg text-gray-400">Admin Panel</span>
+                </div>
               </div>
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-400">
@@ -40,7 +49,7 @@ export function AdminPanel() {
                   onClick={handleSignOut}
                   variant="outline" 
                   size="sm"
-                  className="text-gray-400 border-gray-700 hover:bg-gray-800"
+                  className="text-gray-400 border-[#00BDFF]/30 hover:bg-[#00BDFF]/10 hover:text-[#00BDFF] hover:border-[#00BDFF]/50 transition-colors"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign Out
@@ -53,31 +62,31 @@ export function AdminPanel() {
         {/* Main Content */}
         <div className="container mx-auto px-4 py-8">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-4 mb-8 bg-gray-900 border border-gray-800">
+            <TabsList className="grid w-full grid-cols-4 mb-8 bg-gray-900/50 border border-[#00BDFF]/20 backdrop-blur-sm">
               <TabsTrigger 
                 value="products" 
-                className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
               >
                 <Package className="w-4 h-4 mr-2" />
                 Products
               </TabsTrigger>
               <TabsTrigger 
                 value="bulk-import" 
-                className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Bulk Import
               </TabsTrigger>
               <TabsTrigger 
                 value="images" 
-                className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
               >
                 <Image className="w-4 h-4 mr-2" />
                 Images
               </TabsTrigger>
               <TabsTrigger 
                 value="help" 
-                className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
               >
                 <HelpCircle className="w-4 h-4 mr-2" />
                 Help

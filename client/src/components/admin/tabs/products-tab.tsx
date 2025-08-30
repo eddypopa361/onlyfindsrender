@@ -108,11 +108,11 @@ export function ProductsTab() {
 
   return (
     <>
-      <Card className="bg-black border-gray-800">
+      <Card className="bg-black/50 border-[#00BDFF]/20 backdrop-blur-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-white">Product Management</CardTitle>
-            <Button onClick={handleAddNew} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={handleAddNew} className="bg-gradient-to-r from-[#00BDFF] to-blue-500 hover:from-[#00BDFF]/80 hover:to-blue-500/80 text-white border-none shadow-lg">
               <Plus className="mr-2 h-4 w-4" />
               Add Product
             </Button>
@@ -129,12 +129,12 @@ export function ProductsTab() {
                 setSearchQuery(e.target.value)
                 setCurrentPage(1)
               }}
-              className="pl-10 text-white bg-gray-900 border-gray-700"
+              className="pl-10 text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
             />
           </div>
 
           {/* Products Table */}
-          <div className="rounded-md border border-gray-800 bg-gray-900/50">
+          <div className="rounded-md border border-[#00BDFF]/20 bg-gray-900/30 backdrop-blur-sm">
             <Table>
               <TableHeader>
                 <TableRow className="border-gray-800">

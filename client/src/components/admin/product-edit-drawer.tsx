@@ -41,10 +41,8 @@ interface ProductFormData {
   priceUSD: string
   image: string
   buyUrl: string
-  viewUrl: string
   category: string
   subCategory: string
-  brand: string
   featured: boolean
   carousel: boolean
 }
@@ -78,10 +76,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
     priceUSD: '',
     image: '',
     buyUrl: '',
-    viewUrl: '',
     category: '',
     subCategory: '',
-    brand: '',
     featured: false,
     carousel: false,
   })
@@ -99,10 +95,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         priceUSD: product.priceUSD?.toString() || '',
         image: product.image || '',
         buyUrl: product.buyUrl || '',
-        viewUrl: product.viewUrl || '',
         category: product.category || '',
         subCategory: product.subCategory || '',
-        brand: product.brand || '',
         featured: product.featured || false,
         carousel: product.carousel || false,
       })
@@ -113,10 +107,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         priceUSD: '',
         image: '',
         buyUrl: '',
-        viewUrl: '',
         category: '',
         subCategory: '',
-        brand: '',
         featured: false,
         carousel: false,
       })
@@ -216,10 +208,10 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         priceUSD: parseFloat(formData.priceUSD),
         image: finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
         buyUrl: formData.buyUrl,
-        viewUrl: formData.viewUrl || null,
+        viewUrl: null,
         category: formData.category,
         subCategory: formData.subCategory || null,
-        brand: formData.brand || null,
+        brand: null,
         featured: formData.featured,
         carousel: formData.carousel,
       }
@@ -274,9 +266,9 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-md bg-black border-gray-800 text-white overflow-y-auto">
+      <SheetContent className="w-full sm:max-w-md bg-gradient-to-b from-black via-gray-900 to-black border-[#00BDFF]/30 text-white overflow-y-auto">
         <SheetHeader>
-          <SheetTitle className="text-white">
+          <SheetTitle className="text-white bg-gradient-to-r from-[#00BDFF] to-blue-400 bg-clip-text text-transparent font-bold">
             {isAddMode ? 'Add New Product' : 'Edit Product'}
           </SheetTitle>
           <SheetDescription className="text-gray-400">
@@ -292,7 +284,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               id="title"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
-              className="text-white bg-gray-900 border-gray-700"
+              className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
               placeholder="Product title"
             />
             {errors.title && (
@@ -307,7 +299,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               id="priceUSD"
               value={formData.priceUSD}
               onChange={(e) => handleInputChange('priceUSD', e.target.value)}
-              className="text-white bg-gray-900 border-gray-700"
+              className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
               placeholder="29.99"
               type="number"
               step="0.01"
@@ -320,8 +312,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
           {/* Category */}
           <div className="space-y-2">
             <Label htmlFor="category" className="text-gray-300">Category *</Label>
-            <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
-              <SelectTrigger className="text-white bg-gray-900 border-gray-700">
+            <Select value={formData.category || ''} onValueChange={(value) => handleInputChange('category', value)}>
+              <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent className="bg-gray-900 border-gray-700">
@@ -340,8 +332,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
           {/* Sub Category */}
           <div className="space-y-2">
             <Label htmlFor="subCategory" className="text-gray-300">Sub Category</Label>
-            <Select value={formData.subCategory} onValueChange={(value) => handleInputChange('subCategory', value)}>
-              <SelectTrigger className="text-white bg-gray-900 border-gray-700">
+            <Select value={formData.subCategory || ''} onValueChange={(value) => handleInputChange('subCategory', value)}>
+              <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
                 <SelectValue placeholder="Select sub category (optional)" />
               </SelectTrigger>
               <SelectContent className="bg-gray-900 border-gray-700">
@@ -354,17 +346,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
             </Select>
           </div>
 
-          {/* Brand */}
-          <div className="space-y-2">
-            <Label htmlFor="brand" className="text-gray-300">Brand</Label>
-            <Input
-              id="brand"
-              value={formData.brand}
-              onChange={(e) => handleInputChange('brand', e.target.value)}
-              className="text-white bg-gray-900 border-gray-700"
-              placeholder="Brand name"
-            />
-          </div>
+
 
           {/* Buy URL */}
           <div className="space-y-2">
@@ -373,25 +355,15 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
               id="buyUrl"
               value={formData.buyUrl}
               onChange={(e) => handleInputChange('buyUrl', e.target.value)}
-              className="text-white bg-gray-900 border-gray-700"
-              placeholder="https://example.com/product"
+              className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50 focus:ring-[#00BDFF]/20"
+              placeholder="https://cnfans.com/product/..."
             />
             {errors.buyUrl && (
               <p className="text-sm text-red-400">{errors.buyUrl}</p>
             )}
           </div>
 
-          {/* View URL */}
-          <div className="space-y-2">
-            <Label htmlFor="viewUrl" className="text-gray-300">View URL</Label>
-            <Input
-              id="viewUrl"
-              value={formData.viewUrl}
-              onChange={(e) => handleInputChange('viewUrl', e.target.value)}
-              className="text-white bg-gray-900 border-gray-700"
-              placeholder="https://example.com/view"
-            />
-          </div>
+
 
           {/* Image */}
           <div className="space-y-2">
@@ -449,7 +421,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
           <Button 
             onClick={handleSave} 
             disabled={loading || uploadingImage}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-gradient-to-r from-[#00BDFF] to-blue-500 hover:from-[#00BDFF]/80 hover:to-blue-500/80 text-white border-none shadow-lg transition-all duration-200"
           >
             {loading ? (
               <>
