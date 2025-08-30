@@ -1,0 +1,135 @@
+Task: Convert the existing /admin/import page into a full Admin panel at /admin with Supabase Auth (admin-only), product editing, single add, and the existing bulk CSV + ZIP image import. Keep the public site unchanged.
+
+Do NOT modify any public routes/pages or the site design. Admin must be self-contained at /admin. All UI text and help content in English.
+
+Auth & Access (Supabase)
+
+Add a login screen at /admin (email + password via Supabase).
+
+After login, verify the user is admin before showing the panel.
+
+Use env vars: SUPABASE_URL and SUPABASE_ANON_KEY.
+
+Create a minimal access check using a table like admins(id uuid primary key) where id = auth.uid().
+
+Add RLS policies (generate SQL file supabase_policies.sql I can run):
+
+products: select allowed to everyone is false by default for anon key; insert/update allowed only when auth.uid() exists in admins.
+
+admins: only existing admins can select/insert/delete (or we can seed it manually).
+
+If user is not admin, show a friendly 403 message + logout button.
+
+Admin UI (Tabs)
+
+Replace /admin/import with a simple tabbed UI at /admin:
+
+Products (default)
+
+Server-paginated table + search (by title and link).
+
+Columns: title, priceUSD, image, buyUrl (link), updated_at.
+
+Row “Edit” opens a right drawer with a form to edit:
+
+title, priceUSD, buyUrl, image (filename or upload one file).
+
+“Add product” button with the same fields.
+
+Save → update/insert in Supabase. Show toasts for success/error.
+
+No visual changes to the public catalog; only DB writes.
+
+Bulk Import
+
+Reuse the existing CSV import logic (present on /admin/import) for adding products in bulk.
+
+Keep the ZIP images upload section (same behavior/paths).
+
+Add a short help text describing the required CSV columns and where images should live (e.g. /public/images/products or current path used by the site).
+
+Images
+
+Optional convenience: single image upload (drag & drop) storing to the same place used by the ZIP import so filenames match what the frontend expects.
+
+Help
+
+Short English guide:
+
+How to add/edit a product
+
+How to prepare CSV
+
+How to prepare ZIP with images
+
+Notes about filenames and paths
+
+Who to contact if something fails
+
+Implementation notes
+
+Use the current stack (React/TS/Tailwind/shadcn if present) to keep UI consistent.
+
+Keep all imports/handlers you already have for CSV + ZIP; just move them under the Bulk Import tab and make sure they still work.
+
+Do not break build or public pages. No route/layout changes outside /admin.
+
+Input validation:
+
+title required, priceUSD numeric, buyUrl must be a valid URL or blank.
+
+image should be a filename that matches our images path or a newly uploaded asset.
+
+Error handling: show clear toasts; don’t crash the page.
+
+Add a small logout button in the top-right of /admin.
+
+Deliverables
+
+/admin page with tabs: Products, Bulk Import, Images, Help.
+
+Working Supabase Auth (login + admin check).
+
+CRUD on products: edit existing, add new. (No delete needed.)
+
+Reused bulk CSV + ZIP images flows (as they exist now).
+
+Simple single-image upload in the edit drawer (optional but preferred).
+
+supabase_policies.sql with the RLS policies and an admins table definition.
+
+README_ADMIN.md with:
+
+Env setup (SUPABASE_URL, SUPABASE_ANON_KEY)
+
+How to seed the first admin (insert into admins(id) values ('<my-auth-uid>'))
+
+CSV/ZIP format notes
+
+Known limits
+
+QA checklist (please verify)
+
+Non-logged user → /admin shows login only.
+
+Logged non-admin → 403 + logout.
+
+Admin can view, search, paginate products.
+
+Admin can edit fields and see updates reflected in DB.
+
+Admin can add a new product successfully.
+
+Bulk CSV import still works end-to-end.
+
+ZIP images upload still works and images resolve on the site.
+
+All texts/help are in English.
+
+Public site behavior unchanged.
+
+Keys (ask me)
+
+If SUPABASE_URL / SUPABASE_ANON_KEY are missing, prompt me to provide them. Also generate the SQL to create admins and RLS so I can run it on my Supabase project.
+
+Please implement now and fix any bugs you encounter.
