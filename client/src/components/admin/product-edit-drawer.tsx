@@ -88,7 +88,12 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
   const { toast } = useToast()
 
   useEffect(() => {
-    if (product && !isAddMode) {
+    if (product && !isAddMode && isOpen) {
+      console.log('Loading product for editing:', {
+        title: product.title,
+        category: product.category,
+        subCategory: product.subCategory
+      })
       setFormData({
         title: product.title || '',
         price: product.priceUSD?.toString() || '',
@@ -97,10 +102,11 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         buyUrl: product.buyUrl || '',
         category: product.category || '',
         subCategory: product.subCategory || '',
-        featured: product.featured || false,
-        carousel: product.carousel || false,
+        featured: !!product.featured,
+        carousel: !!product.carousel,
       })
-    } else if (isAddMode) {
+    } else if (isAddMode && isOpen) {
+      console.log('Resetting form for new product')
       setFormData({
         title: '',
         price: '',
