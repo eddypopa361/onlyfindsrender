@@ -1,10 +1,11 @@
 /**
- * Supabase-based storage implementation
- * Replaces the old database with Supabase as single source of truth
+ * Fixed Supabase storage implementation with proper column mapping
+ * Maps between camelCase API and snake_case database columns
  */
 
-import { supabase, validateSupabaseConfig, supabaseConfig } from "./supabase"
-// Define Product type to match Supabase schema
+import { supabase, supabaseConfig } from "./supabase"
+
+// Product type for API (camelCase)
 interface Product {
   id: string
   title: string
@@ -21,7 +22,7 @@ interface Product {
   updated_at?: string
 }
 
-// Internal Supabase row type with snake_case columns
+// Supabase row type (snake_case)
 interface SupabaseProduct {
   id: string
   title: string
@@ -38,8 +39,8 @@ interface SupabaseProduct {
   updated_at?: string
 }
 
-// Helper function to convert Supabase row to Product
-function mapSupabaseToProduct(row: SupabaseProduct): Product {
+// Convert Supabase row to API format
+function mapFromSupabase(row: SupabaseProduct): Product {
   return {
     id: row.id,
     title: row.title,
@@ -57,8 +58,8 @@ function mapSupabaseToProduct(row: SupabaseProduct): Product {
   }
 }
 
-// Helper function to convert Product to Supabase row
-function mapProductToSupabase(product: Partial<Product>): Partial<SupabaseProduct> {
+// Convert API format to Supabase row
+function mapToSupabase(product: Partial<Product>): Partial<SupabaseProduct> {
   return {
     id: product.id,
     title: product.title,
@@ -75,20 +76,15 @@ function mapProductToSupabase(product: Partial<Product>): Partial<SupabaseProduc
 }
 
 export interface SupabaseStorage {
-  // Product operations
   getProducts(page: number, limit: number, category?: string, subCategory?: string, brand?: string, sort?: string): Promise<{ products: Product[]; total: number }>
   getProductById(id: string): Promise<Product | null>
   getFeaturedProducts(): Promise<Product[]>
   getCarouselProducts(): Promise<Product[]>
   searchProducts(query: string, page: number, limit: number, brand?: string, sort?: string): Promise<{ products: Product[]; total: number }>
-  
-  // Admin operations
   createProduct(product: Omit<Product, 'id' | 'created_at' | 'updated_at'>): Promise<Product>
   updateProduct(id: string, updates: Partial<Product>): Promise<Product>
   deleteProduct(id: string): Promise<void>
   bulkCreateProducts(products: Omit<Product, 'id' | 'created_at' | 'updated_at'>[]): Promise<Product[]>
-  
-  // Category operations
   getCategories(): Promise<string[]>
   getBrands(): Promise<string[]>
 }
@@ -107,24 +103,24 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       .from('products')
       .select('*', { count: 'exact' })
 
-    // Apply filters
+    // Apply filters using correct snake_case column names
     if (category && category !== 'all') {
       query = query.eq('category', category)
     }
     if (subCategory && subCategory !== 'all') {
-      query = query.eq('subcategory', subCategory)  // Use snake_case for Supabase
+      query = query.eq('subcategory', subCategory)
     }
     if (brand && brand !== 'all') {
       query = query.eq('brand', brand)
     }
 
-    // Apply sorting
+    // Apply sorting with correct column names
     switch (sort) {
       case 'price-asc':
-        query = query.order('priceusd', { ascending: true, nullsLast: true })  // Use snake_case
+        query = query.order('priceusd', { ascending: true, nullsLast: true })
         break
       case 'price-desc':
-        query = query.order('priceusd', { ascending: false, nullsLast: true })  // Use snake_case
+        query = query.order('priceusd', { ascending: false, nullsLast: true })
         break
       case 'newest':
         query = query.order('created_at', { ascending: false })
@@ -138,20 +134,15 @@ export class SupabaseStorageImpl implements SupabaseStorage {
         break
     }
 
-    // Apply pagination
-    const from = (page - 1) * limit
-    const to = from + limit - 1
-    query = query.range(from, to)
-
-    const { data, error, count } = await query
+    const { data, error, count } = await query.range((page - 1) * limit, page * limit - 1)
 
     if (error) {
-      console.error('Error fetching products:', error)
-      throw error
+      console.error('Supabase getProducts error:', error)
+      throw new Error(`Failed to fetch products: ${error.message}`)
     }
 
     return {
-      products: data || [],
+      products: (data || []).map(mapFromSupabase),
       total: count || 0
     }
   }
@@ -166,14 +157,11 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       .single()
 
     if (error) {
-      if (error.code === 'PGRST116') { // Not found
-        return null
-      }
-      console.error('Error fetching product:', error)
+      if (error.code === 'PGRST116') return null
       throw error
     }
 
-    return data
+    return mapFromSupabase(data)
   }
 
   async getFeaturedProducts(): Promise<Product[]> {
@@ -191,7 +179,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    return data || []
+    return (data || []).map(mapFromSupabase)
   }
 
   async getCarouselProducts(): Promise<Product[]> {
@@ -209,7 +197,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    return data || []
+    return (data || []).map(mapFromSupabase)
   }
 
   async searchProducts(query: string, page: number = 1, limit: number = 12, brand?: string, sort?: string) {
@@ -220,18 +208,16 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       .select('*', { count: 'exact' })
       .or(`title.ilike.%${query}%,brand.ilike.%${query}%,category.ilike.%${query}%`)
 
-    // Apply brand filter
     if (brand && brand !== 'all') {
       supabaseQuery = supabaseQuery.eq('brand', brand)
     }
 
-    // Apply sorting
     switch (sort) {
       case 'price-asc':
-        supabaseQuery = supabaseQuery.order('priceUSD', { ascending: true, nullsLast: true })
+        supabaseQuery = supabaseQuery.order('priceusd', { ascending: true, nullsLast: true })
         break
       case 'price-desc':
-        supabaseQuery = supabaseQuery.order('priceUSD', { ascending: false, nullsLast: true })
+        supabaseQuery = supabaseQuery.order('priceusd', { ascending: false, nullsLast: true })
         break
       case 'newest':
         supabaseQuery = supabaseQuery.order('created_at', { ascending: false })
@@ -239,18 +225,12 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       case 'alphabetical':
         supabaseQuery = supabaseQuery.order('title', { ascending: true })
         break
-      case 'featured':
       default:
         supabaseQuery = supabaseQuery.order('featured', { ascending: false }).order('created_at', { ascending: false })
         break
     }
 
-    // Apply pagination
-    const from = (page - 1) * limit
-    const to = from + limit - 1
-    supabaseQuery = supabaseQuery.range(from, to)
-
-    const { data, error, count } = await supabaseQuery
+    const { data, error, count } = await supabaseQuery.range((page - 1) * limit, page * limit - 1)
 
     if (error) {
       console.error('Error searching products:', error)
@@ -258,7 +238,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     }
 
     return {
-      products: data || [],
+      products: (data || []).map(mapFromSupabase),
       total: count || 0
     }
   }
@@ -266,9 +246,11 @@ export class SupabaseStorageImpl implements SupabaseStorage {
   async createProduct(productData: Omit<Product, 'id' | 'created_at' | 'updated_at'>): Promise<Product> {
     if (!supabase) throw new Error('Supabase not configured')
 
+    const supabaseData = mapToSupabase(productData)
+    
     const { data, error } = await supabase
       .from('products')
-      .insert([productData])
+      .insert([supabaseData])
       .select()
       .single()
 
@@ -277,15 +259,17 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    return data
+    return mapFromSupabase(data)
   }
 
   async updateProduct(id: string, updates: Partial<Product>): Promise<Product> {
     if (!supabase) throw new Error('Supabase not configured')
 
+    const supabaseUpdates = mapToSupabase(updates)
+    
     const { data, error } = await supabase
       .from('products')
-      .update(updates)
+      .update(supabaseUpdates)
       .eq('id', id)
       .select()
       .single()
@@ -295,7 +279,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    return data
+    return mapFromSupabase(data)
   }
 
   async deleteProduct(id: string): Promise<void> {
@@ -315,9 +299,11 @@ export class SupabaseStorageImpl implements SupabaseStorage {
   async bulkCreateProducts(products: Omit<Product, 'id' | 'created_at' | 'updated_at'>[]): Promise<Product[]> {
     if (!supabase) throw new Error('Supabase not configured')
 
+    const supabaseProducts = products.map(mapToSupabase)
+    
     const { data, error } = await supabase
       .from('products')
-      .insert(products)
+      .insert(supabaseProducts)
       .select()
 
     if (error) {
@@ -325,7 +311,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    return data || []
+    return (data || []).map(mapFromSupabase)
   }
 
   async getCategories(): Promise<string[]> {
@@ -341,8 +327,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    // Extract unique categories
-    const categories = [...new Set(data?.map(item => item.category).filter(Boolean))] as string[]
+    const categories = [...new Set(data.map(item => item.category).filter(Boolean))]
     return categories.sort()
   }
 
@@ -359,22 +344,21 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       throw error
     }
 
-    // Extract unique brands
-    const brands = [...new Set(data?.map(item => item.brand).filter(Boolean))] as string[]
+    const brands = [...new Set(data.map(item => item.brand).filter(Boolean))]
     return brands.sort()
   }
 }
 
-// Create and export the storage instance only if configured
-let supabaseStorageInstance: SupabaseStorageImpl | null = null
+// Create and export the fixed storage instance
+let fixedSupabaseStorageInstance: SupabaseStorageImpl | null = null
 
 try {
-  supabaseStorageInstance = supabaseConfig.isConfigured 
+  fixedSupabaseStorageInstance = supabaseConfig.isConfigured 
     ? new SupabaseStorageImpl()
     : null
 } catch (error) {
-  console.warn('Supabase storage not available:', error)
-  supabaseStorageInstance = null
+  console.warn('Fixed Supabase storage not available:', error)
+  fixedSupabaseStorageInstance = null
 }
 
-export const supabaseStorage = supabaseStorageInstance
+export const fixedSupabaseStorage = fixedSupabaseStorageInstance

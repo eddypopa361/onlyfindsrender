@@ -12,7 +12,7 @@ import path from 'path';
 import AdmZip from 'adm-zip';
 import { db } from "./db";
 import { desc, asc, eq, like, and, or } from "drizzle-orm";
-import { supabaseStorage } from "./storage-supabase";
+import { fixedSupabaseStorage } from "./storage-supabase-fixed";
 import { supabaseConfig } from "./supabase";
 
 
@@ -339,9 +339,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let result;
     
-    // Use Supabase if configured, otherwise fallback to old storage
-    if (supabaseConfig.isConfigured && supabaseStorage) {
-      result = await supabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
+    // Use fixed Supabase storage if configured, otherwise fallback to old storage
+    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+      result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
     } else {
       result = await storage.getProducts(page, limit, category, subCategory, brand, sort);
     }
@@ -361,8 +361,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get("/products/featured", asyncHandler(async (req: Request, res: Response) => {
     let featuredProducts;
     
-    if (supabaseConfig.isConfigured && supabaseStorage) {
-      featuredProducts = await supabaseStorage.getFeaturedProducts();
+    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+      featuredProducts = await fixedSupabaseStorage.getFeaturedProducts();
     } else {
       featuredProducts = await storage.getFeaturedProducts();
     }
@@ -374,8 +374,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get("/products/carousel", asyncHandler(async (req: Request, res: Response) => {
     let carouselProducts;
     
-    if (supabaseConfig.isConfigured && supabaseStorage) {
-      carouselProducts = await supabaseStorage.getCarouselProducts();
+    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+      carouselProducts = await fixedSupabaseStorage.getCarouselProducts();
     } else {
       carouselProducts = await storage.getCarouselProducts();
     }
@@ -397,8 +397,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let results;
     
-    if (supabaseConfig.isConfigured && supabaseStorage) {
-      results = await supabaseStorage.searchProducts(query, page, limit, brand, sort);
+    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+      results = await fixedSupabaseStorage.searchProducts(query, page, limit, brand, sort);
     } else {
       results = await storage.searchProducts(query, page, limit, brand, sort);
     }
@@ -1615,6 +1615,54 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
       });
     }
   }));
+
+  // Admin API endpoints - require Supabase configuration
+  if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+    
+    // Get all products for admin (with pagination)
+    apiRouter.get("/admin/products", asyncHandler(async (req: Request, res: Response) => {
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 50;
+      const search = req.query.search as string;
+      const category = req.query.category as string;
+      
+      let result;
+      if (search) {
+        result = await fixedSupabaseStorage.searchProducts(search, page, limit);
+      } else {
+        result = await fixedSupabaseStorage.getProducts(page, limit, category);
+      }
+      
+      res.json(result);
+    }));
+
+    // Get single product by ID for editing
+    apiRouter.get("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
+      const product = await fixedSupabaseStorage.getProductById(req.params.id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    }));
+
+    // Update product
+    apiRouter.put("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
+      const product = await fixedSupabaseStorage.updateProduct(req.params.id, req.body);
+      res.json(product);
+    }));
+
+    // Delete product
+    apiRouter.delete("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
+      await fixedSupabaseStorage.deleteProduct(req.params.id);
+      res.json({ success: true });
+    }));
+
+    // Get categories for admin panel
+    apiRouter.get("/admin/categories", asyncHandler(async (req: Request, res: Response) => {
+      const categories = await fixedSupabaseStorage.getCategories();
+      res.json(categories);
+    }));
+  }
 
   app.use("/api", apiRouter);
 
