@@ -5,10 +5,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { ProductEditDrawer } from '../product-edit-drawer'
-import { supabase } from '@/lib/supabase'
+
 import { useToast } from '@/hooks/use-toast'
 import { Search, Plus, Edit2, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
-import type { Product } from '../../../../shared/schema'
+// Product interface for admin panel
+interface Product {
+  id: string
+  title: string
+  priceUSD: number | null
+  image: string | null
+  buyUrl: string | null
+  viewUrl?: string | null
+  category: string | null
+  subCategory?: string | null
+  brand?: string | null
+  featured: boolean
+  carousel: boolean
+  created_at?: string
+  updated_at?: string
+}
 
 const ITEMS_PER_PAGE = 20
 
@@ -32,26 +47,26 @@ export function ProductsTab() {
   const fetchProducts = async () => {
     setLoading(true)
     try {
-      if (!supabase) {
-        throw new Error('Supabase not configured')
-      }
-      
-      let query = supabase
-        .from('products')
-        .select('*', { count: 'exact' })
-        .range((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE - 1)
-        .order('id', { ascending: false })
+      // Use the admin API endpoint instead of direct Supabase
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: ITEMS_PER_PAGE.toString()
+      })
 
       if (searchQuery.trim()) {
-        query = query.or(`title.ilike.%${searchQuery}%,buyUrl.ilike.%${searchQuery}%`)
+        params.append('search', searchQuery)
       }
 
-      const { data, error, count } = await query
+      const response = await fetch(`/api/admin/products?${params}`)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
-      if (error) throw error
-
-      setProducts(data || [])
-      setTotalCount(count || 0)
+      const data = await response.json()
+      
+      setProducts(data.products || [])
+      setTotalCount(data.total || 0)
     } catch (error) {
       console.error('Error fetching products:', error)
       toast({
@@ -83,8 +98,8 @@ export function ProductsTab() {
     setIsAddMode(false)
   }
 
-  const formatPrice = (price: string | null, priceUSD: string | null) => {
-    return priceUSD || price || 'N/A'
+  const formatPrice = (priceUSD: number | null) => {
+    return priceUSD ? `$${priceUSD.toFixed(2)}` : 'N/A'
   }
 
   const formatDate = (dateString: string) => {
@@ -151,7 +166,7 @@ export function ProductsTab() {
                         {product.title}
                       </TableCell>
                       <TableCell className="text-gray-300">
-                        {formatPrice(product.price, product.priceUSD)}
+                        {formatPrice(product.priceUSD)}
                       </TableCell>
                       <TableCell className="text-gray-300">
                         {product.category}

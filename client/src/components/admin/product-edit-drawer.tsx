@@ -10,7 +10,22 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 import { Save, Upload, AlertCircle } from 'lucide-react'
-import type { Product } from '../../../shared/schema'
+// Product interface for admin panel
+interface Product {
+  id: string
+  title: string
+  priceUSD: number | null
+  image: string | null
+  buyUrl: string | null
+  viewUrl?: string | null
+  category: string | null
+  subCategory?: string | null
+  brand?: string | null
+  featured: boolean
+  carousel: boolean
+  created_at?: string
+  updated_at?: string
+}
 
 interface ProductEditDrawerProps {
   isOpen: boolean
@@ -80,8 +95,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
     if (product && !isAddMode) {
       setFormData({
         title: product.title || '',
-        price: product.price || '',
-        priceUSD: product.priceUSD || '',
+        price: product.priceUSD?.toString() || '',
+        priceUSD: product.priceUSD?.toString() || '',
         image: product.image || '',
         buyUrl: product.buyUrl || '',
         viewUrl: product.viewUrl || '',
@@ -197,32 +212,40 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
       }
 
       const productData = {
-        ...formData,
-        image: finalImageName,
-        price: formData.priceUSD, // For backward compatibility
+        title: formData.title,
+        priceUSD: parseFloat(formData.priceUSD),
+        image: finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
+        buyUrl: formData.buyUrl,
+        viewUrl: formData.viewUrl || null,
+        category: formData.category,
+        subCategory: formData.subCategory || null,
+        brand: formData.brand || null,
+        featured: formData.featured,
+        carousel: formData.carousel,
       }
 
-      if (!supabase) {
-        throw new Error('Supabase not configured')
-      }
-      
-      let result
+      let response
       if (isAddMode) {
-        result = await supabase
-          .from('products')
-          .insert([productData])
-          .select()
-          .single()
+        response = await fetch('/api/admin/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(productData)
+        })
       } else {
-        result = await supabase
-          .from('products')
-          .update(productData)
-          .eq('id', product!.id)
-          .select()
-          .single()
+        response = await fetch(`/api/admin/products/${product!.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(productData)
+        })
       }
 
-      if (result.error) throw result.error
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
       toast({
         title: "Success",
