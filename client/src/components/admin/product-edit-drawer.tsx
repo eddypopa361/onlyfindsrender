@@ -268,7 +268,14 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
   }
 
   const handleInputChange = (field: keyof ProductFormData, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value }
+      // Clear subcategory if category changes and is not Accessories
+      if (field === 'category' && value !== 'Accessories') {
+        newData.subCategory = ''
+      }
+      return newData
+    })
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }))
     }
@@ -339,22 +346,24 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
             )}
           </div>
 
-          {/* Sub Category */}
-          <div className="space-y-2">
-            <Label htmlFor="subCategory" className="text-gray-300">Sub Category</Label>
-            <Select value={formData.subCategory || ''} onValueChange={(value) => handleInputChange('subCategory', value)}>
-              <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
-                <SelectValue placeholder="Select sub category (optional)" />
-              </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-[#00BDFF]/30">
-                {SUB_CATEGORIES.map((subCategory) => (
-                  <SelectItem key={subCategory} value={subCategory} className="text-white hover:bg-[#00BDFF]/20 focus:bg-[#00BDFF]/20">
-                    {subCategory}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {/* Sub Category - Only for Accessories */}
+          {formData.category === 'Accessories' && (
+            <div className="space-y-2">
+              <Label htmlFor="subCategory" className="text-gray-300">Sub Category</Label>
+              <Select value={formData.subCategory || ''} onValueChange={(value) => handleInputChange('subCategory', value)}>
+                <SelectTrigger className="text-white bg-gray-900/50 border-[#00BDFF]/30 focus:border-[#00BDFF]/50">
+                  <SelectValue placeholder="Select accessories subcategory (optional)" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-[#00BDFF]/30">
+                  {SUB_CATEGORIES.map((subCategory) => (
+                    <SelectItem key={subCategory} value={subCategory} className="text-white hover:bg-[#00BDFF]/20 focus:bg-[#00BDFF]/20">
+                      {subCategory}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
 
 
 
