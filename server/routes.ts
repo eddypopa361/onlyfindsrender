@@ -468,7 +468,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }));
   
-  // Single image upload endpoint for admin
+  // Single image upload endpoint for admin - now uses Supabase Storage
   apiRouter.post("/products/upload-image", upload.single('image'), asyncHandler(async (req: Request, res: Response) => {
     if (!req.file) {
       return res.status(400).json({ message: "No image file uploaded" });
@@ -476,33 +476,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const file = req.file;
-      const uploadsDir = 'uploads';
       
-      if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
-      }
-
-      // Generate unique filename
-      const timestamp = Date.now();
-      const randomStr = Math.random().toString(36).substring(2, 8);
-      const extension = path.extname(file.originalname);
-      const filename = `admin_${timestamp}_${randomStr}${extension}`;
-      const filepath = path.join(uploadsDir, filename);
-
-      // Save file
-      fs.writeFileSync(filepath, fs.readFileSync(file.path));
+      // Import Supabase Storage service
+      const { supabaseStorage } = await import('./supabase-storage');
+      
+      // Generate unique filename for Supabase Storage
+      const filename = supabaseStorage.generateFilename(file.originalname);
+      
+      // Read file buffer and upload to Supabase Storage
+      const fileBuffer = fs.readFileSync(file.path);
+      const publicUrl = await supabaseStorage.uploadImage(fileBuffer, filename);
       
       // Clean up temp file
       fs.unlinkSync(file.path);
 
       res.json({ 
-        message: "Image uploaded successfully",
-        filename: filename,
-        originalName: file.originalname
+        message: "Image uploaded successfully to Supabase Storage",
+        filename: publicUrl, // Return full Supabase Storage URL
+        originalName: file.originalname,
+        storageUrl: publicUrl
       });
     } catch (error) {
-      console.error("Image upload error:", error);
-      res.status(500).json({ message: "Failed to upload image" });
+      console.error("Supabase Storage upload error:", error);
+      res.status(500).json({ 
+        message: "Failed to upload image to Supabase Storage",
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   }));
 

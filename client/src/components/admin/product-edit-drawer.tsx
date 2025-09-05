@@ -180,7 +180,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
       }
 
       const data = await response.json()
-      return data.filename
+      return data.storageUrl || data.filename
     } catch (error) {
       console.error('Error uploading image:', error)
       toast({
@@ -204,9 +204,9 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
 
       // Upload image if selected
       if (imageFile) {
-        const uploadedImageName = await handleImageUpload(imageFile)
-        if (uploadedImageName) {
-          finalImageName = uploadedImageName
+        const uploadResult = await handleImageUpload(imageFile)
+        if (uploadResult) {
+          finalImageName = uploadResult // This is now a full Supabase Storage URL
         } else {
           setLoading(false)
           return
@@ -217,7 +217,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         title: formData.title,
         price: formData.priceUSD, // Legacy field - send same value as priceUSD
         priceUSD: formData.priceUSD,
-        image: finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
+        image: finalImageName.startsWith('http') ? finalImageName : finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
         buyUrl: formData.buyUrl,
         viewUrl: null,
         category: formData.category,
