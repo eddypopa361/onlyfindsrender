@@ -1628,17 +1628,49 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
       
       let result;
       if (search) {
-        result = await fixedSupabaseStorage.searchProducts(search, page, limit);
+        result = await fixedSupabaseStorage!.searchProducts(search, page, limit);
       } else {
-        result = await fixedSupabaseStorage.getProducts(page, limit, category);
+        result = await fixedSupabaseStorage!.getProducts(page, limit, category);
       }
       
       res.json(result);
     }));
 
+    // Create new product
+    apiRouter.post("/admin/products", asyncHandler(async (req: Request, res: Response) => {
+      try {
+        const productData = insertProductSchema.parse(req.body);
+        
+        // Transform the data to match the Product interface
+        const transformedData = {
+          title: productData.title || '',
+          priceUSD: productData.priceUSD ? parseFloat(productData.priceUSD) : null,
+          image: productData.image || null,
+          buyUrl: productData.buyUrl || null,
+          viewUrl: productData.viewUrl || null,
+          category: productData.category || null,
+          subCategory: productData.subCategory || null,
+          brand: productData.brand || null,
+          featured: productData.featured || false,
+          carousel: productData.carousel || false,
+        };
+        
+        const newProduct = await fixedSupabaseStorage!.createProduct(transformedData);
+        res.status(201).json(newProduct);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({ 
+            message: "Invalid product data", 
+            errors: error.errors 
+          });
+        }
+        throw error;
+      }
+    }));
+
     // Get single product by ID for editing
     apiRouter.get("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
-      const product = await fixedSupabaseStorage.getProductById(req.params.id);
+      const product = await fixedSupabaseStorage!.getProductById(req.params.id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -1647,19 +1679,19 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
 
     // Update product
     apiRouter.put("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
-      const product = await fixedSupabaseStorage.updateProduct(req.params.id, req.body);
+      const product = await fixedSupabaseStorage!.updateProduct(req.params.id, req.body);
       res.json(product);
     }));
 
     // Delete product
     apiRouter.delete("/admin/products/:id", asyncHandler(async (req: Request, res: Response) => {
-      await fixedSupabaseStorage.deleteProduct(req.params.id);
+      await fixedSupabaseStorage!.deleteProduct(req.params.id);
       res.json({ success: true });
     }));
 
     // Get categories for admin panel
     apiRouter.get("/admin/categories", asyncHandler(async (req: Request, res: Response) => {
-      const categories = await fixedSupabaseStorage.getCategories();
+      const categories = await fixedSupabaseStorage!.getCategories();
       res.json(categories);
     }));
   }
