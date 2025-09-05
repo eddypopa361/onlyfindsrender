@@ -57,14 +57,23 @@ export class SupabaseStorageService {
     if (!supabase) throw new Error('Supabase not configured')
     
     try {
-      // Ensure bucket exists
-      await this.initializeBucket()
-      
+      // Detect MIME type from filename extension
+      const ext = path.extname(filename).toLowerCase()
+      const mimeTypes: Record<string, string> = {
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg', 
+        '.png': 'image/png',
+        '.webp': 'image/webp',
+        '.gif': 'image/gif'
+      }
+      const contentType = mimeTypes[ext] || 'image/jpeg'
+
       const { data, error } = await supabase.storage
         .from(BUCKET_NAME)
         .upload(filename, file, {
           cacheControl: '3600',
-          upsert: true
+          upsert: true,
+          contentType: contentType
         })
       
       if (error) {
@@ -130,7 +139,7 @@ export class SupabaseStorageService {
    * Get all existing local images that need to be migrated
    */
   getLocalImages(): string[] {
-    const uploadsDir = 'uploads'
+    const uploadsDir = path.join(process.cwd(), '..', 'uploads')
     if (!fs.existsSync(uploadsDir)) {
       return []
     }

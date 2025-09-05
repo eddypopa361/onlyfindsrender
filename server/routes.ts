@@ -1,7 +1,8 @@
 import express, { type Express } from "express";
 import type { Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { fixedSupabaseStorage } from "./storage-supabase-fixed";
+import { supabaseStorage } from "./supabase-storage";
 import { insertProductSchema, products } from "@shared/schema";
 import { z } from "zod";
 import multer from "multer";
@@ -10,19 +11,13 @@ import * as fs from 'fs';
 import { Readable } from 'stream';
 import path from 'path';
 import AdmZip from 'adm-zip';
-import { db } from "./db";
-import { desc, asc, eq, like, and, or } from "drizzle-orm";
-import { fixedSupabaseStorage } from "./storage-supabase-fixed";
-import { supabaseConfig } from "./supabase";
 
 
-// Ensure uploads directory exists
-if (!fs.existsSync('uploads')) {
-  fs.mkdirSync('uploads', { recursive: true });
-}
-
-// Setup multer for file uploads
-const upload = multer({ dest: "uploads/" });
+// Setup multer for memory storage (will upload directly to Supabase)
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
 
 // Helper functions for static export
 function generateProductPageHtml(product: any) {
@@ -339,12 +334,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let result;
     
-    // Use fixed Supabase storage if configured, otherwise fallback to old storage
-    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
-      result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
-    } else {
-      result = await storage.getProducts(page, limit, category, subCategory, brand, sort);
-    }
+    // Use Supabase storage only
+    result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
     
     res.json({
       products: result.products,
@@ -361,11 +352,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get("/products/featured", asyncHandler(async (req: Request, res: Response) => {
     let featuredProducts;
     
-    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
-      featuredProducts = await fixedSupabaseStorage.getFeaturedProducts();
-    } else {
-      featuredProducts = await storage.getFeaturedProducts();
-    }
+    featuredProducts = await fixedSupabaseStorage.getFeaturedProducts();
     
     res.json(featuredProducts);
   }));
@@ -374,11 +361,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get("/products/carousel", asyncHandler(async (req: Request, res: Response) => {
     let carouselProducts;
     
-    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
-      carouselProducts = await fixedSupabaseStorage.getCarouselProducts();
-    } else {
-      carouselProducts = await storage.getCarouselProducts();
-    }
+    carouselProducts = await fixedSupabaseStorage.getCarouselProducts();
     
     res.json(carouselProducts);
   }));
@@ -397,11 +380,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let results;
     
-    if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
-      results = await fixedSupabaseStorage.searchProducts(query, page, limit, brand, sort);
-    } else {
-      results = await storage.searchProducts(query, page, limit, brand, sort);
-    }
+    results = await fixedSupabaseStorage.searchProducts(query, page, limit, brand, sort);
     
     res.json({
       products: results.products,
@@ -422,7 +401,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "Invalid product ID" });
     }
     
-    const product = await storage.getProductById(id);
+    const product = await fixedSupabaseStorage.getProductById(id);
     
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
@@ -440,13 +419,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "Invalid product ID" });
     }
     
-    const product = await storage.getProductById(id);
+    const product = await fixedSupabaseStorage.getProductById(id);
     
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
     
-    const recommendations = await storage.getProductRecommendations(product, limit);
+    const recommendations = await fixedSupabaseStorage.getProductRecommendations(product, limit);
     
     res.json(recommendations);
   }));
@@ -455,7 +434,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.post("/products", asyncHandler(async (req: Request, res: Response) => {
     try {
       const productData = insertProductSchema.parse(req.body);
-      const newProduct = await storage.createProduct(productData);
+      const newProduct = await fixedSupabaseStorage.createProduct(productData);
       res.status(201).json(newProduct);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -572,7 +551,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         // Insert validated products in chunks
         if (records.length > 0) {
-          await storage.createManyProducts(records);
+          await fixedSupabaseStorage.createManyProducts(records);
           return res.status(200).json({ 
             message: `Importul a fost realizat cu succes! ${records.length} produse au fost adăugate.` 
           });
@@ -1616,7 +1595,7 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
   }));
 
   // Admin API endpoints - require Supabase configuration
-  if (supabaseConfig.isConfigured && fixedSupabaseStorage) {
+  if (fixedSupabaseStorage) {
     
     // Get all products for admin (with pagination)
     apiRouter.get("/admin/products", asyncHandler(async (req: Request, res: Response) => {

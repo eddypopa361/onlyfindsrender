@@ -10,8 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files from public directory (for images, etc.)
 app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
 
-// Serve uploads directory for product images
-app.use("/uploads", express.static(path.resolve(import.meta.dirname, "..", "uploads")));
+// NOTE: Uploads now handled by Supabase Storage - local uploads directory deprecated
 
 app.use((req, res, next) => {
   const start = Date.now();
