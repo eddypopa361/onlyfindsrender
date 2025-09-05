@@ -215,7 +215,8 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
 
       const productData = {
         title: formData.title,
-        priceUSD: parseFloat(formData.priceUSD),
+        price: formData.priceUSD, // Legacy field - send same value as priceUSD
+        priceUSD: formData.priceUSD,
         image: finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
         buyUrl: formData.buyUrl,
         viewUrl: null,

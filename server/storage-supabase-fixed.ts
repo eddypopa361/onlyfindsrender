@@ -59,9 +59,8 @@ function mapFromSupabase(row: SupabaseProduct): Product {
 }
 
 // Convert API format to Supabase row
-function mapToSupabase(product: Partial<Product>): Partial<SupabaseProduct> {
-  return {
-    id: product.id,
+function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Partial<SupabaseProduct> {
+  const result: Partial<SupabaseProduct> = {
     title: product.title,
     priceusd: product.priceUSD,
     image: product.image,
@@ -73,6 +72,13 @@ function mapToSupabase(product: Partial<Product>): Partial<SupabaseProduct> {
     featured: product.featured,
     carousel: product.carousel
   }
+  
+  // Only include ID if it exists and we're not skipping it (for creates)
+  if (!skipId && product.id) {
+    result.id = product.id
+  }
+  
+  return result
 }
 
 export interface SupabaseStorage {
@@ -246,11 +252,12 @@ export class SupabaseStorageImpl implements SupabaseStorage {
   async createProduct(productData: Omit<Product, 'id' | 'created_at' | 'updated_at'>): Promise<Product> {
     if (!supabase) throw new Error('Supabase not configured')
 
-    const supabaseData = mapToSupabase(productData)
+    // Skip ID field when creating new products to let database auto-generate it
+    const supabaseData = mapToSupabase(productData, true)
     
     const { data, error } = await supabase
       .from('products')
-      .insert([supabaseData])
+      .insert(supabaseData)  // Remove array wrapper
       .select()
       .single()
 
