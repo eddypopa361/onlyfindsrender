@@ -47,14 +47,14 @@ function mapFromSupabase(row: SupabaseProduct): Product {
 }
 
 // Convert API format to Supabase row
-function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Partial<SupabaseProduct> {
+function mapToSupabase(product: any, skipId: boolean = false): Partial<SupabaseProduct> {
   const result: Partial<SupabaseProduct> = {
     title: product.title,
-    price_usd: product.priceUSD,
+    price_usd: product.priceUSD || product.price_usd, // Support both formats
     image: product.image,
-    buy_url: product.buyUrl,
+    buy_url: product.buyUrl || product.buy_url, // Support both formats
     category: product.category,
-    sub_category: product.subCategory,
+    sub_category: product.subCategory || product.sub_category, // Support both formats
     featured: product.featured,
     carousel: product.carousel
   }
@@ -321,6 +321,11 @@ export class SupabaseStorageImpl implements SupabaseStorage {
   async getBrands(): Promise<string[]> {
     // Since brand column doesn't exist, return empty array
     return []
+  }
+
+  async createManyProducts(products: any[]): Promise<void> {
+    // For backward compatibility with CSV import - convert to our format and use bulkCreateProducts
+    await this.bulkCreateProducts(products)
   }
 }
 

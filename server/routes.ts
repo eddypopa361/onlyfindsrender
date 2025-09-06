@@ -538,25 +538,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           const product = {
             title: productTitle,
-            price: priceUSD || "0", // Use priceUSD as fallback for legacy price
-            priceUSD: priceUSD,
+            price_usd: priceUSD || "0", // Exact database column name
             image: imagePath,
-            buyUrl: record.buyUrl || record.buy_url || "",
-            viewUrl: null, // Not required in new format
+            buy_url: record.buyUrl || record.buy_url || "", // Exact database column name
             category: record.category || "Other",
-            brand: null, // Not used in new format
-            subCategory: subCategoryValue,
+            sub_category: subCategoryValue, // Exact database column name
             featured: record.featured === "true" || record.featured === "1" || false,
-            carousel: false
+            carousel: record.carousel === "true" || record.carousel === "1" || false
           };
           
-          // Validate each product
-          try {
-            const validatedProduct = insertProductSchema.parse(product);
-            records.push(validatedProduct);
-          } catch (validationError) {
-            console.error("Validation error for record:", record, validationError);
-            // Skip invalid records but continue processing
+          // Validate required fields manually since we match exact DB schema
+          if (productTitle && (record.category || 'Other')) {
+            records.push(product);
+          } else {
+            console.error("Skipping invalid record (missing title or category):", record);
           }
         }
 
@@ -564,7 +559,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         // Insert validated products in chunks
         if (records.length > 0) {
-          await fixedSupabaseStorage.createManyProducts(records);
+          await fixedSupabaseStorage.bulkCreateProducts(records);
           return res.status(200).json({ 
             message: `Importul a fost realizat cu succes! ${records.length} produse au fost adăugate.` 
           });
