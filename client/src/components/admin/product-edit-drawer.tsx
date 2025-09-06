@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
-import { Save, Upload, AlertCircle } from 'lucide-react'
+import { Save, Upload, AlertCircle, Trash2 } from 'lucide-react'
 // Product interface for admin panel
 interface Product {
   id: string
@@ -33,6 +33,7 @@ interface ProductEditDrawerProps {
   product: Product | null
   isAddMode: boolean
   onSaveSuccess: () => void
+  onDeleteSuccess?: () => void
 }
 
 interface ProductFormData {
@@ -73,7 +74,7 @@ const SUB_CATEGORIES = [
   'Other'
 ]
 
-export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveSuccess }: ProductEditDrawerProps) {
+export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveSuccess, onDeleteSuccess }: ProductEditDrawerProps) {
   const [formData, setFormData] = useState<ProductFormData>({
     title: '',
     price: '',
@@ -89,6 +90,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
   const [errors, setErrors] = useState<Partial<ProductFormData>>({})
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -125,6 +127,7 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
     }
     setErrors({})
     setImageFile(null)
+    setDeleting(false)
   }, [product, isAddMode, isOpen])
 
   const validateForm = (): boolean => {
@@ -265,6 +268,45 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
       })
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    if (!product || isAddMode) return
+    
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${product.title}"? This action cannot be undone.`
+    )
+    
+    if (!confirmed) return
+    
+    setDeleting(true)
+    
+    try {
+      const response = await fetch(`/api/admin/products/${product.id}`, {
+        method: 'DELETE',
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      toast({
+        title: "Success",
+        description: "Product deleted successfully",
+      })
+      
+      onDeleteSuccess?.()
+      onClose()
+    } catch (error) {
+      console.error('Error deleting product:', error)
+      toast({
+        title: "Error",
+        description: "Failed to delete product",
+        variant: "destructive"
+      })
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -435,31 +477,55 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
         </div>
 
         <SheetFooter className="gap-2">
-          <Button variant="outline" onClick={onClose} className="border-gray-700 text-gray-300">
-            Cancel
-          </Button>
-          <Button 
-            onClick={handleSave} 
-            disabled={loading || uploadingImage}
-            className="bg-gradient-to-r from-[#00BDFF] to-blue-500 hover:from-[#00BDFF]/80 hover:to-blue-500/80 text-white border-none shadow-lg transition-all duration-200"
-          >
-            {loading ? (
-              <>
-                <div className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
-                Saving...
-              </>
-            ) : uploadingImage ? (
-              <>
-                <Upload className="mr-2 h-4 w-4" />
-                Uploading...
-              </>
-            ) : (
-              <>
-                <Save className="mr-2 h-4 w-4" />
-                {isAddMode ? 'Add Product' : 'Save Changes'}
-              </>
+          <div className="flex items-center gap-2 w-full">
+            <Button variant="outline" onClick={onClose} className="border-gray-700 text-gray-300">
+              Cancel
+            </Button>
+            
+            {!isAddMode && product && (
+              <Button 
+                onClick={handleDelete}
+                disabled={deleting || loading || uploadingImage}
+                variant="outline"
+                className="border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50"
+              >
+                {deleting ? (
+                  <>
+                    <div className="animate-spin mr-2 h-4 w-4 border-2 border-red-400 border-t-transparent rounded-full" />
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </>
+                )}
+              </Button>
             )}
-          </Button>
+            
+            <Button 
+              onClick={handleSave} 
+              disabled={loading || uploadingImage || deleting}
+              className="bg-gradient-to-r from-[#00BDFF] to-blue-500 hover:from-[#00BDFF]/80 hover:to-blue-500/80 text-white border-none shadow-lg transition-all duration-200 ml-auto"
+            >
+              {loading ? (
+                <>
+                  <div className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                  Saving...
+                </>
+              ) : uploadingImage ? (
+                <>
+                  <Upload className="mr-2 h-4 w-4" />
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Save className="mr-2 h-4 w-4" />
+                  {isAddMode ? 'Add Product' : 'Save Changes'}
+                </>
+              )}
+            </Button>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>

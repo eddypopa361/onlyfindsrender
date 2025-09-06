@@ -98,6 +98,13 @@ export function ProductsTab() {
     setIsAddMode(false)
   }
 
+  const handleDeleteSuccess = () => {
+    fetchProducts()
+    setIsDrawerOpen(false)
+    setEditingProduct(null)
+    setIsAddMode(false)
+  }
+
   const formatPrice = (priceUSD: number | null) => {
     return priceUSD ? `$${priceUSD.toFixed(2)}` : 'N/A'
   }
@@ -287,6 +294,7 @@ export function ProductsTab() {
         product={editingProduct}
         isAddMode={isAddMode}
         onSaveSuccess={handleSaveSuccess}
+        onDeleteSuccess={handleDeleteSuccess}
       />
     </>
   )
