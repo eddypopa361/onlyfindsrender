@@ -462,12 +462,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate unique filename for Supabase Storage
       const filename = supabaseStorage.generateFilename(file.originalname);
       
-      // Read file buffer and upload to Supabase Storage
-      const fileBuffer = fs.readFileSync(file.path);
+      // Use file buffer directly from memory (no temp file needed)
+      const fileBuffer = file.buffer;
       const publicUrl = await supabaseStorage.uploadImage(fileBuffer, filename);
-      
-      // Clean up temp file
-      fs.unlinkSync(file.path);
 
       res.json({ 
         message: "Image uploaded successfully to Supabase Storage",
@@ -494,8 +491,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       try {
-        // Parse CSV
-        const fileContent = fs.readFileSync(req.file.path, 'utf8');
+        // Parse CSV from buffer
+        const fileContent = req.file.buffer.toString('utf8');
         const parser = csv.parse(fileContent, {
           columns: true,
           skip_empty_lines: true,
@@ -540,14 +537,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
-        // Delete the temporary file safely
-        try {
-          if (fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-          }
-        } catch (unlinkError) {
-          console.warn("Warning: Could not delete temporary file:", unlinkError);
-        }
+        // No temporary file cleanup needed with memory storage
         
         // Insert validated products in chunks
         if (records.length > 0) {
@@ -562,16 +552,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } catch (error: any) {
         console.error("CSV import error:", error);
-        // Delete the temporary file in case of error (safely)
-        if (req.file) {
-          try {
-            if (fs.existsSync(req.file.path)) {
-              fs.unlinkSync(req.file.path);
-            }
-          } catch (unlinkError) {
-            console.warn("Warning: Could not delete temporary file:", unlinkError);
-          }
-        }
+        // No temporary file cleanup needed with memory storage
         return res.status(500).json({ 
           message: "Eroare la procesarea fișierului CSV", 
           error: error.message || 'Eroare necunoscută' 
@@ -592,18 +573,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         // Check if it's a ZIP file
         if (!req.file.mimetype?.includes('zip') && !req.file.originalname.endsWith('.zip')) {
-          fs.unlinkSync(req.file.path);
           return res.status(400).json({ message: "Fișierul încărcat nu este în format ZIP" });
         }
 
-        // Process the ZIP file
-        const zip = new AdmZip(req.file.path);
+        // Process the ZIP file from memory buffer
+        const zip = new AdmZip(req.file.buffer);
         const zipEntries = zip.getEntries();
         
-        let extractedImages = 0;
+        // Import Supabase Storage service
+        const { supabaseStorage } = await import('./supabase-storage');
+        
+        let uploadedImages = 0;
         const supportedImageTypes = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
         
-        // Extract all image files
+        // Upload all image files directly to Supabase Storage
         for (const entry of zipEntries) {
           // Skip directories, non-image files, and macOS metadata files
           if (entry.isDirectory || entry.name.startsWith('._')) continue;
@@ -612,23 +595,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const isImage = supportedImageTypes.some(ext => entryName.endsWith(ext));
           
           if (isImage) {
-            // Create output path
-            const outputPath = path.join('uploads', entry.name);
-            
-            // Extract the file
-            zip.extractEntryTo(entry, 'uploads', false, true);
-            extractedImages++;
-            
-            console.log(`Extracted: ${entry.name} to ${outputPath}`);
+            try {
+              // Get image buffer from ZIP entry
+              const imageBuffer = entry.getData();
+              
+              // Upload directly to Supabase Storage
+              const publicUrl = await supabaseStorage.uploadImage(imageBuffer, entry.name);
+              uploadedImages++;
+              
+              console.log(`Uploaded to Supabase Storage: ${entry.name} -> ${publicUrl}`);
+            } catch (uploadError) {
+              console.error(`Failed to upload ${entry.name}:`, uploadError);
+            }
           }
         }
         
-        // Cleanup the uploaded ZIP file
-        fs.unlinkSync(req.file.path);
-        
-        if (extractedImages > 0) {
+        if (uploadedImages > 0) {
           return res.status(200).json({ 
-            message: `${extractedImages} imagini au fost extrase cu succes` 
+            message: `${uploadedImages} imagini au fost încărcate cu succes în Supabase Storage` 
           });
         } else {
           return res.status(400).json({ 
