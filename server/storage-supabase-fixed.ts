@@ -12,7 +12,6 @@ interface Product {
   priceUSD: string
   image: string | null
   buyUrl: string
-  viewUrl?: string | null
   category: string
   subCategory?: string | null
   featured: boolean
@@ -26,7 +25,6 @@ interface SupabaseProduct {
   price_usd: string
   image: string | null
   buy_url: string
-  viewurl?: string | null
   category: string
   sub_category?: string | null
   featured: boolean
@@ -41,7 +39,6 @@ function mapFromSupabase(row: SupabaseProduct): Product {
     priceUSD: row.price_usd,
     image: row.image,
     buyUrl: row.buy_url,
-    viewUrl: row.viewurl,
     category: row.category,
     subCategory: row.sub_category,
     featured: row.featured,
@@ -56,7 +53,6 @@ function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Part
     price_usd: product.priceUSD,
     image: product.image,
     buy_url: product.buyUrl,
-    viewurl: product.viewUrl,
     category: product.category,
     sub_category: product.subCategory,
     featured: product.featured,

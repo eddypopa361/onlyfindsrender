@@ -431,8 +431,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create a single product
   apiRouter.post("/products", asyncHandler(async (req: Request, res: Response) => {
     try {
-      const productData = insertProductSchema.parse(req.body);
-      const newProduct = await fixedSupabaseStorage.createProduct(productData);
+      // Create custom validation schema that matches exact database structure
+      const customSchema = z.object({
+        title: z.string().min(1),
+        price_usd: z.string(),
+        image: z.string().optional(),
+        buy_url: z.string().min(1),
+        category: z.string().min(1),
+        sub_category: z.string().optional().nullable(),
+        featured: z.boolean().default(false),
+        carousel: z.boolean().default(false)
+      });
+      
+      const validatedData = customSchema.parse(req.body);
+      
+      // Map to our internal Product format for storage layer
+      const productForStorage = {
+        title: validatedData.title,
+        priceUSD: validatedData.price_usd,
+        image: validatedData.image || null,
+        buyUrl: validatedData.buy_url,
+        category: validatedData.category,
+        subCategory: validatedData.sub_category || null,
+        featured: validatedData.featured,
+        carousel: validatedData.carousel
+      };
+      
+      const newProduct = await fixedSupabaseStorage.createProduct(productForStorage);
       res.status(201).json(newProduct);
     } catch (error) {
       if (error instanceof z.ZodError) {
