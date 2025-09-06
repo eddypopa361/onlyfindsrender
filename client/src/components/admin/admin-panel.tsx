@@ -5,9 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProductsTab } from './tabs/products-tab'
 import { BulkImportTab } from './tabs/bulk-import-tab'
-import { ImagesTab } from './tabs/images-tab'
 import { HelpTab } from './tabs/help-tab'
-import { LogOut, Settings, Package, Upload, Image, HelpCircle } from 'lucide-react'
+import { LogOut, Settings, Package, Upload, HelpCircle } from 'lucide-react'
 import { Helmet } from 'react-helmet'
 
 export function AdminPanel() {
@@ -62,7 +61,7 @@ export function AdminPanel() {
         {/* Main Content */}
         <div className="container mx-auto px-4 py-8">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-4 mb-8 bg-gray-900/50 border border-[#00BDFF]/20 backdrop-blur-sm">
+            <TabsList className="grid w-full grid-cols-3 mb-8 bg-gray-900/50 border border-[#00BDFF]/20 backdrop-blur-sm">
               <TabsTrigger 
                 value="products" 
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
@@ -76,13 +75,6 @@ export function AdminPanel() {
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Bulk Import
-              </TabsTrigger>
-              <TabsTrigger 
-                value="images" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00BDFF]/20 data-[state=active]:to-blue-500/20 data-[state=active]:text-[#00BDFF] data-[state=active]:border-[#00BDFF]/30 hover:text-[#00BDFF]/80 transition-colors"
-              >
-                <Image className="w-4 h-4 mr-2" />
-                Images
               </TabsTrigger>
               <TabsTrigger 
                 value="help" 
@@ -101,9 +93,6 @@ export function AdminPanel() {
               <BulkImportTab />
             </TabsContent>
             
-            <TabsContent value="images" className="mt-0">
-              <ImagesTab />
-            </TabsContent>
             
             <TabsContent value="help" className="mt-0">
               <HelpTab />

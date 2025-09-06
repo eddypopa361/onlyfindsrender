@@ -185,7 +185,10 @@ export function BulkImportTab() {
                 className="text-white bg-gray-900 border-gray-700"
               />
               <p className="text-xs text-gray-500">
-                Required columns: title, priceUSD, image, buyUrl, category, subCategory, brand, featured, carousel
+                Required columns: title, price_usd, image, buy_url, category, sub_category, featured, carousel
+              </p>
+              <p className="text-xs text-gray-400">
+                Note: Old format (priceUSD, buyUrl, subcategory) is still supported for compatibility.
               </p>
             </div>
 

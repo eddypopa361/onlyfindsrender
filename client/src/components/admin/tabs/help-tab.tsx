@@ -21,7 +21,7 @@ export function HelpTab() {
         <Info className="h-4 w-4 text-blue-400" />
         <AlertTitle className="text-blue-400">Admin Panel Overview</AlertTitle>
         <AlertDescription className="text-gray-300">
-          This admin panel allows you to manage products, perform bulk imports, upload images, and maintain your ONLYFINDS catalog. 
+          This admin panel allows you to manage products, perform bulk imports, and maintain your ONLYFINDS catalog. 
           All changes are immediately reflected on the public website.
         </AlertDescription>
       </Alert>
@@ -75,9 +75,12 @@ export function HelpTab() {
           <CardContent className="space-y-4">
             <div className="space-y-3">
               <div>
-                <h4 className="font-medium text-white mb-2">Required Columns</h4>
+                <h4 className="font-medium text-white mb-2">CSV Format (New)</h4>
                 <div className="bg-gray-900 p-3 rounded text-xs font-mono text-gray-300 overflow-x-auto">
-                  title,priceUSD,image,buyUrl,category,subCategory,brand,featured,carousel
+                  title,price_usd,image,buy_url,category,sub_category,featured,carousel
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  <strong>Note:</strong> Old format (priceUSD, buyUrl, subcategory) is still supported for compatibility.
                 </div>
               </div>
               
@@ -85,14 +88,13 @@ export function HelpTab() {
                 <h4 className="font-medium text-white mb-2">Column Descriptions</h4>
                 <ul className="space-y-1 text-xs text-gray-400">
                   <li><code className="bg-gray-800 px-1 rounded">title</code> - Product name (required)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">priceUSD</code> - Price in USD (required, numeric)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">image</code> - Image filename (required)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">buyUrl</code> - Purchase link (required, full URL)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">price_usd</code> - Price in USD (required, as text)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">image</code> - Image filename or URL (optional)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">buy_url</code> - Purchase link (required, full URL)</li>
                   <li><code className="bg-gray-800 px-1 rounded">category</code> - Main category (required)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">subCategory</code> - Subcategory (optional)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">brand</code> - Product brand (optional)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">featured</code> - true/false (optional)</li>
-                  <li><code className="bg-gray-800 px-1 rounded">carousel</code> - true/false (optional)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">sub_category</code> - Subcategory (optional)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">featured</code> - true/false (optional, default: false)</li>
+                  <li><code className="bg-gray-800 px-1 rounded">carousel</code> - true/false (optional, default: false)</li>
                 </ul>
               </div>
             </div>
@@ -114,26 +116,26 @@ export function HelpTab() {
                 <h4 className="font-medium text-white mb-2">Image Requirements</h4>
                 <ul className="space-y-1 text-gray-400 list-disc list-inside">
                   <li>Supported formats: JPG, PNG, GIF, WebP</li>
-                  <li>Maximum file size: 10MB</li>
+                  <li>Maximum file size: 50MB</li>
                   <li>Recommended size: 800x800px or higher</li>
-                  <li>Images are automatically optimized to WebP format</li>
+                  <li>Images are stored in Supabase Storage</li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="font-medium text-white mb-2">Upload Methods</h4>
                 <ul className="space-y-1 text-gray-400 list-disc list-inside">
-                  <li><strong>Single images:</strong> Use the Images tab</li>
-                  <li><strong>Bulk upload:</strong> Create ZIP file for Bulk Import</li>
-                  <li><strong>During editing:</strong> Upload directly in product form</li>
+                  <li><strong>Individual products:</strong> Upload directly when adding/editing products</li>
+                  <li><strong>Bulk upload:</strong> Upload ZIP file in Bulk Import section</li>
+                  <li><strong>Image URLs:</strong> Use full Supabase Storage URLs in CSV</li>
                 </ul>
               </div>
               
               <div>
-                <h4 className="font-medium text-white mb-2">Image Paths</h4>
+                <h4 className="font-medium text-white mb-2">Image Storage</h4>
                 <p className="text-xs text-gray-400">
-                  All images are stored in <code className="bg-gray-800 px-1 rounded">/uploads/</code> directory. 
-                  Filenames in CSV must match exactly with uploaded images.
+                  All images are stored in Supabase Cloud Storage. Images uploaded via the admin panel 
+                  are automatically processed and given public URLs.
                 </p>
               </div>
             </div>
