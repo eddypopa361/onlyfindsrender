@@ -51,15 +51,34 @@ export function useAuth() {
     }
     
     try {
+      // First check if user is already in admins table
       const { data, error } = await supabase
         .from('admins')
         .select('id')
         .eq('id', user.id)
         .single()
 
+      let isAdmin = !!data && !error
+
+      // If not admin, check if their email should make them admin
+      if (!isAdmin && user.email) {
+        const adminEmails = ['lucasnili91@gmail.com', 'tangsenquan996@gmail.com']
+        
+        if (adminEmails.includes(user.email)) {
+          // Add them to admins table
+          const { error: insertError } = await supabase
+            .from('admins')
+            .upsert({ id: user.id, email: user.email })
+          
+          if (!insertError) {
+            isAdmin = true
+          }
+        }
+      }
+
       setAuthState({
         user,
-        isAdmin: !!data && !error,
+        isAdmin,
         loading: false,
       })
     } catch (error) {
