@@ -55,7 +55,13 @@ export function ProductCard({ product }: ProductCardProps) {
               alt={product.title}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              onError={() => setImageError(true)}
+              onError={(e) => {
+                console.error('Image failed to load:', product.title, product.image);
+                setImageError(true);
+              }}
+              onLoad={() => {
+                console.log('Image loaded successfully:', product.title);
+              }}
             />
           )}
         </div>
