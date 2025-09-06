@@ -12,18 +12,25 @@ export function ProductCard({ product }: ProductCardProps) {
   
   // Calculate price label from priceUSD or fallback to legacy price
   const getPriceLabel = () => {
-    if (product.priceUSD) {
-      const priceNum = parseFloat(product.priceUSD);
-      return Number.isFinite(priceNum) ? `$${priceNum.toFixed(2)}` : "";
+    if (product.priceUSD && Number.isFinite(product.priceUSD)) {
+      return `$${product.priceUSD.toFixed(2)}`;
     }
-    return product.price.startsWith('$') ? product.price : `$${product.price}`;
+    if (product.price) {
+      return product.price.startsWith('$') ? product.price : `$${product.price}`;
+    }
+    return "";
   };
 
   const priceLabel = getPriceLabel();
   
   // Check if image is missing or invalid
-  const hasValidImage = product.image && product.image.trim() !== '';
+  const hasValidImage = product.image && product.image.trim() !== '' && product.image.length > 10;
   const shouldShowFallback = !hasValidImage || imageError;
+  
+  // Debug log for problematic images
+  if (!hasValidImage && product.title) {
+    console.log('Image missing for product:', product.title, 'Image value:', product.image);
+  }
 
   return (
     <a

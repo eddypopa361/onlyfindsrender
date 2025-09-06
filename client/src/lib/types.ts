@@ -29,10 +29,10 @@ export type ProductCategory = MainCategory | "All";
 export type ClothingSubCategory = "All";
 
 export interface Product {
-  id: number;
+  id: string;
   title: string;
-  price: string; // legacy field
-  priceUSD?: string; // new field from CSV
+  price?: string; // legacy field
+  priceUSD: number; // new field from CSV - matching backend
   image: string;
   buyUrl: string;
   category: MainCategory;
