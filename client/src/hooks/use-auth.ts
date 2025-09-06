@@ -62,7 +62,7 @@ export function useAuth() {
 
       // If not admin, check if their email should make them admin
       if (!isAdmin && user.email) {
-        const adminEmails = ['lucasnili91@gmail.com', 'tangsenquan996@gmail.com']
+        const adminEmails = ['doarcarlos666@gmail.com', 'lucasnili91@gmail.com', 'tangsenquan996@gmail.com']
         
         if (adminEmails.includes(user.email)) {
           // Add them to admins table
