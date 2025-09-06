@@ -200,19 +200,19 @@ export class SupabaseStorageImpl implements SupabaseStorage {
 
     switch (sort) {
       case 'price-asc':
-        supabaseQuery = supabaseQuery.order('priceusd', { ascending: true, nullsLast: true })
+        supabaseQuery = supabaseQuery.order('price_usd', { ascending: true, nullsLast: true })
         break
       case 'price-desc':
-        supabaseQuery = supabaseQuery.order('priceusd', { ascending: false, nullsLast: true })
+        supabaseQuery = supabaseQuery.order('price_usd', { ascending: false, nullsLast: true })
         break
       case 'newest':
-        supabaseQuery = supabaseQuery.order('created_at', { ascending: false })
+        supabaseQuery = supabaseQuery.order('id', { ascending: false })
         break
       case 'alphabetical':
         supabaseQuery = supabaseQuery.order('title', { ascending: true })
         break
       default:
-        supabaseQuery = supabaseQuery.order('featured', { ascending: false }).order('created_at', { ascending: false })
+        supabaseQuery = supabaseQuery.order('featured', { ascending: false }).order('id', { ascending: false })
         break
     }
 
