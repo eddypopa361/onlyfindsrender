@@ -15,7 +15,6 @@ interface Product {
   viewUrl?: string | null
   category: string
   subCategory?: string | null
-  brand?: string | null
   featured: boolean
   carousel: boolean
 }
@@ -30,7 +29,6 @@ interface SupabaseProduct {
   viewurl?: string | null
   category: string
   sub_category?: string | null
-  brand?: string | null
   featured: boolean
   carousel: boolean
 }
@@ -46,7 +44,6 @@ function mapFromSupabase(row: SupabaseProduct): Product {
     viewUrl: row.viewurl,
     category: row.category,
     subCategory: row.sub_category,
-    brand: row.brand,
     featured: row.featured,
     carousel: row.carousel
   }
@@ -62,7 +59,6 @@ function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Part
     viewurl: product.viewUrl,
     category: product.category,
     sub_category: product.subCategory,
-    brand: product.brand,
     featured: product.featured,
     carousel: product.carousel
   }
@@ -76,11 +72,11 @@ function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Part
 }
 
 export interface SupabaseStorage {
-  getProducts(page: number, limit: number, category?: string, subCategory?: string, brand?: string, sort?: string): Promise<{ products: Product[]; total: number }>
+  getProducts(page: number, limit: number, category?: string, subCategory?: string, sort?: string): Promise<{ products: Product[]; total: number }>
   getProductById(id: string): Promise<Product | null>
   getFeaturedProducts(): Promise<Product[]>
   getCarouselProducts(): Promise<Product[]>
-  searchProducts(query: string, page: number, limit: number, brand?: string, sort?: string): Promise<{ products: Product[]; total: number }>
+  searchProducts(query: string, page: number, limit: number, sort?: string): Promise<{ products: Product[]; total: number }>
   createProduct(product: Omit<Product, 'id'>): Promise<Product>
   updateProduct(id: string, updates: Partial<Product>): Promise<Product>
   deleteProduct(id: string): Promise<void>
@@ -96,7 +92,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     }
   }
 
-  async getProducts(page: number = 1, limit: number = 12, category?: string, subCategory?: string, brand?: string, sort?: string) {
+  async getProducts(page: number = 1, limit: number = 12, category?: string, subCategory?: string, sort?: string) {
     if (!supabase) throw new Error('Supabase not configured')
 
     let query = supabase
@@ -109,9 +105,6 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     }
     if (subCategory && subCategory !== 'all') {
       query = query.eq('sub_category', subCategory)
-    }
-    if (brand && brand !== 'all') {
-      query = query.eq('brand', brand)
     }
 
     // Apply sorting with correct column names
@@ -200,17 +193,14 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     return (data || []).map(mapFromSupabase)
   }
 
-  async searchProducts(query: string, page: number = 1, limit: number = 12, brand?: string, sort?: string) {
+  async searchProducts(query: string, page: number = 1, limit: number = 12, sort?: string) {
     if (!supabase) throw new Error('Supabase not configured')
 
     let supabaseQuery = supabase
       .from('products')
       .select('*', { count: 'exact' })
-      .or(`title.ilike.%${query}%,brand.ilike.%${query}%,category.ilike.%${query}%`)
+      .or(`title.ilike.%${query}%,category.ilike.%${query}%`)
 
-    if (brand && brand !== 'all') {
-      supabaseQuery = supabaseQuery.eq('brand', brand)
-    }
 
     switch (sort) {
       case 'price-asc':
@@ -333,20 +323,8 @@ export class SupabaseStorageImpl implements SupabaseStorage {
   }
 
   async getBrands(): Promise<string[]> {
-    if (!supabase) throw new Error('Supabase not configured')
-
-    const { data, error } = await supabase
-      .from('products')
-      .select('brand')
-      .not('brand', 'is', null)
-
-    if (error) {
-      console.error('Error fetching brands:', error)
-      throw error
-    }
-
-    const brands = [...new Set(data.map(item => item.brand).filter(Boolean))]
-    return brands.sort()
+    // Since brand column doesn't exist, return empty array
+    return []
   }
 }
 
