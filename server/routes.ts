@@ -510,7 +510,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     upload.single("file"),
     asyncHandler(async (req: Request, res: Response) => {
       if (!req.file) {
-        return res.status(400).json({ message: "Niciun fișier încărcat" });
+        return res.status(400).json({ message: "No file uploaded" });
       }
 
       try {
@@ -531,16 +531,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
             imagePath = `/uploads/${imagePath}`;
           }
           
-          // New CSV format: title, priceUSD, image, buyUrl, category, subcategory, featured
+          // CSV format supports both old and new column names:
+          // New format: title, price_usd, image, buy_url, category, sub_category, featured, carousel
+          // Old format: title, priceUSD, image, buyUrl, category, subcategory, featured (for backward compatibility)
           const productTitle = record.title || "";
-          const priceUSD = record.priceUSD || record.priceUsd || record.price_usd || null;
-          const subCategoryValue = record.subcategory || record.Subcategory || record.subCategory || null;
+          // Support both old and new CSV column formats
+          const priceUSD = record.price_usd || record.priceUSD || record.priceUsd || null;
+          const buyUrlValue = record.buy_url || record.buyUrl || "";
+          const subCategoryValue = record.sub_category || record.subcategory || record.Subcategory || record.subCategory || null;
           
           const product = {
             title: productTitle,
             price_usd: priceUSD || "0", // Exact database column name
             image: imagePath,
-            buy_url: record.buyUrl || record.buy_url || "", // Exact database column name
+            buy_url: buyUrlValue, // Exact database column name
             category: record.category || "Other",
             sub_category: subCategoryValue, // Exact database column name
             featured: record.featured === "true" || record.featured === "1" || false,
@@ -561,19 +565,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (records.length > 0) {
           await fixedSupabaseStorage.bulkCreateProducts(records);
           return res.status(200).json({ 
-            message: `Importul a fost realizat cu succes! ${records.length} produse au fost adăugate.` 
+            message: `Import completed successfully! ${records.length} products have been added.` 
           });
         } else {
           return res.status(400).json({ 
-            message: "Nu s-au găsit produse valide în fișierul CSV" 
+            message: "No valid products found in the CSV file" 
           });
         }
       } catch (error: any) {
         console.error("CSV import error:", error);
         // No temporary file cleanup needed with memory storage
         return res.status(500).json({ 
-          message: "Eroare la procesarea fișierului CSV", 
-          error: error.message || 'Eroare necunoscută' 
+          message: "Error processing CSV file", 
+          error: error.message || 'Unknown error' 
         });
       }
     })
@@ -585,13 +589,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     upload.single("imagesZip"),
     asyncHandler(async (req: Request, res: Response) => {
       if (!req.file) {
-        return res.status(400).json({ message: "Niciun fișier ZIP încărcat" });
+        return res.status(400).json({ message: "No ZIP file uploaded" });
       }
 
       try {
         // Check if it's a ZIP file
         if (!req.file.mimetype?.includes('zip') && !req.file.originalname.endsWith('.zip')) {
-          return res.status(400).json({ message: "Fișierul încărcat nu este în format ZIP" });
+          return res.status(400).json({ message: "Uploaded file is not a ZIP format" });
         }
 
         // Process the ZIP file from memory buffer
@@ -630,11 +634,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         if (uploadedImages > 0) {
           return res.status(200).json({ 
-            message: `${uploadedImages} imagini au fost încărcate cu succes în Supabase Storage` 
+            message: `${uploadedImages} images have been uploaded successfully to Supabase Storage` 
           });
         } else {
           return res.status(400).json({ 
-            message: "Nu s-au găsit imagini în fișierul ZIP" 
+            message: "No images found in the ZIP file" 
           });
         }
       } catch (error: any) {
@@ -646,8 +650,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         return res.status(500).json({ 
-          message: "Eroare la procesarea fișierului ZIP", 
-          error: error.message || 'Eroare necunoscută' 
+          message: "Error processing ZIP file", 
+          error: error.message || 'Unknown error' 
         });
       }
     })
@@ -661,13 +665,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const updatedCount = await storage.fixProductImagePaths();
         
         return res.status(200).json({
-          message: `Căile imaginilor au fost actualizate cu succes pentru ${updatedCount} produse.`,
+          message: `Image paths have been updated successfully for ${updatedCount} products.`,
           updatedCount
         });
       } catch (error: any) {
         console.error("Error fixing image paths:", error);
         return res.status(500).json({
-          message: "A apărut o eroare la actualizarea căilor imaginilor.",
+          message: "An error occurred while updating image paths.",
           error: error.message || 'Eroare necunoscută'
         });
       }
