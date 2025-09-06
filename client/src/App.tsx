@@ -8,7 +8,6 @@ import Products from "@/pages/products";
 import ProductDetails from "@/pages/product-details";
 import FAQ from "@/pages/faq";
 import Contact from "@/pages/contact";
-import ImportPage from "@/pages/admin/import";
 import AdminPage from "@/pages/admin/admin";
 import HowToOrder from "@/pages/howto";
 import DocsPage from "@/pages/docs";
@@ -31,7 +30,6 @@ function Router() {
         <Route path="/howto" component={HowToOrder} />
         <Route path="/docs" component={DocsPage} />
         <Route path="/docs/:slug" component={DocDetailPage} />
-        <Route path="/admin/import" component={ImportPage} />
         <Route path="/admin" component={AdminPage} />
         <Route component={NotFound} />
       </Switch>
