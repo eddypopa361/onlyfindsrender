@@ -9,34 +9,30 @@ import { supabase, supabaseConfig } from "./supabase"
 interface Product {
   id: string
   title: string
-  priceUSD: number | null
+  priceUSD: string
   image: string | null
-  buyUrl: string | null
+  buyUrl: string
   viewUrl?: string | null
-  category: string | null
+  category: string
   subCategory?: string | null
   brand?: string | null
   featured: boolean
   carousel: boolean
-  created_at?: string
-  updated_at?: string
 }
 
 // Supabase row type (snake_case)
 interface SupabaseProduct {
   id: string
   title: string
-  priceusd: number | null
+  price_usd: string
   image: string | null
-  buyurl: string | null
+  buy_url: string
   viewurl?: string | null
-  category: string | null
-  subcategory?: string | null
+  category: string
+  sub_category?: string | null
   brand?: string | null
   featured: boolean
   carousel: boolean
-  created_at?: string
-  updated_at?: string
 }
 
 // Convert Supabase row to API format
@@ -44,17 +40,15 @@ function mapFromSupabase(row: SupabaseProduct): Product {
   return {
     id: row.id,
     title: row.title,
-    priceUSD: row.priceusd,
+    priceUSD: row.price_usd,
     image: row.image,
-    buyUrl: row.buyurl,
+    buyUrl: row.buy_url,
     viewUrl: row.viewurl,
     category: row.category,
-    subCategory: row.subcategory,
+    subCategory: row.sub_category,
     brand: row.brand,
     featured: row.featured,
-    carousel: row.carousel,
-    created_at: row.created_at,
-    updated_at: row.updated_at
+    carousel: row.carousel
   }
 }
 
@@ -62,12 +56,12 @@ function mapFromSupabase(row: SupabaseProduct): Product {
 function mapToSupabase(product: Partial<Product>, skipId: boolean = false): Partial<SupabaseProduct> {
   const result: Partial<SupabaseProduct> = {
     title: product.title,
-    priceusd: product.priceUSD,
+    price_usd: product.priceUSD,
     image: product.image,
-    buyurl: product.buyUrl,
+    buy_url: product.buyUrl,
     viewurl: product.viewUrl,
     category: product.category,
-    subcategory: product.subCategory,
+    sub_category: product.subCategory,
     brand: product.brand,
     featured: product.featured,
     carousel: product.carousel
@@ -87,10 +81,10 @@ export interface SupabaseStorage {
   getFeaturedProducts(): Promise<Product[]>
   getCarouselProducts(): Promise<Product[]>
   searchProducts(query: string, page: number, limit: number, brand?: string, sort?: string): Promise<{ products: Product[]; total: number }>
-  createProduct(product: Omit<Product, 'id' | 'created_at' | 'updated_at'>): Promise<Product>
+  createProduct(product: Omit<Product, 'id'>): Promise<Product>
   updateProduct(id: string, updates: Partial<Product>): Promise<Product>
   deleteProduct(id: string): Promise<void>
-  bulkCreateProducts(products: Omit<Product, 'id' | 'created_at' | 'updated_at'>[]): Promise<Product[]>
+  bulkCreateProducts(products: Omit<Product, 'id'>[]): Promise<Product[]>
   getCategories(): Promise<string[]>
   getBrands(): Promise<string[]>
 }
@@ -114,7 +108,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       query = query.eq('category', category)
     }
     if (subCategory && subCategory !== 'all') {
-      query = query.eq('subcategory', subCategory)
+      query = query.eq('sub_category', subCategory)
     }
     if (brand && brand !== 'all') {
       query = query.eq('brand', brand)
@@ -123,20 +117,20 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     // Apply sorting with correct column names
     switch (sort) {
       case 'price-asc':
-        query = query.order('priceusd', { ascending: true, nullsLast: true })
+        query = query.order('price_usd', { ascending: true, nullsLast: true })
         break
       case 'price-desc':
-        query = query.order('priceusd', { ascending: false, nullsLast: true })
+        query = query.order('price_usd', { ascending: false, nullsLast: true })
         break
       case 'newest':
-        query = query.order('created_at', { ascending: false })
+        query = query.order('id', { ascending: false })
         break
       case 'alphabetical':
         query = query.order('title', { ascending: true })
         break
       case 'featured':
       default:
-        query = query.order('featured', { ascending: false }).order('created_at', { ascending: false })
+        query = query.order('featured', { ascending: false }).order('id', { ascending: false })
         break
     }
 
@@ -177,7 +171,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       .from('products')
       .select('*')
       .eq('featured', true)
-      .order('created_at', { ascending: false })
+      .order('id', { ascending: false })
       .limit(12)
 
     if (error) {
@@ -195,7 +189,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
       .from('products')
       .select('*')
       .eq('carousel', true)
-      .order('created_at', { ascending: false })
+      .order('id', { ascending: false })
       .limit(8)
 
     if (error) {
@@ -249,7 +243,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     }
   }
 
-  async createProduct(productData: Omit<Product, 'id' | 'created_at' | 'updated_at'>): Promise<Product> {
+  async createProduct(productData: Omit<Product, 'id'>): Promise<Product> {
     if (!supabase) throw new Error('Supabase not configured')
 
     // Skip ID field when creating new products to let database auto-generate it
@@ -303,7 +297,7 @@ export class SupabaseStorageImpl implements SupabaseStorage {
     }
   }
 
-  async bulkCreateProducts(products: Omit<Product, 'id' | 'created_at' | 'updated_at'>[]): Promise<Product[]> {
+  async bulkCreateProducts(products: Omit<Product, 'id'>[]): Promise<Product[]> {
     if (!supabase) throw new Error('Supabase not configured')
 
     const supabaseProducts = products.map(mapToSupabase)
