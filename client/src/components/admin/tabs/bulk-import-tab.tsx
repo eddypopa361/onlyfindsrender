@@ -60,12 +60,8 @@ export function BulkImportTab() {
         const fileInput = document.getElementById("csv-file") as HTMLInputElement;
         if (fileInput) fileInput.value = "";
         
-        // Move to images step if needed
-        if (data.message?.includes("successfully")) {
-          setTimeout(() => {
-            setActiveStep('images');
-          }, 1500);
-        }
+        // Keep the success message in the CSV import section
+        // Auto-navigation to images step removed for better UX
       } else {
         setUploadStatus({
           success: false,
