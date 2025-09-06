@@ -167,19 +167,16 @@ function FeaturedProductCard({ product }: { product: Product }) {
             ${product.price}
           </span>
         </div>
-        <picture>
-          <source srcSet={`${product.image}.webp`} type="image/webp" />
-          <img 
-            src={product.image} 
-            alt={product.title}
-            loading="lazy"
-            decoding="async"
-            width="300"
-            height="300"
-            className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
-            style={{ contentVisibility: 'auto' }}
-          />
-        </picture>
+        <img 
+          src={product.image} 
+          alt={product.title}
+          loading="lazy"
+          decoding="async"
+          width="300"
+          height="300"
+          className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-300"
+          style={{ contentVisibility: 'auto' }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
       </div>
       

@@ -43,16 +43,13 @@ export function ProductCard({ product }: ProductCardProps) {
               <HelpCircle className="w-12 h-12 text-primary" />
             </div>
           ) : (
-            <picture>
-              <source srcSet={`${product.image}.webp`} type="image/webp" />
-              <img 
-                src={product.image} 
-                alt={product.title}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                onError={() => setImageError(true)}
-              />
-            </picture>
+            <img 
+              src={product.image} 
+              alt={product.title}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImageError(true)}
+            />
           )}
         </div>
         <CardContent className="p-4 text-white">
