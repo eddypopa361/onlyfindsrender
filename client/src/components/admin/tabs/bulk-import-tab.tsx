@@ -38,6 +38,7 @@ export function BulkImportTab() {
 
     setIsUploading(true);
     setUploadStatus(null);
+    setActiveStep('csv');
 
     const formData = new FormData();
     formData.append("file", csvFile);
@@ -90,6 +91,7 @@ export function BulkImportTab() {
 
     setIsUploading(true);
     setUploadStatus(null);
+    setActiveStep('images');
 
     const formData = new FormData();
     formData.append("imagesZip", imagesZip);
