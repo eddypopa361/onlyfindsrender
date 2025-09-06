@@ -329,13 +329,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const limit = parseInt(req.query.limit as string) || 12;
     const category = req.query.category as string;
     const subCategory = req.query.subCategory as string; 
-    const brand = req.query.brand as string;
     const sort = req.query.sort as string || "featured";
     
     let result;
     
     // Use Supabase storage only
-    result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, brand, sort);
+    result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, sort);
     
     res.json({
       products: result.products,
@@ -371,7 +370,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const query = req.query.q as string;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 12;
-    const brand = req.query.brand as string;
     const sort = req.query.sort as string || "featured";
     
     if (!query) {
@@ -380,7 +378,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     let results;
     
-    results = await fixedSupabaseStorage.searchProducts(query, page, limit, brand, sort);
+    results = await fixedSupabaseStorage.searchProducts(query, page, limit, sort);
     
     res.json({
       products: results.products,
