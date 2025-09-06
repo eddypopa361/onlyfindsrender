@@ -1,14 +1,205 @@
 var __defProp = Object.defineProperty;
+var __getOwnPropNames = Object.getOwnPropertyNames;
 var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
   get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
 }) : x)(function(x) {
   if (typeof require !== "undefined") return require.apply(this, arguments);
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
+
+// server/supabase.ts
+import { createClient } from "@supabase/supabase-js";
+var supabaseUrl, supabaseServiceRole, USE_SUPABASE_ONLY, supabaseConfig, supabase;
+var init_supabase = __esm({
+  "server/supabase.ts"() {
+    "use strict";
+    supabaseUrl = process.env.SUPABASE_URL;
+    supabaseServiceRole = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_SERVICE_KEY;
+    USE_SUPABASE_ONLY = process.env.USE_SUPABASE_ONLY !== "false";
+    supabaseConfig = {
+      url: supabaseUrl,
+      serviceKey: supabaseServiceRole,
+      isConfigured: !!(supabaseUrl && supabaseServiceRole),
+      useSupabaseOnly: USE_SUPABASE_ONLY
+    };
+    supabase = supabaseConfig.isConfigured ? createClient(supabaseUrl, supabaseServiceRole, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    }) : null;
+    if (supabaseConfig.isConfigured) {
+      console.log("\u2705 Server Supabase configured with service role");
+    } else {
+      console.warn("\u26A0\uFE0F Server Supabase not configured");
+      console.warn(
+        "Missing:",
+        !supabaseUrl ? "SUPABASE_URL" : "",
+        !supabaseServiceRole ? "SUPABASE_SERVICE_ROLE" : ""
+      );
+    }
+  }
+});
+
+// server/supabase-storage.ts
+var supabase_storage_exports = {};
+__export(supabase_storage_exports, {
+  SupabaseStorageService: () => SupabaseStorageService,
+  supabaseStorage: () => supabaseStorage
+});
+import * as fs from "fs";
+import * as path from "path";
+var BUCKET_NAME, SupabaseStorageService, supabaseStorage;
+var init_supabase_storage = __esm({
+  "server/supabase-storage.ts"() {
+    "use strict";
+    init_supabase();
+    BUCKET_NAME = "product-images";
+    SupabaseStorageService = class {
+      /**
+       * Initialize the storage bucket (create if doesn't exist)
+       */
+      async initializeBucket() {
+        if (!supabase) throw new Error("Supabase not configured");
+        try {
+          const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+          if (listError) {
+            throw listError;
+          }
+          const bucketExists = buckets?.some((bucket) => bucket.name === BUCKET_NAME);
+          if (!bucketExists) {
+            const { error: createError } = await supabase.storage.createBucket(BUCKET_NAME, {
+              public: true,
+              allowedMimeTypes: ["image/*"],
+              fileSizeLimit: 10485760
+              // 10MB limit
+            });
+            if (createError) {
+              throw createError;
+            }
+            console.log(`\u2705 Created Supabase Storage bucket: ${BUCKET_NAME}`);
+          } else {
+            console.log(`\u2705 Supabase Storage bucket already exists: ${BUCKET_NAME}`);
+          }
+          return true;
+        } catch (error) {
+          console.error("Error initializing Supabase Storage bucket:", error);
+          throw error;
+        }
+      }
+      /**
+       * Upload an image file to Supabase Storage
+       */
+      async uploadImage(file, filename) {
+        if (!supabase) throw new Error("Supabase not configured");
+        try {
+          const ext = path.extname(filename).toLowerCase();
+          const mimeTypes = {
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".png": "image/png",
+            ".webp": "image/webp",
+            ".gif": "image/gif"
+          };
+          const contentType = mimeTypes[ext] || "image/jpeg";
+          const { data, error } = await supabase.storage.from(BUCKET_NAME).upload(filename, file, {
+            cacheControl: "3600",
+            upsert: true,
+            contentType
+          });
+          if (error) {
+            throw error;
+          }
+          const { data: publicUrlData } = supabase.storage.from(BUCKET_NAME).getPublicUrl(filename);
+          return publicUrlData.publicUrl;
+        } catch (error) {
+          console.error("Error uploading image to Supabase Storage:", error);
+          throw error;
+        }
+      }
+      /**
+       * Upload a local file to Supabase Storage
+       */
+      async uploadLocalFile(localPath, storageFilename) {
+        try {
+          const fileBuffer = fs.readFileSync(localPath);
+          return await this.uploadImage(fileBuffer, storageFilename);
+        } catch (error) {
+          console.error(`Error uploading local file ${localPath}:`, error);
+          throw error;
+        }
+      }
+      /**
+       * Generate a unique filename for storage
+       */
+      generateFilename(originalName) {
+        const timestamp = Date.now();
+        const randomStr = Math.random().toString(36).substring(2, 8);
+        const extension = path.extname(originalName);
+        return `${timestamp}_${randomStr}${extension}`;
+      }
+      /**
+       * Delete an image from Supabase Storage
+       */
+      async deleteImage(filename) {
+        if (!supabase) throw new Error("Supabase not configured");
+        try {
+          const { error } = await supabase.storage.from(BUCKET_NAME).remove([filename]);
+          if (error) {
+            throw error;
+          }
+        } catch (error) {
+          console.error(`Error deleting image ${filename}:`, error);
+          throw error;
+        }
+      }
+      /**
+       * Get all existing local images that need to be migrated
+       */
+      getLocalImages() {
+        const uploadsDir = path.join(process.cwd(), "..", "uploads");
+        if (!fs.existsSync(uploadsDir)) {
+          return [];
+        }
+        const allFiles = fs.readdirSync(uploadsDir);
+        return allFiles.filter((file) => {
+          const fileName = file.toLowerCase();
+          return fileName.includes(".jpg") || fileName.includes(".jpeg") || fileName.includes(".png") || fileName.includes(".webp") || fileName.includes(".gif") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".webp") || fileName.endsWith(".gif");
+        }).map((file) => path.join(uploadsDir, file));
+      }
+      /**
+       * Migrate all local images to Supabase Storage
+       */
+      async migrateLocalImages() {
+        const localImages = this.getLocalImages();
+        const migrated = [];
+        const failed = [];
+        console.log(`\u{1F4E6} Starting migration of ${localImages.length} local images to Supabase Storage...`);
+        for (const localPath of localImages) {
+          try {
+            const filename = path.basename(localPath);
+            const publicUrl = await this.uploadLocalFile(localPath, filename);
+            migrated.push(`${localPath} -> ${publicUrl}`);
+            console.log(`\u2705 Migrated: ${filename}`);
+          } catch (error) {
+            failed.push(`${localPath}: ${error}`);
+            console.log(`\u274C Failed: ${path.basename(localPath)} - ${error}`);
+          }
+        }
+        console.log(`\u{1F389} Migration complete! Migrated: ${migrated.length}, Failed: ${failed.length}`);
+        return { migrated, failed };
+      }
+    };
+    supabaseStorage = new SupabaseStorageService();
+  }
+});
 
 // server/index.ts
 import express3 from "express";
@@ -17,14 +208,205 @@ import express3 from "express";
 import express from "express";
 import { createServer } from "http";
 
+// server/storage-supabase-fixed.ts
+init_supabase();
+function mapFromSupabase(row) {
+  return {
+    id: row.id,
+    title: row.title,
+    priceUSD: row.price_usd,
+    image: row.image,
+    buyUrl: row.buy_url,
+    category: row.category,
+    subCategory: row.sub_category,
+    featured: row.featured,
+    carousel: row.carousel
+  };
+}
+function mapToSupabase(product, skipId = false) {
+  const result = {
+    title: product.title,
+    price_usd: product.priceUSD || product.price_usd,
+    // Support both formats
+    image: product.image,
+    buy_url: product.buyUrl || product.buy_url,
+    // Support both formats
+    category: product.category,
+    sub_category: product.subCategory || product.sub_category,
+    // Support both formats
+    featured: product.featured,
+    carousel: product.carousel
+  };
+  if (!skipId && product.id) {
+    result.id = product.id;
+  }
+  return result;
+}
+var SupabaseStorageImpl = class {
+  constructor() {
+    if (!supabase) {
+      throw new Error("Supabase client not initialized");
+    }
+  }
+  async getProducts(page = 1, limit = 12, category, subCategory, sort) {
+    if (!supabase) throw new Error("Supabase not configured");
+    let query = supabase.from("products").select("*", { count: "exact" });
+    if (category && category !== "all") {
+      query = query.eq("category", category);
+    }
+    if (subCategory && subCategory !== "all") {
+      query = query.eq("sub_category", subCategory);
+    }
+    switch (sort) {
+      case "price-asc":
+        query = query.order("price_usd", { ascending: true, nullsLast: true });
+        break;
+      case "price-desc":
+        query = query.order("price_usd", { ascending: false, nullsLast: true });
+        break;
+      case "newest":
+        query = query.order("id", { ascending: false });
+        break;
+      case "alphabetical":
+        query = query.order("title", { ascending: true });
+        break;
+      case "featured":
+      default:
+        query = query.order("featured", { ascending: false }).order("id", { ascending: false });
+        break;
+    }
+    const { data, error, count } = await query.range((page - 1) * limit, page * limit - 1);
+    if (error) {
+      console.error("Supabase getProducts error:", error);
+      throw new Error(`Failed to fetch products: ${error.message}`);
+    }
+    return {
+      products: (data || []).map(mapFromSupabase),
+      total: count || 0
+    };
+  }
+  async getProductById(id) {
+    if (!supabase) throw new Error("Supabase not configured");
+    const { data, error } = await supabase.from("products").select("*").eq("id", id).single();
+    if (error) {
+      if (error.code === "PGRST116") return null;
+      throw error;
+    }
+    return mapFromSupabase(data);
+  }
+  async getFeaturedProducts() {
+    if (!supabase) throw new Error("Supabase not configured");
+    const { data, error } = await supabase.from("products").select("*").eq("featured", true).order("id", { ascending: false }).limit(12);
+    if (error) {
+      console.error("Error fetching featured products:", error);
+      throw error;
+    }
+    return (data || []).map(mapFromSupabase);
+  }
+  async getCarouselProducts() {
+    if (!supabase) throw new Error("Supabase not configured");
+    const { data, error } = await supabase.from("products").select("*").eq("carousel", true).order("id", { ascending: false }).limit(8);
+    if (error) {
+      console.error("Error fetching carousel products:", error);
+      throw error;
+    }
+    return (data || []).map(mapFromSupabase);
+  }
+  async searchProducts(query, page = 1, limit = 12, sort) {
+    if (!supabase) throw new Error("Supabase not configured");
+    let supabaseQuery = supabase.from("products").select("*", { count: "exact" }).or(`title.ilike.%${query}%,category.ilike.%${query}%`);
+    switch (sort) {
+      case "price-asc":
+        supabaseQuery = supabaseQuery.order("price_usd", { ascending: true, nullsLast: true });
+        break;
+      case "price-desc":
+        supabaseQuery = supabaseQuery.order("price_usd", { ascending: false, nullsLast: true });
+        break;
+      case "newest":
+        supabaseQuery = supabaseQuery.order("id", { ascending: false });
+        break;
+      case "alphabetical":
+        supabaseQuery = supabaseQuery.order("title", { ascending: true });
+        break;
+      default:
+        supabaseQuery = supabaseQuery.order("featured", { ascending: false }).order("id", { ascending: false });
+        break;
+    }
+    const { data, error, count } = await supabaseQuery.range((page - 1) * limit, page * limit - 1);
+    if (error) {
+      console.error("Error searching products:", error);
+      throw error;
+    }
+    return {
+      products: (data || []).map(mapFromSupabase),
+      total: count || 0
+    };
+  }
+  async createProduct(productData) {
+    if (!supabase) throw new Error("Supabase not configured");
+    const supabaseData = mapToSupabase(productData, true);
+    const { data, error } = await supabase.from("products").insert(supabaseData).select().single();
+    if (error) {
+      console.error("Error creating product:", error);
+      throw error;
+    }
+    return mapFromSupabase(data);
+  }
+  async updateProduct(id, updates) {
+    if (!supabase) throw new Error("Supabase not configured");
+    const supabaseUpdates = mapToSupabase(updates);
+    const { data, error } = await supabase.from("products").update(supabaseUpdates).eq("id", id).select().single();
+    if (error) {
+      console.error("Error updating product:", error);
+      throw error;
+    }
+    return mapFromSupabase(data);
+  }
+  async deleteProduct(id) {
+    if (!supabase) throw new Error("Supabase not configured");
+    const { error } = await supabase.from("products").delete().eq("id", id);
+    if (error) {
+      console.error("Error deleting product:", error);
+      throw error;
+    }
+  }
+  async bulkCreateProducts(products2) {
+    if (!supabase) throw new Error("Supabase not configured");
+    const supabaseProducts = products2.map(mapToSupabase);
+    const { data, error } = await supabase.from("products").insert(supabaseProducts).select();
+    if (error) {
+      console.error("Error bulk creating products:", error);
+      throw error;
+    }
+    return (data || []).map(mapFromSupabase);
+  }
+  async getCategories() {
+    if (!supabase) throw new Error("Supabase not configured");
+    const { data, error } = await supabase.from("products").select("category").not("category", "is", null);
+    if (error) {
+      console.error("Error fetching categories:", error);
+      throw error;
+    }
+    const categories = [...new Set(data.map((item) => item.category).filter(Boolean))];
+    return categories.sort();
+  }
+  async getBrands() {
+    return [];
+  }
+  async createManyProducts(products2) {
+    await this.bulkCreateProducts(products2);
+  }
+};
+var fixedSupabaseStorageInstance = null;
+try {
+  fixedSupabaseStorageInstance = supabaseConfig.isConfigured ? new SupabaseStorageImpl() : null;
+} catch (error) {
+  console.warn("Fixed Supabase storage not available:", error);
+  fixedSupabaseStorageInstance = null;
+}
+var fixedSupabaseStorage = fixedSupabaseStorageInstance;
+
 // shared/schema.ts
-var schema_exports = {};
-__export(schema_exports, {
-  insertProductSchema: () => insertProductSchema,
-  insertUserSchema: () => insertUserSchema,
-  products: () => products,
-  users: () => users
-});
 import { pgTable, text, serial, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 var users = pgTable("users", {
@@ -37,271 +419,35 @@ var insertUserSchema = createInsertSchema(users).pick({
   password: true
 });
 var products = pgTable("products", {
-  id: serial("id").primaryKey(),
+  id: text("id").primaryKey(),
+  // UUID format in Supabase
   title: text("title").notNull(),
-  price: text("price").notNull(),
-  // legacy field, kept for compatibility
-  priceUSD: text("price_usd"),
-  // New numeric price field
-  image: text("image").notNull(),
-  buyUrl: text("buy_url").notNull(),
-  viewUrl: text("view_url"),
-  // Made optional
+  price_usd: text("price_usd").notNull(),
+  // Matches database column exactly
+  image: text("image"),
+  buy_url: text("buy_url").notNull(),
   category: text("category").notNull(),
-  brand: text("brand"),
-  // Made optional  
-  subCategory: text("sub_category"),
-  // Subcategoria pentru filtrare suplimentară
+  sub_category: text("sub_category"),
   featured: boolean("featured").default(false),
   carousel: boolean("carousel").default(false)
-  // Indicator pentru produsele din carusel
 });
-var insertProductSchema = createInsertSchema(products).pick({
-  title: true,
-  price: true,
-  priceUSD: true,
-  image: true,
-  buyUrl: true,
-  viewUrl: true,
-  category: true,
-  brand: true,
-  subCategory: true,
-  featured: true,
-  carousel: true
+var insertProductSchema = createInsertSchema(products).omit({
+  id: true
+  // Omit ID since it's auto-generated
 });
-
-// server/db.ts
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?"
-  );
-}
-var sql = neon(process.env.DATABASE_URL);
-var db = drizzle(sql, { schema: schema_exports });
-
-// server/storage.ts
-import { eq, desc, asc, sql as sql2, ne } from "drizzle-orm";
-var DatabaseStorage = class {
-  async getUser(id) {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user;
-  }
-  async getUserByUsername(username) {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user;
-  }
-  async createUser(insertUser) {
-    const [user] = await db.insert(users).values(insertUser).returning();
-    return user;
-  }
-  async getProducts(page = 1, limit = 12, category, subCategory, brand, sort = "featured") {
-    const offset = (page - 1) * limit;
-    let queryBuilder = db.select().from(products);
-    let countQueryBuilder = db.select({ count: sql2`count(*)` }).from(products);
-    const conditions = [];
-    if (category && category !== "All") {
-      conditions.push(eq(products.category, category));
-      if ((category === "Clothing" || category === "Accessories") && subCategory && subCategory !== "All") {
-        conditions.push(eq(products.subCategory, subCategory));
-      }
-    }
-    if (brand && brand !== "All") {
-      conditions.push(sql2`UPPER(${products.brand}) = UPPER(${brand})`);
-    }
-    if (conditions.length > 0) {
-      for (const condition of conditions) {
-        queryBuilder = queryBuilder.where(condition);
-        countQueryBuilder = countQueryBuilder.where(condition);
-      }
-    }
-    if (sort === "priceAsc") {
-      queryBuilder = queryBuilder.orderBy(asc(products.price));
-    } else if (sort === "priceDesc") {
-      queryBuilder = queryBuilder.orderBy(desc(products.price));
-    } else {
-      queryBuilder = queryBuilder.orderBy(
-        desc(products.featured),
-        desc(products.id)
-      );
-    }
-    const productsList = await queryBuilder.limit(limit).offset(offset);
-    const result = await countQueryBuilder;
-    const total = result.length > 0 ? Number(result[0].count) : 0;
-    return {
-      products: productsList,
-      total
-    };
-  }
-  async getProductById(id) {
-    const [product] = await db.select().from(products).where(eq(products.id, id));
-    return product;
-  }
-  async getFeaturedProducts() {
-    const allProducts = await db.select().from(products);
-    const validProducts = allProducts.filter(
-      (p) => p.image && p.image.trim() !== "" && p.buyUrl && p.buyUrl.trim() !== ""
-    );
-    return this.sampleDistinct(validProducts, 12);
-  }
-  async getCarouselProducts() {
-    const allProducts = await db.select().from(products);
-    const validProducts = allProducts.filter(
-      (p) => p.image && p.image.trim() !== "" && p.buyUrl && p.buyUrl.trim() !== ""
-    );
-    return this.sampleDistinct(validProducts, 8);
-  }
-  /**
-   * Sample N distinct items from an array using a date-based seed for stability
-   */
-  sampleDistinct(items, count) {
-    if (items.length <= count) return [...items];
-    const dateString = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
-    const shuffled = [...items];
-    let seedValue = 0;
-    for (let i = 0; i < dateString.length; i++) {
-      seedValue += dateString.charCodeAt(i);
-    }
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      seedValue = (seedValue * 9301 + 49297) % 233280;
-      const j = Math.floor(seedValue / 233280 * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled.slice(0, count);
-  }
-  async createProduct(product) {
-    const [newProduct] = await db.insert(products).values(product).returning();
-    return newProduct;
-  }
-  async createManyProducts(productsToInsert) {
-    const chunkSize = 100;
-    for (let i = 0; i < productsToInsert.length; i += chunkSize) {
-      const chunk = productsToInsert.slice(i, i + chunkSize);
-      await db.insert(products).values(chunk);
-    }
-  }
-  async searchProducts(query, page = 1, limit = 12, brand, sort = "featured") {
-    const offset = (page - 1) * limit;
-    const searchPattern = `%${query}%`;
-    let searchCondition = sql2`${products.title} ILIKE ${searchPattern} OR ${products.category} ILIKE ${searchPattern}`;
-    if (brand && brand !== "All") {
-      searchCondition = sql2`(${searchCondition}) AND UPPER(${products.brand}) = UPPER(${brand})`;
-    }
-    let queryBuilder = db.select().from(products).where(searchCondition);
-    if (sort === "priceAsc") {
-      queryBuilder = queryBuilder.orderBy(asc(products.price));
-    } else if (sort === "priceDesc") {
-      queryBuilder = queryBuilder.orderBy(desc(products.price));
-    } else {
-      queryBuilder = queryBuilder.orderBy(
-        desc(products.featured),
-        desc(products.id)
-      );
-    }
-    const productsList = await queryBuilder.limit(limit).offset(offset);
-    const result = await db.select({ count: sql2`count(*)` }).from(products).where(searchCondition);
-    const total = result.length > 0 ? Number(result[0].count) : 0;
-    return {
-      products: productsList,
-      total
-    };
-  }
-  // Helper method to fix image paths for all products
-  async fixProductImagePaths() {
-    let updatedCount = 0;
-    const productsToUpdate = await db.select().from(products).where(sql2`${products.image} IS NOT NULL AND ${products.image} != '' AND 
-             ${products.image} NOT LIKE '/uploads/%' AND 
-             ${products.image} NOT LIKE 'http%'`);
-    for (const product of productsToUpdate) {
-      const oldImagePath = product.image;
-      const newImagePath = `/uploads/${oldImagePath}`;
-      await db.update(products).set({ image: newImagePath }).where(eq(products.id, product.id));
-      updatedCount++;
-    }
-    return updatedCount;
-  }
-  /**
-   * Obține recomandări de produse pe baza unui produs specificat
-   * Strategia folosită: Caută produse din aceeași categorie și/sau brand
-   */
-  async getProductRecommendations(product, limit = 4) {
-    const excludeId = product.id;
-    const productCategory = product.category;
-    const productBrand = product.brand || "Other";
-    let recommendedProducts = [];
-    const safeExcludeIds = (queryBuilder, ids) => {
-      for (const id of ids) {
-        if (id !== void 0 && id !== null) {
-          queryBuilder = queryBuilder.where(ne(products.id, id));
-        }
-      }
-      return queryBuilder;
-    };
-    if (recommendedProducts.length < limit) {
-      const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(eq(products.category, productCategory)).where(sql2`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId));
-      if (recommendedProducts.length > 0) {
-        query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
-      }
-      const similarProducts = await query.orderBy(desc(products.featured), desc(products.id)).limit(currentLimit);
-      recommendedProducts = [...recommendedProducts, ...similarProducts];
-    }
-    if (recommendedProducts.length < limit) {
-      const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(eq(products.category, productCategory)).where(ne(products.id, excludeId));
-      if (productBrand) {
-        query = query.where(sql2`UPPER(${products.brand}) != UPPER(${productBrand})`);
-      }
-      if (recommendedProducts.length > 0) {
-        query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
-      }
-      const similarProducts = await query.orderBy(desc(products.featured), desc(products.id)).limit(currentLimit);
-      recommendedProducts = [...recommendedProducts, ...similarProducts];
-    }
-    if (recommendedProducts.length < limit && productBrand) {
-      const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(sql2`UPPER(${products.brand}) = UPPER(${productBrand})`).where(ne(products.id, excludeId)).where(ne(products.category, productCategory));
-      if (recommendedProducts.length > 0) {
-        query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
-      }
-      const similarProducts = await query.orderBy(desc(products.featured), desc(products.id)).limit(currentLimit);
-      recommendedProducts = [...recommendedProducts, ...similarProducts];
-    }
-    if (recommendedProducts.length < limit) {
-      const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(eq(products.featured, true)).where(ne(products.id, excludeId));
-      if (recommendedProducts.length > 0) {
-        query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
-      }
-      const popularProducts = await query.orderBy(desc(products.id)).limit(currentLimit);
-      recommendedProducts = [...recommendedProducts, ...popularProducts];
-    }
-    if (recommendedProducts.length < limit) {
-      const currentLimit = limit - recommendedProducts.length;
-      let query = db.select().from(products).where(ne(products.id, excludeId));
-      if (recommendedProducts.length > 0) {
-        query = safeExcludeIds(query, recommendedProducts.map((p) => p.id));
-      }
-      const anyProducts = await query.orderBy(desc(products.id)).limit(currentLimit);
-      recommendedProducts = [...recommendedProducts, ...anyProducts];
-    }
-    return recommendedProducts;
-  }
-};
-var storage = new DatabaseStorage();
 
 // server/routes.ts
 import { z } from "zod";
 import multer from "multer";
 import * as csv from "csv-parse";
-import * as fs from "fs";
-import path from "path";
+import * as fs2 from "fs";
+import path2 from "path";
 import AdmZip from "adm-zip";
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads", { recursive: true });
-}
-var upload = multer({ dest: "uploads/" });
+var upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 50 * 1024 * 1024 }
+  // 50MB limit for images
+});
 function generateProductPageHtml(product) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -600,9 +746,9 @@ async function registerRoutes(app2) {
     const limit = parseInt(req.query.limit) || 12;
     const category = req.query.category;
     const subCategory = req.query.subCategory;
-    const brand = req.query.brand;
     const sort = req.query.sort || "featured";
-    const result = await storage.getProducts(page, limit, category, subCategory, brand, sort);
+    let result;
+    result = await fixedSupabaseStorage.getProducts(page, limit, category, subCategory, sort);
     res.json({
       products: result.products,
       pagination: {
@@ -614,23 +760,25 @@ async function registerRoutes(app2) {
     });
   }));
   apiRouter.get("/products/featured", asyncHandler(async (req, res) => {
-    const featuredProducts = await storage.getFeaturedProducts();
+    let featuredProducts;
+    featuredProducts = await fixedSupabaseStorage.getFeaturedProducts();
     res.json(featuredProducts);
   }));
   apiRouter.get("/products/carousel", asyncHandler(async (req, res) => {
-    const carouselProducts = await storage.getCarouselProducts();
+    let carouselProducts;
+    carouselProducts = await fixedSupabaseStorage.getCarouselProducts();
     res.json(carouselProducts);
   }));
   apiRouter.get("/products/search", asyncHandler(async (req, res) => {
     const query = req.query.q;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 12;
-    const brand = req.query.brand;
     const sort = req.query.sort || "featured";
     if (!query) {
       return res.status(400).json({ message: "Search query is required" });
     }
-    const results = await storage.searchProducts(query, page, limit, brand, sort);
+    let results;
+    results = await fixedSupabaseStorage.searchProducts(query, page, limit, sort);
     res.json({
       products: results.products,
       pagination: {
@@ -646,7 +794,7 @@ async function registerRoutes(app2) {
     if (isNaN(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
-    const product = await storage.getProductById(id);
+    const product = await fixedSupabaseStorage.getProductById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -658,17 +806,37 @@ async function registerRoutes(app2) {
     if (isNaN(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
-    const product = await storage.getProductById(id);
+    const product = await fixedSupabaseStorage.getProductById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-    const recommendations = await storage.getProductRecommendations(product, limit);
+    const recommendations = await fixedSupabaseStorage.getProductRecommendations(product, limit);
     res.json(recommendations);
   }));
   apiRouter.post("/products", asyncHandler(async (req, res) => {
     try {
-      const productData = insertProductSchema.parse(req.body);
-      const newProduct = await storage.createProduct(productData);
+      const customSchema = z.object({
+        title: z.string().min(1),
+        price_usd: z.string(),
+        image: z.string().optional(),
+        buy_url: z.string().min(1),
+        category: z.string().min(1),
+        sub_category: z.string().optional().nullable(),
+        featured: z.boolean().default(false),
+        carousel: z.boolean().default(false)
+      });
+      const validatedData = customSchema.parse(req.body);
+      const productForStorage = {
+        title: validatedData.title,
+        priceUSD: validatedData.price_usd,
+        image: validatedData.image || null,
+        buyUrl: validatedData.buy_url,
+        category: validatedData.category,
+        subCategory: validatedData.sub_category || null,
+        featured: validatedData.featured,
+        carousel: validatedData.carousel
+      };
+      const newProduct = await fixedSupabaseStorage.createProduct(productForStorage);
       res.status(201).json(newProduct);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -680,15 +848,40 @@ async function registerRoutes(app2) {
       throw error;
     }
   }));
+  apiRouter.post("/products/upload-image", upload.single("image"), asyncHandler(async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: "No image file uploaded" });
+    }
+    try {
+      const file = req.file;
+      const { supabaseStorage: supabaseStorage2 } = await Promise.resolve().then(() => (init_supabase_storage(), supabase_storage_exports));
+      const filename = supabaseStorage2.generateFilename(file.originalname);
+      const fileBuffer = file.buffer;
+      const publicUrl = await supabaseStorage2.uploadImage(fileBuffer, filename);
+      res.json({
+        message: "Image uploaded successfully to Supabase Storage",
+        filename: publicUrl,
+        // Return full Supabase Storage URL
+        originalName: file.originalname,
+        storageUrl: publicUrl
+      });
+    } catch (error) {
+      console.error("Supabase Storage upload error:", error);
+      res.status(500).json({
+        message: "Failed to upload image to Supabase Storage",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  }));
   apiRouter.post(
     "/products/import/csv",
     upload.single("file"),
     asyncHandler(async (req, res) => {
       if (!req.file) {
-        return res.status(400).json({ message: "Niciun fi\u0219ier \xEEnc\u0103rcat" });
+        return res.status(400).json({ message: "No file uploaded" });
       }
       try {
-        const fileContent = fs.readFileSync(req.file.path, "utf8");
+        const fileContent = req.file.buffer.toString("utf8");
         const parser = csv.parse(fileContent, {
           columns: true,
           skip_empty_lines: true
@@ -700,62 +893,43 @@ async function registerRoutes(app2) {
             imagePath = `/uploads/${imagePath}`;
           }
           const productTitle = record.title || "";
-          const priceUSD = record.priceUSD || record.priceUsd || record.price_usd || null;
-          const subCategoryValue = record.subcategory || record.Subcategory || record.subCategory || null;
+          const priceUSD = record.price_usd || record.priceUSD || record.priceUsd || null;
+          const buyUrlValue = record.buy_url || record.buyUrl || "";
+          const subCategoryValue = record.sub_category || record.subcategory || record.Subcategory || record.subCategory || null;
           const product = {
             title: productTitle,
-            price: priceUSD || "0",
-            // Use priceUSD as fallback for legacy price
-            priceUSD,
+            price_usd: priceUSD || "0",
+            // Exact database column name
             image: imagePath,
-            buyUrl: record.buyUrl || record.buy_url || "",
-            viewUrl: null,
-            // Not required in new format
+            buy_url: buyUrlValue,
+            // Exact database column name
             category: record.category || "Other",
-            brand: null,
-            // Not used in new format
-            subCategory: subCategoryValue,
+            sub_category: subCategoryValue,
+            // Exact database column name
             featured: record.featured === "true" || record.featured === "1" || false,
-            carousel: false
+            carousel: record.carousel === "true" || record.carousel === "1" || false
           };
-          try {
-            const validatedProduct = insertProductSchema.parse(product);
-            records.push(validatedProduct);
-          } catch (validationError) {
-            console.error("Validation error for record:", record, validationError);
+          if (productTitle && (record.category || "Other")) {
+            records.push(product);
+          } else {
+            console.error("Skipping invalid record (missing title or category):", record);
           }
-        }
-        try {
-          if (fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-          }
-        } catch (unlinkError) {
-          console.warn("Warning: Could not delete temporary file:", unlinkError);
         }
         if (records.length > 0) {
-          await storage.createManyProducts(records);
+          await fixedSupabaseStorage.bulkCreateProducts(records);
           return res.status(200).json({
-            message: `Importul a fost realizat cu succes! ${records.length} produse au fost ad\u0103ugate.`
+            message: `Import completed successfully! ${records.length} products have been added.`
           });
         } else {
           return res.status(400).json({
-            message: "Nu s-au g\u0103sit produse valide \xEEn fi\u0219ierul CSV"
+            message: "No valid products found in the CSV file"
           });
         }
       } catch (error) {
         console.error("CSV import error:", error);
-        if (req.file) {
-          try {
-            if (fs.existsSync(req.file.path)) {
-              fs.unlinkSync(req.file.path);
-            }
-          } catch (unlinkError) {
-            console.warn("Warning: Could not delete temporary file:", unlinkError);
-          }
-        }
         return res.status(500).json({
-          message: "Eroare la procesarea fi\u0219ierului CSV",
-          error: error.message || "Eroare necunoscut\u0103"
+          message: "Error processing CSV file",
+          error: error.message || "Unknown error"
         });
       }
     })
@@ -765,46 +939,49 @@ async function registerRoutes(app2) {
     upload.single("imagesZip"),
     asyncHandler(async (req, res) => {
       if (!req.file) {
-        return res.status(400).json({ message: "Niciun fi\u0219ier ZIP \xEEnc\u0103rcat" });
+        return res.status(400).json({ message: "No ZIP file uploaded" });
       }
       try {
         if (!req.file.mimetype?.includes("zip") && !req.file.originalname.endsWith(".zip")) {
-          fs.unlinkSync(req.file.path);
-          return res.status(400).json({ message: "Fi\u0219ierul \xEEnc\u0103rcat nu este \xEEn format ZIP" });
+          return res.status(400).json({ message: "Uploaded file is not a ZIP format" });
         }
-        const zip = new AdmZip(req.file.path);
+        const zip = new AdmZip(req.file.buffer);
         const zipEntries = zip.getEntries();
-        let extractedImages = 0;
+        const { supabaseStorage: supabaseStorage2 } = await Promise.resolve().then(() => (init_supabase_storage(), supabase_storage_exports));
+        let uploadedImages = 0;
         const supportedImageTypes = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
         for (const entry of zipEntries) {
           if (entry.isDirectory || entry.name.startsWith("._")) continue;
           const entryName = entry.name.toLowerCase();
           const isImage = supportedImageTypes.some((ext) => entryName.endsWith(ext));
           if (isImage) {
-            const outputPath = path.join("uploads", entry.name);
-            zip.extractEntryTo(entry, "uploads", false, true);
-            extractedImages++;
-            console.log(`Extracted: ${entry.name} to ${outputPath}`);
+            try {
+              const imageBuffer = entry.getData();
+              const publicUrl = await supabaseStorage2.uploadImage(imageBuffer, entry.name);
+              uploadedImages++;
+              console.log(`Uploaded to Supabase Storage: ${entry.name} -> ${publicUrl}`);
+            } catch (uploadError) {
+              console.error(`Failed to upload ${entry.name}:`, uploadError);
+            }
           }
         }
-        fs.unlinkSync(req.file.path);
-        if (extractedImages > 0) {
+        if (uploadedImages > 0) {
           return res.status(200).json({
-            message: `${extractedImages} imagini au fost extrase cu succes`
+            message: `${uploadedImages} images have been uploaded successfully to Supabase Storage`
           });
         } else {
           return res.status(400).json({
-            message: "Nu s-au g\u0103sit imagini \xEEn fi\u0219ierul ZIP"
+            message: "No images found in the ZIP file"
           });
         }
       } catch (error) {
         console.error("ZIP extraction error:", error);
-        if (req.file && fs.existsSync(req.file.path)) {
-          fs.unlinkSync(req.file.path);
+        if (req.file && fs2.existsSync(req.file.path)) {
+          fs2.unlinkSync(req.file.path);
         }
         return res.status(500).json({
-          message: "Eroare la procesarea fi\u0219ierului ZIP",
-          error: error.message || "Eroare necunoscut\u0103"
+          message: "Error processing ZIP file",
+          error: error.message || "Unknown error"
         });
       }
     })
@@ -815,13 +992,13 @@ async function registerRoutes(app2) {
       try {
         const updatedCount = await storage.fixProductImagePaths();
         return res.status(200).json({
-          message: `C\u0103ile imaginilor au fost actualizate cu succes pentru ${updatedCount} produse.`,
+          message: `Image paths have been updated successfully for ${updatedCount} products.`,
           updatedCount
         });
       } catch (error) {
         console.error("Error fixing image paths:", error);
         return res.status(500).json({
-          message: "A ap\u0103rut o eroare la actualizarea c\u0103ilor imaginilor.",
+          message: "An error occurred while updating image paths.",
           error: error.message || "Eroare necunoscut\u0103"
         });
       }
@@ -832,32 +1009,32 @@ async function registerRoutes(app2) {
     asyncHandler(async (req, res) => {
       try {
         console.log("Starting static export for Netlify...");
-        const exportDir = path.join(process.cwd(), "netlify-export");
-        if (fs.existsSync(exportDir)) {
-          fs.rmSync(exportDir, { recursive: true, force: true });
+        const exportDir = path2.join(process.cwd(), "netlify-export");
+        if (fs2.existsSync(exportDir)) {
+          fs2.rmSync(exportDir, { recursive: true, force: true });
         }
-        fs.mkdirSync(exportDir, { recursive: true });
-        const publicDir = path.join(exportDir, "public");
-        fs.mkdirSync(publicDir, { recursive: true });
-        const cssDir = path.join(publicDir, "css");
-        fs.mkdirSync(cssDir, { recursive: true });
-        const jsDir = path.join(publicDir, "js");
-        fs.mkdirSync(jsDir, { recursive: true });
-        const dataDir = path.join(publicDir, "data");
-        fs.mkdirSync(dataDir, { recursive: true });
-        const uploadsDir = path.join(publicDir, "uploads");
-        fs.mkdirSync(uploadsDir, { recursive: true });
+        fs2.mkdirSync(exportDir, { recursive: true });
+        const publicDir = path2.join(exportDir, "public");
+        fs2.mkdirSync(publicDir, { recursive: true });
+        const cssDir = path2.join(publicDir, "css");
+        fs2.mkdirSync(cssDir, { recursive: true });
+        const jsDir = path2.join(publicDir, "js");
+        fs2.mkdirSync(jsDir, { recursive: true });
+        const dataDir = path2.join(publicDir, "data");
+        fs2.mkdirSync(dataDir, { recursive: true });
+        const uploadsDir = path2.join(publicDir, "uploads");
+        fs2.mkdirSync(uploadsDir, { recursive: true });
         console.log("Copying image files...");
-        const sourceUploadsDir = path.join(process.cwd(), "uploads");
+        const sourceUploadsDir = path2.join(process.cwd(), "uploads");
         let imagesCopied = 0;
-        if (fs.existsSync(sourceUploadsDir)) {
-          const files = fs.readdirSync(sourceUploadsDir);
+        if (fs2.existsSync(sourceUploadsDir)) {
+          const files = fs2.readdirSync(sourceUploadsDir);
           for (const file of files) {
-            const sourcePath = path.join(sourceUploadsDir, file);
-            if (fs.statSync(sourcePath).isFile() && (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif"))) {
-              fs.copyFileSync(
+            const sourcePath = path2.join(sourceUploadsDir, file);
+            if (fs2.statSync(sourcePath).isFile() && (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif"))) {
+              fs2.copyFileSync(
                 sourcePath,
-                path.join(uploadsDir, file)
+                path2.join(uploadsDir, file)
               );
               imagesCopied++;
             }
@@ -870,35 +1047,35 @@ async function registerRoutes(app2) {
         const featuredProducts = await storage.getFeaturedProducts();
         const carouselProducts = await storage.getCarouselProducts();
         console.log("Creating data files...");
-        fs.writeFileSync(
-          path.join(dataDir, "products.json"),
+        fs2.writeFileSync(
+          path2.join(dataDir, "products.json"),
           JSON.stringify(allProductsData, null, 2)
         );
-        fs.writeFileSync(
-          path.join(dataDir, "featured.json"),
+        fs2.writeFileSync(
+          path2.join(dataDir, "featured.json"),
           JSON.stringify(featuredProducts, null, 2)
         );
-        fs.writeFileSync(
-          path.join(dataDir, "carousel.json"),
+        fs2.writeFileSync(
+          path2.join(dataDir, "carousel.json"),
           JSON.stringify(carouselProducts, null, 2)
         );
         console.log("Creating product pages...");
-        const productPagesDir = path.join(publicDir, "product");
-        fs.mkdirSync(productPagesDir, { recursive: true });
+        const productPagesDir = path2.join(publicDir, "product");
+        fs2.mkdirSync(productPagesDir, { recursive: true });
         for (const product of allProducts) {
-          fs.writeFileSync(
-            path.join(dataDir, `product-${product.id}.json`),
+          fs2.writeFileSync(
+            path2.join(dataDir, `product-${product.id}.json`),
             JSON.stringify(product, null, 2)
           );
           const recommendations = await storage.getProductRecommendations(product);
-          fs.writeFileSync(
-            path.join(dataDir, `recommendations-${product.id}.json`),
+          fs2.writeFileSync(
+            path2.join(dataDir, `recommendations-${product.id}.json`),
             JSON.stringify(recommendations, null, 2)
           );
-          const productDir = path.join(productPagesDir, product.id.toString());
-          fs.mkdirSync(productDir, { recursive: true });
-          fs.writeFileSync(
-            path.join(productDir, "index.html"),
+          const productDir = path2.join(productPagesDir, product.id.toString());
+          fs2.mkdirSync(productDir, { recursive: true });
+          fs2.writeFileSync(
+            path2.join(productDir, "index.html"),
             generateProductPageHtml(product)
           );
         }
@@ -909,14 +1086,14 @@ async function registerRoutes(app2) {
           if (!category) continue;
           const categoryProducts = allProducts.filter((p) => p.category === category);
           const categorySlug = category.toLowerCase().replace(/\s+/g, "-");
-          fs.writeFileSync(
-            path.join(dataDir, `category-${categorySlug}.json`),
+          fs2.writeFileSync(
+            path2.join(dataDir, `category-${categorySlug}.json`),
             JSON.stringify({ products: categoryProducts, total: categoryProducts.length }, null, 2)
           );
-          const categoryDir = path.join(publicDir, "category", categorySlug);
-          fs.mkdirSync(categoryDir, { recursive: true });
-          fs.writeFileSync(
-            path.join(categoryDir, "index.html"),
+          const categoryDir = path2.join(publicDir, "category", categorySlug);
+          fs2.mkdirSync(categoryDir, { recursive: true });
+          fs2.writeFileSync(
+            path2.join(categoryDir, "index.html"),
             generateCategoryPageHtml(category, categoryProducts)
           );
         }
@@ -924,14 +1101,14 @@ async function registerRoutes(app2) {
           if (!brand) continue;
           const brandProducts = allProducts.filter((p) => p.brand === brand);
           const brandSlug = brand.toLowerCase().replace(/[^a-z0-9]/g, "-");
-          fs.writeFileSync(
-            path.join(dataDir, `brand-${brandSlug}.json`),
+          fs2.writeFileSync(
+            path2.join(dataDir, `brand-${brandSlug}.json`),
             JSON.stringify({ products: brandProducts, total: brandProducts.length }, null, 2)
           );
-          const brandDir = path.join(publicDir, "brand", brandSlug);
-          fs.mkdirSync(brandDir, { recursive: true });
-          fs.writeFileSync(
-            path.join(brandDir, "index.html"),
+          const brandDir = path2.join(publicDir, "brand", brandSlug);
+          fs2.mkdirSync(brandDir, { recursive: true });
+          fs2.writeFileSync(
+            path2.join(brandDir, "index.html"),
             generateBrandPageHtml(brand, brandProducts)
           );
         }
@@ -1130,7 +1307,7 @@ body {
   }
 }
 `;
-        fs.writeFileSync(path.join(cssDir, "styles.css"), cssContent);
+        fs2.writeFileSync(path2.join(cssDir, "styles.css"), cssContent);
         const dataLoaderJs = `
 // Static data loader for ONLYFINDS
 window.TJREPS = {
@@ -1186,7 +1363,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('TJREPS Static Page Initialized');
 });
 `;
-        fs.writeFileSync(path.join(jsDir, "data-loader.js"), dataLoaderJs);
+        fs2.writeFileSync(path2.join(jsDir, "data-loader.js"), dataLoaderJs);
         console.log("Creating Netlify configuration files...");
         const netlifyToml = `
 [build]
@@ -1197,12 +1374,12 @@ document.addEventListener('DOMContentLoaded', function() {
   to = "/index.html"
   status = 200
 `;
-        fs.writeFileSync(path.join(exportDir, "netlify.toml"), netlifyToml);
+        fs2.writeFileSync(path2.join(exportDir, "netlify.toml"), netlifyToml);
         const redirects = `
 # Netlify redirects
 /*    /index.html   200
 `;
-        fs.writeFileSync(path.join(publicDir, "_redirects"), redirects);
+        fs2.writeFileSync(path2.join(publicDir, "_redirects"), redirects);
         const mainIndexHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -1315,9 +1492,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 `;
-        fs.writeFileSync(path.join(publicDir, "index.html"), mainIndexHtml);
-        const productsDir = path.join(publicDir, "products");
-        fs.mkdirSync(productsDir, { recursive: true });
+        fs2.writeFileSync(path2.join(publicDir, "index.html"), mainIndexHtml);
+        const productsDir = path2.join(publicDir, "products");
+        fs2.mkdirSync(productsDir, { recursive: true });
         const productsIndexHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -1490,7 +1667,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 `;
-        fs.writeFileSync(path.join(productsDir, "index.html"), productsIndexHtml);
+        fs2.writeFileSync(path2.join(productsDir, "index.html"), productsIndexHtml);
         console.log("Creating documentation files...");
         const readmeContent = `
 # ONLYFINDS - Static Export for Netlify
@@ -1523,7 +1700,7 @@ This is a complete static export of the ONLYFINDS website, ready to be deployed 
 
 This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} and includes ${allProducts.length} products.
 `;
-        fs.writeFileSync(path.join(exportDir, "README.md"), readmeContent);
+        fs2.writeFileSync(path2.join(exportDir, "README.md"), readmeContent);
         const exportInfo = {
           name: "ONLYFINDS Static Export",
           version: "1.0.0",
@@ -1533,14 +1710,14 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
           brands: brands.length,
           images: imagesCopied
         };
-        fs.writeFileSync(
-          path.join(exportDir, "export-info.json"),
+        fs2.writeFileSync(
+          path2.join(exportDir, "export-info.json"),
           JSON.stringify(exportInfo, null, 2)
         );
         console.log("Creating ZIP archive...");
-        const zipPath = path.join(process.cwd(), "tjreps-netlify-export.zip");
-        if (fs.existsSync(zipPath)) {
-          fs.unlinkSync(zipPath);
+        const zipPath = path2.join(process.cwd(), "tjreps-netlify-export.zip");
+        if (fs2.existsSync(zipPath)) {
+          fs2.unlinkSync(zipPath);
         }
         const staticExportZip = new AdmZip();
         staticExportZip.addLocalFolder(exportDir);
@@ -1556,11 +1733,11 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
           }
           setTimeout(() => {
             try {
-              if (fs.existsSync(zipPath)) {
-                fs.unlinkSync(zipPath);
+              if (fs2.existsSync(zipPath)) {
+                fs2.unlinkSync(zipPath);
               }
-              if (fs.existsSync(exportDir)) {
-                fs.rmSync(exportDir, { recursive: true, force: true });
+              if (fs2.existsSync(exportDir)) {
+                fs2.rmSync(exportDir, { recursive: true, force: true });
               }
             } catch (cleanupError) {
               console.error("Cleanup error:", cleanupError);
@@ -1569,13 +1746,13 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
         });
       } catch (error) {
         console.error("Static export error:", error);
-        const exportDir = path.join(process.cwd(), "netlify-export");
-        const zipPath = path.join(process.cwd(), "tjreps-netlify-export.zip");
-        if (fs.existsSync(exportDir)) {
-          fs.rmSync(exportDir, { recursive: true, force: true });
+        const exportDir = path2.join(process.cwd(), "netlify-export");
+        const zipPath = path2.join(process.cwd(), "tjreps-netlify-export.zip");
+        if (fs2.existsSync(exportDir)) {
+          fs2.rmSync(exportDir, { recursive: true, force: true });
         }
-        if (fs.existsSync(zipPath)) {
-          fs.unlinkSync(zipPath);
+        if (fs2.existsSync(zipPath)) {
+          fs2.unlinkSync(zipPath);
         }
         return res.status(500).json({
           message: "Error generating static export",
@@ -1597,17 +1774,17 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
   }));
   apiRouter.post("/export-to-static-json", asyncHandler(async (req, res) => {
     try {
-      const fs3 = __require("fs");
-      const path5 = __require("path");
+      const fs4 = __require("fs");
+      const path6 = __require("path");
       console.log("Exportul produselor \xEEn format JSON static...");
       const allProducts = await db.select().from(products);
       console.log(`S-au g\u0103sit ${allProducts.length} produse pentru export`);
-      const outputDir = path5.join(__dirname, "../client/public/data");
-      if (!fs3.existsSync(outputDir)) {
-        fs3.mkdirSync(outputDir, { recursive: true });
+      const outputDir = path6.join(__dirname, "../client/public/data");
+      if (!fs4.existsSync(outputDir)) {
+        fs4.mkdirSync(outputDir, { recursive: true });
       }
-      const outputPath = path5.join(outputDir, "products.json");
-      fs3.writeFileSync(outputPath, JSON.stringify(allProducts, null, 2));
+      const outputPath = path6.join(outputDir, "products.json");
+      fs4.writeFileSync(outputPath, JSON.stringify(allProducts, null, 2));
       console.log(`Export finalizat cu succes \xEEn ${outputPath}`);
       res.json({
         success: true,
@@ -1622,6 +1799,67 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
       });
     }
   }));
+  if (fixedSupabaseStorage) {
+    apiRouter.get("/admin/products", asyncHandler(async (req, res) => {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 50;
+      const search = req.query.search;
+      const category = req.query.category;
+      let result;
+      if (search) {
+        result = await fixedSupabaseStorage.searchProducts(search, page, limit);
+      } else {
+        result = await fixedSupabaseStorage.getProducts(page, limit, category);
+      }
+      res.json(result);
+    }));
+    apiRouter.post("/admin/products", asyncHandler(async (req, res) => {
+      try {
+        const productData = insertProductSchema.parse(req.body);
+        const transformedData = {
+          title: productData.title || "",
+          priceUSD: productData.priceUSD ? parseFloat(productData.priceUSD) : null,
+          image: productData.image || null,
+          buyUrl: productData.buyUrl || null,
+          viewUrl: productData.viewUrl || null,
+          category: productData.category || null,
+          subCategory: productData.subCategory || null,
+          brand: productData.brand || null,
+          featured: productData.featured || false,
+          carousel: productData.carousel || false
+        };
+        const newProduct = await fixedSupabaseStorage.createProduct(transformedData);
+        res.status(201).json(newProduct);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({
+            message: "Invalid product data",
+            errors: error.errors
+          });
+        }
+        throw error;
+      }
+    }));
+    apiRouter.get("/admin/products/:id", asyncHandler(async (req, res) => {
+      const product = await fixedSupabaseStorage.getProductById(req.params.id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    }));
+    apiRouter.put("/admin/products/:id", asyncHandler(async (req, res) => {
+      const product = await fixedSupabaseStorage.updateProduct(req.params.id, req.body);
+      res.json(product);
+    }));
+    apiRouter.delete("/admin/products/:id", asyncHandler(async (req, res) => {
+      await fixedSupabaseStorage.deleteProduct(req.params.id);
+      res.json({ success: true });
+    }));
+    apiRouter.get("/admin/categories", asyncHandler(async (req, res) => {
+      const categories = await fixedSupabaseStorage.getCategories();
+      res.json(categories);
+    }));
+  }
   app2.use("/api", apiRouter);
   app2.use("/uploads", express.static("uploads"));
   const httpServer = createServer(app2);
@@ -1630,15 +1868,15 @@ This export was generated on ${(/* @__PURE__ */ new Date()).toLocaleString()} an
 
 // server/vite.ts
 import express2 from "express";
-import fs2 from "fs";
-import path3 from "path";
+import fs3 from "fs";
+import path4 from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 
 // vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path2 from "path";
+import path3 from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 var vite_config_default = defineConfig({
   plugins: [
@@ -1653,14 +1891,14 @@ var vite_config_default = defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path2.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path2.resolve(import.meta.dirname, "shared"),
-      "@assets": path2.resolve(import.meta.dirname, "attached_assets")
+      "@": path3.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path3.resolve(import.meta.dirname, "shared"),
+      "@assets": path3.resolve(import.meta.dirname, "attached_assets")
     }
   },
-  root: path2.resolve(import.meta.dirname, "client"),
+  root: path3.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path2.resolve(import.meta.dirname, "dist"),
+    outDir: path3.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true
   }
 });
@@ -1700,13 +1938,13 @@ async function setupVite(app2, server) {
   app2.use("*", async (req, res, next) => {
     const url = req.originalUrl;
     try {
-      const clientTemplate = path3.resolve(
+      const clientTemplate = path4.resolve(
         import.meta.dirname,
         "..",
         "client",
         "index.html"
       );
-      let template = await fs2.promises.readFile(clientTemplate, "utf-8");
+      let template = await fs3.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -1720,28 +1958,27 @@ async function setupVite(app2, server) {
   });
 }
 function serveStatic(app2) {
-  const distPath = path3.resolve(import.meta.dirname, "public");
-  if (!fs2.existsSync(distPath)) {
+  const distPath = path4.resolve(import.meta.dirname, "public");
+  if (!fs3.existsSync(distPath)) {
     throw new Error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
   app2.use(express2.static(distPath));
   app2.use("*", (_req, res) => {
-    res.sendFile(path3.resolve(distPath, "index.html"));
+    res.sendFile(path4.resolve(distPath, "index.html"));
   });
 }
 
 // server/index.ts
-import path4 from "path";
+import path5 from "path";
 var app = express3();
 app.use(express3.json());
 app.use(express3.urlencoded({ extended: false }));
-app.use(express3.static(path4.resolve(import.meta.dirname, "..", "public")));
-app.use("/uploads", express3.static(path4.resolve(import.meta.dirname, "..", "uploads")));
+app.use(express3.static(path5.resolve(import.meta.dirname, "..", "public")));
 app.use((req, res, next) => {
   const start = Date.now();
-  const path5 = req.path;
+  const path6 = req.path;
   let capturedJsonResponse = void 0;
   const originalResJson = res.json;
   res.json = function(bodyJson, ...args) {
@@ -1750,8 +1987,8 @@ app.use((req, res, next) => {
   };
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path5.startsWith("/api")) {
-      let logLine = `${req.method} ${path5} ${res.statusCode} in ${duration}ms`;
+    if (path6.startsWith("/api")) {
+      let logLine = `${req.method} ${path6} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
