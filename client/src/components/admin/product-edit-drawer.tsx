@@ -218,21 +218,18 @@ export function ProductEditDrawer({ isOpen, onClose, product, isAddMode, onSaveS
 
       const productData = {
         title: formData.title,
-        price: formData.priceUSD, // Legacy field - send same value as priceUSD
-        priceUSD: formData.priceUSD,
+        price_usd: formData.priceUSD, // Exact database column name
         image: finalImageName.startsWith('http') ? finalImageName : finalImageName.startsWith('/uploads/') ? finalImageName : `/uploads/${finalImageName}`,
-        buyUrl: formData.buyUrl,
-        viewUrl: null,
+        buy_url: formData.buyUrl, // Exact database column name
         category: formData.category,
-        subCategory: formData.subCategory || null,
-        brand: null,
+        sub_category: formData.subCategory || null, // Exact database column name
         featured: formData.featured,
         carousel: formData.carousel,
       }
 
       let response
       if (isAddMode) {
-        response = await fetch('/api/admin/products', {
+        response = await fetch('/api/products', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
