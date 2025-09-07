@@ -12,6 +12,27 @@ app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
 
 // NOTE: Uploads now handled by Supabase Storage - local uploads directory deprecated
 
+// Health check routes - must be first for deployment health checks
+app.get("/", (req, res) => {
+  log(`Health check request from ${req.ip || req.connection.remoteAddress}`);
+  res.status(200).json({ 
+    status: "healthy", 
+    timestamp: new Date().toISOString(),
+    service: "ONLYFINDS API",
+    uptime: process.uptime()
+  });
+});
+
+app.get("/health", (req, res) => {
+  log(`Health check request at /health from ${req.ip || req.connection.remoteAddress}`);
+  res.status(200).json({ 
+    status: "healthy", 
+    timestamp: new Date().toISOString(),
+    service: "ONLYFINDS API",
+    uptime: process.uptime()
+  });
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -25,18 +46,17 @@ app.use((req, res, next) => {
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
+    // Log all requests, not just API requests, for better debugging
+    let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+    if (capturedJsonResponse && path.startsWith("/api")) {
+      logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
     }
+
+    if (logLine.length > 80) {
+      logLine = logLine.slice(0, 79) + "…";
+    }
+
+    log(logLine);
   });
 
   next();
@@ -72,7 +92,9 @@ app.use((req, res, next) => {
       host: "0.0.0.0",
       reusePort: true,
     }, () => {
-      log(`serving on port ${port}`);
+      log(`✅ Server started successfully and serving on port ${port}`);
+      log(`🌍 Server accessible at http://0.0.0.0:${port}`);
+      log(`💚 Health check endpoints: / and /health`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
