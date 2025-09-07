@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Product } from "@/lib/types";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
+import { resolveImage } from "@shared/image";
 
 interface ProductCardProps {
   product: Product;
@@ -51,7 +52,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           ) : (
             <img 
-              src={product.image} 
+              src={resolveImage(product.image)} 
               alt={product.title}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

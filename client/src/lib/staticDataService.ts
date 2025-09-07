@@ -1,4 +1,5 @@
 import { Product } from "@shared/schema";
+import { USE_STATIC } from "@shared/dataMode";
 
 // Cache pentru produse
 let productCache: Product[] = [];
@@ -243,27 +244,8 @@ export const staticDataService = {
 
 // Funcție helper pentru a verifica dacă putem folosi serviciul de date statice
 export function useStaticData(): boolean {
-  // Pe Replit folosesc API, pe Netlify folosesc JSON static
-  if (typeof window !== 'undefined') {
-    const isReplit = window.location.hostname.includes('replit');
-    const isLocalhost = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
-    
-    // Pe development (Replit/localhost) folosesc API
-    // Pe production (Netlify/altele) folosesc JSON static
-    const shouldUseStatic = !isReplit && !isLocalhost;
-    
-    console.log('useStaticData detection:', { 
-      hostname: window.location.hostname,
-      isReplit,
-      isLocalhost,
-      shouldUseStatic
-    });
-    
-    return shouldUseStatic;
-  }
-  
-  // Pe server, folosesc environment variables
-  return import.meta.env.PROD;
+  // Now controlled by explicit env variable instead of hostname detection
+  return USE_STATIC;
 }
 
 // Export default pentru a facilita importul

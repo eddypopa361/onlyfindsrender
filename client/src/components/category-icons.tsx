@@ -1,26 +1,28 @@
+import { resolveImage } from "@shared/image";
+
 // Category and subcategory image mappings
 export const imageByCategory: Record<string, string> = {
-  "Trending Now": "/uploads/Trending Now.webp",
-  "Latest Finds": "/uploads/Latest Finds.webp",
-  "Shoes": "/uploads/Shoes.webp",
-  "T-shirt and Shorts": "/uploads/T-shirt and Shorts.webp",
-  "Hoodies and Pants": "/uploads/Hoodies and Pants.webp",
-  "Coats and Jackets": "/uploads/Coats and Jackets.webp",
-  "Accessories": "/uploads/Bags.webp", // Use Bags as generic accessories image
-  "Electronic products": "/uploads/Electronic Products.webp",
-  "Perfumes": "/uploads/Perfumes.webp",
-  "Women": "/uploads/Women.webp"
+  "Trending Now": resolveImage("/uploads/Trending Now.webp"),
+  "Latest Finds": resolveImage("/uploads/Latest Finds.webp"),
+  "Shoes": resolveImage("/uploads/Shoes.webp"),
+  "T-shirt and Shorts": resolveImage("/uploads/T-shirt and Shorts.webp"),
+  "Hoodies and Pants": resolveImage("/uploads/Hoodies and Pants.webp"),
+  "Coats and Jackets": resolveImage("/uploads/Coats and Jackets.webp"),
+  "Accessories": resolveImage("/uploads/Bags.webp"), // Use Bags as generic accessories image
+  "Electronic products": resolveImage("/uploads/Electronic Products.webp"),
+  "Perfumes": resolveImage("/uploads/Perfumes.webp"),
+  "Women": resolveImage("/uploads/Women.webp")
 };
 
 export const imageBySubcategory: Record<string, string> = {
-  "Peaked Cap": "/uploads/Peaked Hat.webp",
-  "Knitted Hat": "/uploads/Knitted Hat.webp",
-  "Belts": "/uploads/Belt.webp",
-  "Scarf": "/uploads/Scarf.webp",
-  "Bags": "/uploads/Bags.webp",
-  "Wallet": "/uploads/Wallet.webp",
-  "Jewelry": "/uploads/Jewerly.webp", // Note: filename has typo but matches upload
-  "Sunglasses": "/uploads/Sunglasses.webp",
-  "Underwear and Socks": "/uploads/Underwear and Socks.webp",
-  "Other": "/uploads/Other.webp"
+  "Peaked Cap": resolveImage("/uploads/Peaked Hat.webp"),
+  "Knitted Hat": resolveImage("/uploads/Knitted Hat.webp"),
+  "Belts": resolveImage("/uploads/Belt.webp"),
+  "Scarf": resolveImage("/uploads/Scarf.webp"),
+  "Bags": resolveImage("/uploads/Bags.webp"),
+  "Wallet": resolveImage("/uploads/Wallet.webp"),
+  "Jewelry": resolveImage("/uploads/Jewerly.webp"), // Note: filename has typo but matches upload
+  "Sunglasses": resolveImage("/uploads/Sunglasses.webp"),
+  "Underwear and Socks": resolveImage("/uploads/Underwear and Socks.webp"),
+  "Other": resolveImage("/uploads/Other.webp")
 };

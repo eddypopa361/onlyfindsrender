@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 import { useCarouselProducts } from "@/hooks/use-product-data";
+import { resolveImage } from "@shared/image";
 
 // Încărcare lazy pentru react-slick (economisim încărcarea inițială)
 const Slider = lazy(() => import("react-slick"));
@@ -168,7 +169,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
           </span>
         </div>
         <img 
-          src={product.image} 
+          src={resolveImage(product.image)} 
           alt={product.title}
           loading="lazy"
           decoding="async"

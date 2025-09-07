@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'wouter';
 import { Product } from '@/lib/types';
 import ProductRecommendations from '@/components/ui/product-recommendations';
 import { useProductById } from '@/hooks/use-product-data';
+import { resolveImage } from '@shared/image';
 
 /**
  * Pagina de detalii produs
@@ -60,15 +61,15 @@ const ProductDetails = () => {
         <div className="md:w-2/5">
           <div className="bg-gray-800 rounded-lg overflow-hidden shadow-2xl border border-primary/30 max-w-md mx-auto">
             <picture>
-              <source srcSet={`${product.image}.webp`} type="image/webp" />
+              <source srcSet={`${resolveImage(product.image)}.webp`} type="image/webp" />
               <img 
-                src={product.image} 
+                src={resolveImage(product.image)} 
                 alt={product.title} 
                 loading="eager" 
                 className="w-full h-auto object-contain max-h-[450px]"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/uploads/placeholder-shoe.jpg'; // Imagine implicită în caz de eroare
+                  target.src = resolveImage('/uploads/placeholder-shoe.jpg'); // Imagine implicită în caz de eroare
                 }}
               />
             </picture>

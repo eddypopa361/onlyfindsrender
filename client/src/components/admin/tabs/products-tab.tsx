@@ -197,7 +197,7 @@ export function ProductsTab() {
                         {product.image ? (
                           <div className="flex items-center space-x-2">
                             <img 
-                              src={product.image} 
+                              src={resolveImage(product.image)} 
                               alt={product.title}
                               className="w-8 h-8 object-cover rounded border border-gray-600"
                               onError={(e) => {
