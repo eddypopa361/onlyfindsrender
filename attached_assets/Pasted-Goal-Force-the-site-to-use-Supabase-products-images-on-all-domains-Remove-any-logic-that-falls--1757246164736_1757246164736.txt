@@ -1,0 +1,87 @@
+Goal
+Force the site to use Supabase (products + images) on all domains. Remove any logic that falls back to /uploads/... and /data/products.json. Make the data source controlled by an env flag.
+
+Tasks
+
+Kill hostname detection; add explicit data-mode
+
+Create shared/dataMode.ts (or similar) with:
+
+// shared/dataMode.ts
+export const DATA_SOURCE = (import.meta.env.VITE_DATA_SOURCE || 'supabase').toLowerCase(); 
+export const USE_STATIC = DATA_SOURCE === 'static'; // legacy switch if ever needed
+
+
+Replace every isReplit/isLocalhost/shouldUseStatic check with USE_STATIC / DATA_SOURCE.
+
+Use Supabase by default
+
+Set default to supabase. Remove any fetch of /data/products.json.
+
+All product listings, product detail, homepage/bestsellers, etc. must read from Supabase tables.
+
+Image URL resolver (handles legacy paths)
+
+Add a tiny helper and use it everywhere images are rendered:
+
+// shared/image.ts
+export function resolveImage(pathOrUrl: string) {
+  if (!pathOrUrl) return '';
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl; // already absolute
+  // legacy "/uploads/XYZ.webp" → build a public Supabase Storage URL
+  const base = import.meta.env.VITE_SUPABASE_PUBLIC_IMAGES_BASE; // e.g. https://<project>.supabase.co/storage/v1/object/public/<bucket>
+  return `${base}/${pathOrUrl.replace(/^\/+/, '')}`;
+}
+
+
+Replace all raw src={product.image} with src={resolveImage(product.image)}.
+
+Env variables (Vite)
+Ensure these are defined in both local and deployment:
+
+VITE_SUPABASE_URL
+
+VITE_SUPABASE_ANON_KEY
+
+VITE_DATA_SOURCE=supabase
+
+VITE_SUPABASE_PUBLIC_IMAGES_BASE
+(Format: https://<project>.supabase.co/storage/v1/object/public/<bucketName>)
+
+Products schema assumption
+
+We already have a products table in Supabase. Keep the current columns as is. If image still stores values like /uploads/Wimage123.webp, the resolver will rewrite them to the public Storage base automatically.
+
+Remove static assets code paths
+
+Delete / guard any code that fetches /uploads/... or /data/products.json when DATA_SOURCE === 'supabase'.
+
+Keep an optional static mode only for dev by switching VITE_DATA_SOURCE=static.
+
+Configure deployment
+
+In Replit Deployments (and on the custom domain instance), set the env vars above and rebuild. No hostname checks should remain.
+
+Verify console.log({ DATA_SOURCE }) at app start shows supabase.
+
+Test plan
+
+Visit the custom domain; confirm products load from Supabase and all images resolve to Supabase Storage URLs (no 404s to /uploads/...).
+
+Check that the old replit subdomain also uses Supabase (same behavior).
+
+If needed: ask me for secrets
+
+If you need the VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, or a dedicated service role for admin features, ask me and I’ll provide.
+
+Acceptance criteria
+
+No network calls to /uploads/... or /data/products.json on the custom domain.
+
+useStaticData detection logs removed; DATA_SOURCE controls behavior.
+
+All product images render via Supabase public URLs or existing absolute URLs.
+
+Products list and homepage sections fully populated from Supabase.
+
+Use concise, minimal code changes and keep the frontend UI unchanged.
