@@ -1682,8 +1682,8 @@ This export was generated on ${new Date().toLocaleString()} and includes ${allPr
 
   app.use("/api", apiRouter);
 
-  // Serve files from the uploads directory
-  app.use('/uploads', express.static('uploads'));
+  // NOTE: Static uploads directory removed - all files now served from Supabase Storage
+  // app.use('/uploads', express.static('uploads'));
 
   const httpServer = createServer(app);
   return httpServer;

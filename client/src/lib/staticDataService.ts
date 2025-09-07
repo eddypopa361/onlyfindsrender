@@ -12,14 +12,21 @@ let isLoaded = false;
 export const staticDataService = {
   /**
    * Încarcă datele din fișierul JSON. Se face o singură dată și se stochează în memorie.
+   * Returnează imediat array gol dacă nu suntem în modul static (forțează Supabase).
    */
   async loadProducts(): Promise<Product[]> {
+    // Dacă nu suntem în modul static, returnează imediat array gol pentru a forța folosirea Supabase
+    if (!USE_STATIC) {
+      console.log('🔄 Static mode disabled - products will be loaded from Supabase');
+      return [];
+    }
+
     // Dacă datele sunt deja încărcate, le returnăm din cache
     if (isLoaded) {
       return productCache;
     }
 
-    // Încercăm path-uri absolute pentru Netlify
+    // Încercăm path-uri absolute pentru Netlify - doar în modul static
     const possiblePaths = [
       '/data/products.json',     // Path absolut principal
       './data/products.json',    // Path relativ
