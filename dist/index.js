@@ -1976,6 +1976,24 @@ var app = express3();
 app.use(express3.json());
 app.use(express3.urlencoded({ extended: false }));
 app.use(express3.static(path5.resolve(import.meta.dirname, "..", "public")));
+app.get("/", (req, res) => {
+  log(`Health check request from ${req.ip || req.connection.remoteAddress}`);
+  res.status(200).json({
+    status: "healthy",
+    timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+    service: "ONLYFINDS API",
+    uptime: process.uptime()
+  });
+});
+app.get("/health", (req, res) => {
+  log(`Health check request at /health from ${req.ip || req.connection.remoteAddress}`);
+  res.status(200).json({
+    status: "healthy",
+    timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+    service: "ONLYFINDS API",
+    uptime: process.uptime()
+  });
+});
 app.use((req, res, next) => {
   const start = Date.now();
   const path6 = req.path;
@@ -1987,16 +2005,14 @@ app.use((req, res, next) => {
   };
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path6.startsWith("/api")) {
-      let logLine = `${req.method} ${path6} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "\u2026";
-      }
-      log(logLine);
+    let logLine = `${req.method} ${path6} ${res.statusCode} in ${duration}ms`;
+    if (capturedJsonResponse && path6.startsWith("/api")) {
+      logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
     }
+    if (logLine.length > 80) {
+      logLine = logLine.slice(0, 79) + "\u2026";
+    }
+    log(logLine);
   });
   next();
 });
@@ -2020,7 +2036,9 @@ app.use((req, res, next) => {
       host: "0.0.0.0",
       reusePort: true
     }, () => {
-      log(`serving on port ${port}`);
+      log(`\u2705 Server started successfully and serving on port ${port}`);
+      log(`\u{1F30D} Server accessible at http://0.0.0.0:${port}`);
+      log(`\u{1F49A} Health check endpoints: / and /health`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
