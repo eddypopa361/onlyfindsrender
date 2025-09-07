@@ -8,6 +8,7 @@ import { ProductEditDrawer } from '../product-edit-drawer'
 
 import { useToast } from '@/hooks/use-toast'
 import { Search, Plus, Edit2, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
+import { resolveImage } from '@shared/image'
 // Product interface for admin panel
 interface Product {
   id: string
