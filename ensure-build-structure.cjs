@@ -82,7 +82,53 @@ if (allExist) {
   console.log('✅ Build structure verification successful!');
   console.log('📍 Frontend ready at: dist/public/');
   console.log('📍 Backend ready at: dist/index.js');
+  
+  // Start the server after build structure is ready
+  console.log('🚀 Starting server on port 5000...');
+  
+  // Set production environment
+  process.env.NODE_ENV = 'production';
+  process.env.PORT = '5000';
+  
+  // Import and start the server
+  const { spawn } = require('child_process');
+  
+  // Start the server process
+  const serverProcess = spawn('node', ['dist/index.js'], {
+    stdio: 'inherit',
+    env: { ...process.env, NODE_ENV: 'production', PORT: '5000' }
+  });
+  
+  // Handle server process events
+  serverProcess.on('error', (error) => {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  });
+  
+  serverProcess.on('exit', (code) => {
+    console.log(`🔴 Server process exited with code ${code}`);
+    if (code !== 0) {
+      process.exit(code);
+    }
+  });
+  
+  // Handle graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('🛑 Received SIGTERM, shutting down gracefully...');
+    serverProcess.kill('SIGTERM');
+  });
+  
+  process.on('SIGINT', () => {
+    console.log('🛑 Received SIGINT, shutting down gracefully...');
+    serverProcess.kill('SIGINT');
+  });
+  
 } else {
   console.error('❌ Build structure verification failed!');
+  requiredFiles.forEach(file => {
+    if (!fs.existsSync(file)) {
+      console.error(`  Missing: ${file}`);
+    }
+  });
   process.exit(1);
 }
