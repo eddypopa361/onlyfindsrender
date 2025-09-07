@@ -12,17 +12,7 @@ app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
 
 // NOTE: Uploads now handled by Supabase Storage - local uploads directory deprecated
 
-// Health check routes - must be first for deployment health checks
-app.get("/", (req, res) => {
-  log(`Health check request from ${req.ip || req.connection.remoteAddress}`);
-  res.status(200).json({ 
-    status: "healthy", 
-    timestamp: new Date().toISOString(),
-    service: "ONLYFINDS API",
-    uptime: process.uptime()
-  });
-});
-
+// Health check route for deployment monitoring
 app.get("/health", (req, res) => {
   log(`Health check request at /health from ${req.ip || req.connection.remoteAddress}`);
   res.status(200).json({ 
