@@ -69,8 +69,12 @@ export async function setupVite(app: Express, server: Server) {
 
 export function serveStatic(app: Express) {
   // In production, client build is in dist/ (root), server is in dist/server/
-  // When server runs from dist/server/index.js, we need to go up two levels to reach dist/
-  const distPath = path.resolve(import.meta.dirname, "..", "..");
+  // Use process.cwd() to get the project root, then find dist/
+  const projectRoot = process.cwd();
+  const distPath = path.join(projectRoot, "dist");
+
+  log(`Project root: ${projectRoot}`);
+  log(`Looking for static files in: ${distPath}`);
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
@@ -78,13 +82,17 @@ export function serveStatic(app: Express) {
     );
   }
 
-  const indexPath = path.resolve(distPath, "index.html");
+  const indexPath = path.join(distPath, "index.html");
   if (!fs.existsSync(indexPath)) {
+    // Log directory contents for debugging
+    const distContents = fs.readdirSync(distPath);
+    log(`Contents of ${distPath}: ${distContents.join(", ")}`);
     throw new Error(
-      `Could not find index.html in: ${distPath}`,
+      `Could not find index.html in: ${distPath}. Contents: ${distContents.join(", ")}`,
     );
   }
 
+  log(`✓ Found index.html at: ${indexPath}`);
   log(`Serving static files from: ${distPath}`);
   app.use(express.static(distPath));
 
